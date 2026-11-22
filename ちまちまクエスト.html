@@ -69,6 +69,7 @@ h1{margin:4px 0 0;font-size:30px;text-align:center;color:#e07a2b;letter-spacing:
 .scb span,.scb b{position:relative;white-space:nowrap}.scb b{font-size:10px;font-weight:normal}
 .scb.lock{background:#8a8296;box-shadow:0 3px 0 #5f586b}.scb.nosp{filter:saturate(.3) brightness(.85)}
 .scb.pot{width:46px;height:46px;font-size:10px;background:#ff7a8a;box-shadow:0 3px 0 #c74a5a}
+.scb.sit{width:46px;height:46px;font-size:10px;background:#8ab86a;box-shadow:0 3px 0 #5f8a45}.scb.sit.on{background:#e0a040;box-shadow:0 3px 0 #b07820}.scb.sit b{opacity:.7}
 .scb.sp{width:46px;height:46px;font-size:10px;background:#4aa0d8;box-shadow:0 3px 0 #2f78a8}
 .bar.sp{height:6px}.bar.sp i{background:#5ab0ff}
 .eb{display:inline-block;font-style:normal;font-size:11px;line-height:1.3;padding:0 4px;border-radius:5px;margin-right:4px;color:#fff;background:#9a8f86;vertical-align:1px}
@@ -180,7 +181,7 @@ h1{margin:4px 0 0;font-size:30px;text-align:center;color:#e07a2b;letter-spacing:
     <div id="loginBox" class="joinrow"></div>
     <div id="netState">接続を確認中…</div>
   </div>
-  <p class="muted">村のバザーでは、ほかの人と素材や装備を売り買いできるよ（ログインが必要）。<br>あそびかた：行きたい場所をタップすると走ります。押したまま引っぱると、その方向に走りつづけます。敵をタップすると近づいて自動でこうげき。右下のボタンでスキル（SPを使う）とくすり。敵が落とした素材は、さわるかタップでひろえます。草原や森の木・岩・草むらは、タップするとこうげきして壊せて、ときどき素材が出ます。ゴールドは、村のクエスト掲示板のおねがいをかなえるともらえます。<br>ぞくせい：火は草に、草は水に、水は火に強い。<br>パソコンなら矢印キーで移動、1・2・3でスキル、Q・Eでくすり、スペースで近くの素材をひろえます。</p>
+  <p class="muted">村のバザーでは、ほかの人と素材や装備を売り買いできるよ（ログインが必要）。<br>あそびかた：行きたい場所をタップすると走ります。押したまま引っぱると、その方向に走りつづけます。敵をタップすると近づいて自動でこうげき。右下のボタンでスキル（SPを使う）とくすり。敵が落とした素材は、さわるかタップでひろえます。草原や森の木・岩・草むらは、タップするとこうげきして壊せて、ときどき素材が出ます。ゴールドは、村のクエスト掲示板のおねがいをかなえるともらえます。<br>ぞくせい：火は草に、草は水に、水は火に強い。<br>パソコンなら矢印キーで移動、1・2・3でスキル、Q・Eでくすり、Rですわる（HPとSPが少しずつ回復）、スペースで近くの素材をひろえます。</p>
   <p class="muted" id="saveNote"></p>
 </div>
 
@@ -200,6 +201,7 @@ h1{margin:4px 0 0;font-size:30px;text-align:center;color:#e07a2b;letter-spacing:
   </div>
   <!-- 下：くすり2つ＋スキル3つを横一列 -->
   <div id="actBar">
+    <button class="scb sit" id="sitBtn"><span id="sitL">すわる</span><b>R</b></button>
     <button class="scb pot" id="potBtn"><div class="cd" id="potCd"></div><span>くすり</span><b id="potN">×0</b></button>
     <button class="scb sp" id="spBtn"><div class="cd" id="spCd"></div><span>SP薬</span><b id="spN">×0</b></button>
     <i class="gap"></i>
@@ -685,15 +687,17 @@ function paintChar(a,frame){
   const B=new Buf(40,46,18,43);
   const it=s=>ITEMS[a.eq&&a.eq[s]]||null;
   const hat=it('head'),wpn=it('weapon'),back=it('back'),shield=it('shield'),feet=it('feet'),body=it('body')||(JOBS[a.job]||JOBS.fighter).body;
-  let bob=0,lA=0,lB=0,flap=0;const dead=frame==='d';
+  let bob=0,lA=0,lB=0,flap=0;const dead=frame==='d',sit=frame==='s';
+  if(sit)bob=3;   // すわる：体を下げて、足を前に出す
   if(frame==='i1')bob=1;
   if(frame[0]==='w'){const n=+frame[1];lA=[1,0,-1,0][n];lB=-lA;bob=n%2?-1:0;flap=n%2}
   const Y=v=>v+bob;
   if(back)backPx(B,back,bob,flap);
   hairBackPx(B,a.hair,a.hc,bob);
   const longB=body.design==='robe';
-  if(!longB){B.r(-3+lA,-4,2,3,SKIN2);B.r(1+lB,-4,2,3,SKIN)}
-  feetPx(B,feet,lA,lB,longB);
+  if(sit){const fc=feet?feet.color:'#4e3428';B.r(-1,-1,6,1,SKIN2);B.r(4,-2,3,2,fc);B.p(6,-2,sh(fc,.35))}
+  else{if(!longB){B.r(-3+lA,-4,2,3,SKIN2);B.r(1+lB,-4,2,3,SKIN)}
+  feetPx(B,feet,lA,lB,longB)}
   B.r(-4,Y(-10),1,4,SKIN2);
   bodyPx(B,body,bob);
   if(shield)shieldPx(B,shield,-6,Y(-8));
@@ -1025,14 +1029,17 @@ function groundCanvas(id){
 const BRK_HITS={rock:4,tree:3,pine:3,bush:2,bigshroom:2,crystal:3};   // 壊すのに必要な回数（職業に関係なし）
 const BRK_DROP=.35,BRK_RESPAWN=[90,150];
 function brkGone(mp,p){const B=G&&G.brk&&G.brk[mp];return!!(B&&B[p.i]!=null)}
-function brkReset(){if(G.brk)for(const mp in G.brk)for(const i in G.brk[mp]){const p=GEN[mp]&&GEN[mp].props[i];if(p&&p.ob)p.ob.off=false;if(p)p.hits=0}G.brk={}}
+// はじめるとき：前のプレイで壊した・叩いた物を全部もとどおりに（当たり判定も）
+function brkResetAll(){for(const mp in GEN)for(const p of GEN[mp].props){if(p.ob)p.ob.off=false;p.hits=0;p.shk=0}}
+function brkReset(){if(G.brk)for(const mp in G.brk)for(const i in G.brk[mp]){const p=GEN[mp]&&GEN[mp].props[i];if(p&&p.ob)p.ob.off=false;if(p){p.hits=0;p.shk=0}}G.brk={}}
 // タップした所にある壊せる物
 function brkAt(x,y){const gen=GEN[G.map];if(!gen)return null;let best=null,bd=1e9;
   for(const p of gen.props){if(!p.br||brkGone(G.map,p))continue;const h=p.k==='tree'||p.k==='pine'?34:p.k==='bigshroom'||p.k==='crystal'?22:12;const d=Math.hypot(x-p.x,(y-(p.y-h))*.8);if(d<(p.k==='rock'||p.k==='bush'?26:34)&&d<bd){bd=d;best=p}}return best}
 // そのエリアに出る敵（ボスはのぞく）の割合で、ふつう素材を1つえらぶ
 function brkMat(M){const L=[];for(const[t,n]of M.mons)if(!MON[t].boss)L.push([t,n]);if(M.pool)for(const e of M.pool.list)if(!MON[e[0]].boss)L.push([e[0],e[1]]);
   if(!L.length)return null;let r=Math.random()*L.reduce((a,e)=>a+e[1],0);for(const e of L){r-=e[1];if(r<0)return MON[e[0]].drop&&MON[e[0]].drop[0]}return MON[L[0][0]].drop&&MON[L[0][0]].drop[0]}
-function brkHit(p){if(!G||brkGone(G.map,p))return;p.hits=(p.hits||0)+1;p.shk=G.t+.25;SND.se('hit');
+function brkHit(p){if(!G||brkGone(G.map,p))return;p.hits=(p.hits||0)+1;p.shk=performance.now()/1000+.25;   // ゆれる時間は画面の時計で数える（G.t は はじめるたびに0にもどるため）
+  SND.se('hit');
   for(let i=0;i<3;i++)G.fx.push({k:'chip',x:p.x+rand(-10,10),y:p.y-rand(8,30),vx:rand(-40,40),vy:rand(-60,-20),life:.4,c:p.k==='crystal'?'#9ff0ff':p.k==='rock'?(MAPS[G.map].theme==='cave'?'#8a80a6':'#a8a49c'):p.k==='bush'?'#55b05c':p.k==='bigshroom'?'#e0533f':'#8a6244'});
   if(p.hits<BRK_HITS[p.k])return;
   p.hits=0;(G.brk[G.map]=G.brk[G.map]||{})[p.i]=G.t+rand(BRK_RESPAWN[0],BRK_RESPAWN[1]);if(p.ob)p.ob.off=true;
@@ -1109,7 +1116,7 @@ function pxDot(c,x,y,col,n){const s=PX*(n||1);c.fillStyle=col;c.fillRect(Math.ro
 function textOut(c,t,x,y,col,size){c.font=(size||12)+'px '+FONT;c.textAlign='center';c.lineWidth=3;c.lineJoin='round';c.strokeStyle='rgba(30,20,30,.75)';c.strokeText(t,x,y);c.fillStyle=col;c.fillText(t,x,y)}
 function blit(c,spr,x,y,ox,oy,flip,alpha){const sx=Math.round(x*Z)/Z,sy=Math.round(y*Z)/Z;c.save();c.imageSmoothingEnabled=false;if(alpha!=null)c.globalAlpha*=alpha;c.translate(sx,sy);if(flip)c.scale(-1,1);c.drawImage(spr,-ox*PX,-oy*PX,spr.width*PX,spr.height*PX);c.restore()}
 let SHADOW=null;function shadowSpr(){if(!SHADOW){const B=new Buf(16,6,8,3);B.e(0,0,7,2.2,'#00000040');SHADOW=B.canvas()}return SHADOW}
-function avatarFrame(o,t){if(o.dead)return'd';if(o.atk>0)return o.atk>.15?'a0':'a1';if(o.walk)return'w'+(Math.floor(t*9)%4);return'i'+(Math.floor(t*1.7)%2)}
+function avatarFrame(o,t){if(o.dead)return'd';if(o.sit)return's';if(o.atk>0)return o.atk>.15?'a0':'a1';if(o.walk)return'w'+(Math.floor(t*9)%4);return'i'+(Math.floor(t*1.7)%2)}
 function drawAvatarAt(c,look,x,y,o,t){const fr=avatarFrame(o,t);const dy=o.dead?-6+Math.sin(t*3)*2:0;blit(c,shadowSpr(),x,y,8,3,false,o.dead?.4:1);blit(c,charSprite(look,fr),x,y+dy,18,43,o.f<0,(o.alpha==null?1:o.alpha)*(o.dead?.55:1))}
 function drawMonAt(c,mo,t){const T=MON[mo.t],[w,h,ox,oy]=MSPR[mo.t];
   if(hidMon(mo)){for(let i=0;i<7;i++){const a=i/7*Math.PI+t*4;pxDot(c,mo.dx+Math.cos(a)*12,mo.dy-Math.abs(Math.sin(a))*6,i%2?'#6e4a30':'#8a6244',2)}return}const fr=T.boss?(mo.st===1?4:0)+(Math.floor(t*3)%2):Math.floor(t*6+mo.id)%4;
@@ -1213,7 +1220,7 @@ function newGame(code){
 }
 function startGame(code){
   if(!save.started){save.started=true;save.eq.weapon='w_'+save.job+'_wood';queueSave()}
-  G=newGame(code);$('title').hidden=true;$('game').hidden=false;fit();genMap('town');buildChat();
+  brkResetAll();G=newGame(code);$('title').hidden=true;$('game').hidden=false;fit();genMap('town');buildChat();
   updateHud();
 }
 function leaveGame(){
@@ -1226,7 +1233,7 @@ function changeMap(to,sx,sy){
   G.areas=G.areas||{};
   if(MAPS[to].safe||grpOf(to)!==grpOf(from)){G.areas={};brkReset()}
   else if(!MAPS[from].safe)G.areas[from]={H:G.H,drops:G.drops,dmg:G.dmg,left:G.t};
-  G.map=to;m.x=m.tx=sx;m.y=m.ty=sy;m.tgt=null;m.npc=null;m.portalCD=1.2;m.inv=Math.max(m.inv,1);
+  G.map=to;m.sit=false;m.x=m.tx=sx;m.y=m.ty=sy;m.tgt=null;m.npc=null;m.portalCD=1.2;m.inv=Math.max(m.inv,1);
   G.view.mons.clear();G.shots=[];G.falls=[];G.drops=[];G.dmg={};G.H={mons:[],nextId:1,ko:[],pend:[]};G.amHost=false;G.hostPeer=null;G.lastHost=null;G.rawS=null;G.cookS=null;
   const A=G.areas[to];
   if(A){delete G.areas[to];G.H=A.H;G.dmg=A.dmg;G.amHost=true;   // もどってきた：敵はそのまま（倒した敵は いつもどおりの時間で湧き直す）
@@ -1247,7 +1254,7 @@ cv.addEventListener('pointermove',e=>{if(!G||ptr!==e.pointerId)return;const w=to
 const endPtr=e=>{if(ptr===e.pointerId)ptr=null};
 cv.addEventListener('pointerup',endPtr);cv.addEventListener('pointercancel',endPtr);
 function tapAt(x,y){
-  const m=G.me;if(m.dead>0)return;const M=MAPS[G.map];
+  const m=G.me;if(m.dead>0)return;standUp();const M=MAPS[G.map];
   let best=null,bd=1e9;
   for(const mo of G.view.mons.values()){if(mo.hp<=0||mo.dead||hidMon(mo))continue;const T=MON[mo.t];const d=dist(x,y,mo.dx,mo.dy-T.h*.45);if(d<T.r+26&&d<bd){bd=d;best=mo}}
   if(best){m.tgt=best.id;m.npc=null;m.obj=null;G.tap={x:best.dx,y:best.dy,life:.5,c:'#ff6a5a'};return}
@@ -1260,10 +1267,11 @@ function tapAt(x,y){
 const keys={};
 addEventListener('keydown',e=>{if(!G||document.activeElement.tagName==='INPUT')return;keys[e.code]=true;if(e.code==='Space'){pickNear();e.preventDefault()}
   const n={Digit1:0,Digit2:1,Digit3:2,Numpad1:0,Numpad2:1,Numpad3:2}[e.code];if(n!=null&&!e.repeat)useSkill(n);
-  if(e.code==='KeyQ')usePotion();if(e.code==='KeyE')useEther();if(e.code.startsWith('Arrow'))e.preventDefault()});
+  if(e.code==='KeyR'&&!e.repeat)toggleSit();if(e.code==='KeyQ')usePotion();if(e.code==='KeyE')useEther();if(e.code.startsWith('Arrow'))e.preventDefault()});
 addEventListener('keyup',e=>{keys[e.code]=false});
 addEventListener('blur',()=>{for(const k in keys)keys[k]=false});
 for(let i=0;i<3;i++)$('sk'+i).addEventListener('pointerdown',e=>{e.preventDefault();useSkill(i)});
+$('sitBtn').addEventListener('pointerdown',e=>{e.preventDefault();toggleSit()});
 $('potBtn').addEventListener('pointerdown',e=>{e.preventDefault();usePotion()});
 $('spBtn').addEventListener('pointerdown',e=>{e.preventDefault();useEther()});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)flushSave();if(!G)return;if(document.hidden)G.amHost=false;else G.resumeGrace=1.6});
@@ -1291,7 +1299,7 @@ function updateMe(dt){
   if(m.buf.regen>0){m.regT-=dt;if(m.regT<=0){m.regT=1;healMe(m.st.mat*.6)}}
   // キーボード
   let kx=(keys.ArrowRight||keys.KeyD?1:0)-(keys.ArrowLeft||keys.KeyA?1:0),ky=(keys.ArrowDown||keys.KeyS?1:0)-(keys.ArrowUp||keys.KeyW?1:0);
-  if(kx||ky){m.tgt=null;m.npc=null;m.obj=null;m.tx=m.x+kx*60;m.ty=m.y+ky*60}
+  if(kx||ky){standUp();m.tgt=null;m.npc=null;m.obj=null;m.tx=m.x+kx*60;m.ty=m.y+ky*60}
   let goal=null;
   if(m.tgt!=null){const mo=G.view.mons.get(m.tgt);if(!mo||mo.hp<=0||mo.dead){m.tgt=null;m.tx=m.x;m.ty=m.y}}   // 倒したらその場で止まる（次の敵へは自動で行かない）
   if(m.tgt!=null){const mo=G.view.mons.get(m.tgt),T=MON[mo.t];const rng=J.range+T.r;const d=dist(m.x,m.y,mo.dx,mo.dy);
@@ -1302,6 +1310,8 @@ function updateMe(dt){
     if(d>J.range+20)goal={x:p.x,y:p.y+18};else{m.f=p.x<m.x?-1:1;if(m.acd<=0){m.acd=J.cd/spdNow(m);m.as++;m.ak='b';m.anim=.3;   // 木や岩はSPを使わない
       if(J.shot)G.shots.push({k:J.shot,x:m.x+m.f*14,y:m.y-26,obj:p,mp:G.map,spd:J.shot==='arrow'?620:420,mine:true,life:1.6,vx:m.f,vy:0});else brkHit(p)}}}}
   else goal={x:m.tx,y:m.ty};
+  if(m.sit){goal=null;m.sitT+=dt;if(m.sitT>=1){m.sitT-=1;if(m.hp<m.mhp)healMe(Math.max(1,Math.round(m.mhp*SIT_HEAL)));
+    if(m.sp<m.msp-.5){const a=Math.max(1,Math.round(m.msp*SIT_SP));m.sp=Math.min(m.msp,m.sp+a);G.nums.push({x:m.x+22,y:m.y-58,t:'+'+a+'SP',c:'#7ac4ff',life:1})}}}
   m.walk=false;
   if(goal){const dx=goal.x-m.x,dy=goal.y-m.y,d=Math.hypot(dx,dy);if(d>3){const sp=250*spdNow(m),st=Math.min(d,sp*dt);const ox=m.x,oy=m.y;m.x+=dx/d*st;m.y+=dy/d*st;if(Math.abs(dx)>2)m.f=dx<0?-1:1;
     pushOut(m,12,G.map);m.walk=Math.hypot(m.x-ox,m.y-oy)>st*.3;if(!m.walk&&m.tgt==null&&!m.npc){m.tx=m.x;m.ty=m.y}
@@ -1327,7 +1337,12 @@ function updateDrops(dt){
 // スペースキー：近くの素材をまとめてひろう
 function pickNear(){if(!G||G.me.dead>0)return;const m=G.me;let n=0;for(const d of G.drops.slice().sort((a,b)=>dist(m.x,m.y,a.x,a.y)-dist(m.x,m.y,b.x,b.y)))if(d.life>0&&dist(m.x,m.y,d.x,d.y)<PICK_KEY_R){if(!pickDrop(d))break;n++}
   G.drops=G.drops.filter(d=>d.life>0);if(!n&&!G.drops.some(d=>dist(m.x,m.y,d.x,d.y)<PICK_KEY_R))toast('近くに素材はないよ')}
-function hurt(d,el){const m=G.me;d=d*elemMul(el,save.attr)*(m.buf.guard>0?1-(m.bv.guard||0):1)*(1-(JOBS[save.job].dr||0));d=Math.max(1,Math.round(d*50/(50+m.st.def)));m.hp-=d;m.inv=.8;SND.se('hurt');G.nums.push({x:m.x,y:m.y-66,t:'-'+d,c:'#ff6a6a',life:.9});
+// ---- すわる：すわっている間は毎秒 最大HPの SIT_HEAL・最大SPの SIT_SP 回復（SPはふだんの回復にたす）。歩く・タップ・スキル・ダメージで立つ ----
+const SIT_HEAL=.03,SIT_SP=.03;
+function toggleSit(){if(!G)return;const m=G.me;if(m.dead>0)return;if(m.sit){standUp();return}
+  m.sit=true;m.sitT=0;m.tgt=null;m.npc=null;m.obj=null;m.tx=m.x;m.ty=m.y;m.walk=false;SND.se('tap');updateHud()}
+function standUp(){const m=G&&G.me;if(!m||!m.sit)return;m.sit=false;updateHud()}
+function hurt(d,el){const m=G.me;standUp();d=d*elemMul(el,save.attr)*(m.buf.guard>0?1-(m.bv.guard||0):1)*(1-(JOBS[save.job].dr||0));d=Math.max(1,Math.round(d*50/(50+m.st.def)));m.hp-=d;m.inv=.8;SND.se('hurt');G.nums.push({x:m.x,y:m.y-66,t:'-'+d,c:'#ff6a6a',life:.9});
   if(m.hp<=0){m.hp=0;m.dead=4;m.tgt=null;SND.se('down');toast('やられちゃった… 村にもどります')}}
 function basicAttack(mo){
   const m=G.me,J=JOBS[save.job],el=save.attr;m.as++;m.ak='b';m.anim=.3;const pw=m.st.pow;
@@ -1370,7 +1385,7 @@ const SKILL_FN={
 // スキルの効果音
 const SK_SE={spin:'slash',smash:'slash',guard:'buff',meteor:'boom',aqua:'magic',leaf:'magic',triple:'arrow',snipe:'arrow',haste:'buff',rengeki:'slash',steal:'slash',kagenui:'buff'};
 function useSkill(i){
-  if(!G)return;const m=G.me,S=skillsOf(save.job)[i];if(!S||m.dead>0)return;
+  if(!G)return;const m=G.me,S=skillsOf(save.job)[i];if(!S||m.dead>0)return;standUp();
   if(m.scd[i]>0)return;
   if(MAPS[G.map].safe&&!S.town){toast('村ではそのスキルは使えないよ');return}
   if(m.sp<S.sp){toast('SPがたりないよ');return}
@@ -1960,14 +1975,14 @@ function render(t){
   const tg=m.tgt!=null&&G.view.mons.get(m.tgt);if(tg){const T=MON[tg.t];ringDots(ctx,tg.dx,tg.dy,T.r*1.4,T.r*.5,'#ff6a5a',16,t*2)}
   if(M.theme==='cave'){const pal=['#7fe0ff','#ff9ee6','#b49bff','#9dffc9'];ctx.save();for(const p of gen.props)if(p.k==='crystal'&&inView(p.x,p.y,80)&&!brkGone(G.map,p)){ctx.globalAlpha=.13+.05*Math.sin(t*2+p.x);ctx.fillStyle=pal[Math.floor(p.v*4)];ctx.beginPath();ctx.ellipse(p.x,p.y-6,46,18,0,0,7);ctx.fill()}ctx.restore()}
   const list=[];const fr2=Math.floor(t*4)%2;
-  for(const p of gen.props)if(inView(p.x,p.y,170)&&!brkGone(G.map,p))list.push([p.y,()=>{const spr=propSprite(p,M.theme,p.k==='fountain'?fr2:0);const B=PROP_O[p.k];const sk=p.shk>G.t?Math.round(Math.sin(t*60)*1.5)*PX:0;blit(ctx,spr,p.x+sk,p.y,B[0],B[1],p.v>.5&&(p.k==='tree'||p.k==='rock'))}]);
+  for(const p of gen.props)if(inView(p.x,p.y,170)&&!brkGone(G.map,p))list.push([p.y,()=>{const spr=propSprite(p,M.theme,p.k==='fountain'?fr2:0);const B=PROP_O[p.k];const sk=p.shk>t?Math.round(Math.sin(t*60)*1.5)*PX:0;blit(ctx,spr,p.x+sk,p.y,B[0],B[1],p.v>.5&&(p.k==='tree'||p.k==='rock'))}]);
   if(m.obj&&!brkGone(G.map,m.obj))ringDots(ctx,m.obj.x,m.obj.y,22,8,'#ffb36b',14,t*2);
   for(const n of M.npcs||[])list.push([n.y,()=>drawAvatarAt(ctx,n.look,n.x,n.y,{f:n.x<m.x?1:-1},t)]);
   for(const mo of G.view.mons.values())if(inView(mo.dx,mo.dy,150))list.push([mo.dy,()=>drawMonAt(ctx,mo,t)]);
   for(const d of G.drops)if(inView(d.x,d.y,40))list.push([d.y-1,()=>drawDrop(ctx,d,t)]);
   for(const o of G.others.values())list.push([o.y,()=>drawAvatarAt(ctx,o.look,o.x,o.y,{f:o.f,walk:o.walk,atk:o.anim||0,dead:o.dead},t)]);
   const blink=m.inv>0&&m.dead<=0&&Math.floor(t*15)%2===0;
-  list.push([m.y,()=>drawAvatarAt(ctx,lookOf(save),m.x,m.y,{f:m.f,walk:m.walk,atk:m.anim,alpha:blink?.4:1,dead:m.dead>0},t)]);
+  list.push([m.y,()=>drawAvatarAt(ctx,lookOf(save),m.x,m.y,{f:m.f,walk:m.walk,atk:m.anim,alpha:blink?.4:1,dead:m.dead>0,sit:m.sit},t)]);
   list.sort((a,b)=>a[0]-b[0]);for(const[,fn]of list)fn();
   if(m.dead<=0){if(m.buf.guard>0){ctx.save();ctx.globalAlpha=m.buf.guard<2&&Math.floor(t*8)%2?.25:.7;ringDots(ctx,m.x,m.y-20,26,30,'#9fd0ff',18,t*2);ctx.restore()}
     if(m.buf.haste>0&&m.walk&&Math.random()<.5)G.fx.push({k:'dust',x:m.x-m.f*8,y:m.y-4,life:.3});
@@ -2038,6 +2053,7 @@ function updateHud(){
   $('hXp').style.width=isMax(J)?'100%':clamp(J.xp/xpNeed(J.lv)*100,0,100)+'%';if(isMax(J))$('hLv').textContent='Lv'+MAX_LV+' MAX';$('stDot').hidden=J.free<=0;{const pk=pickBottle(POT_AMT,m.mhp-m.hp);$('potN').textContent=pk?(BOTTLE_TAG[pk]||'')+'×'+save.bag[pk]:'×0'}$('potCd').style.height=(m.pcd/POTION_CD*100)+'%';$('mapName').textContent=MAPS[G.map].name+(G.code?'　部屋 '+G.code.toUpperCase():'');
   $('hSp').style.width=clamp(m.sp/m.msp*100,0,100)+'%';$('hSpT').textContent='SP '+Math.floor(m.sp)+'/'+m.msp;
   {const ek=pickBottle(ETHER_AMT,m.msp-m.sp);$('spN').textContent=ek?(BOTTLE_TAG[ek]||'')+'×'+save.bag[ek]:'×0'}$('spCd').style.height=(m.ecd/ETHER_CD*100)+'%';
+  $('sitBtn').classList.toggle('on',!!m.sit);$('sitL').textContent=m.sit?'たつ':'すわる';
   const he=$('hEl');he.textContent=elName(save.attr);he.style.background=elCol(save.attr);
   skillsOf(save.job).forEach((S,i)=>{const b=$('sk'+i);b.classList.toggle('nosp',m.sp<S.sp);
     b.children[1].textContent=S.sh||S.name;b.children[2].textContent='SP'+S.sp;b.children[0].style.height=Math.min(100,m.scd[i]/skCd(S,m.st)*100)+'%'});
