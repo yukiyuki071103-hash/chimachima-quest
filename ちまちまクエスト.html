@@ -77,6 +77,7 @@ h1{margin:4px 0 0;font-size:30px;text-align:center;color:#e07a2b;letter-spacing:
 .it .lv{position:absolute;left:3px;top:1px;font-size:9px;font-weight:bold;color:#9a8466}
 .it .n.top{top:1px;bottom:auto}
 .slot.sel{outline:3px solid #e07a2b}
+.stp{display:flex;gap:5px;align-items:center;margin-top:8px}.stp .btn{flex:none;padding:7px 9px;font-size:13px}.stp .num{width:auto;flex:1;min-width:44px;text-align:center}
 .num{width:110px;font:inherit;padding:6px 9px;border-radius:10px;border:2px solid #ecdcc2;background:#fffdf8}
 #loginBox:empty{display:none}
 .cap{font-size:12px;color:#9a8466;margin:2px 0 6px}
@@ -122,6 +123,25 @@ h1{margin:4px 0 0;font-size:30px;text-align:center;color:#e07a2b;letter-spacing:
 .detail .t{font-weight:bold;font-size:15px}
 .detail .acts{display:flex;gap:8px;margin-top:8px}
 .detail .acts .btn{flex:1;padding:9px;font-size:14px}
+.rcp{display:flex;gap:8px;background:#fff;border:2px solid #efe0c6;border-radius:14px;padding:7px 8px;margin-top:7px;align-items:flex-start;cursor:pointer}
+.rcp.sel{outline:3px solid #e07a2b}
+.ric{position:relative;flex:none;width:54px;height:54px;border:2px solid #ddd;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#fffaf0;margin-top:4px}
+.ric canvas{width:46px;height:46px;image-rendering:pixelated}
+.ric .ok{position:absolute;left:-5px;top:-9px;background:#4cbf5c;color:#fff;font-size:9px;line-height:14px;border-radius:5px;padding:0 4px;white-space:nowrap}
+.ric .lv{position:absolute;right:3px;bottom:0;font-size:9px;font-weight:bold;color:#9a8466}.ric .lv.ng{color:#d64545}
+.rmid{flex:1;min-width:0}
+.rnm{display:flex;justify-content:space-between;align-items:baseline;gap:6px;font-size:13px;font-weight:bold;border-bottom:2px solid #f3e8d4;padding-bottom:2px}
+.rnm .g{flex:none;white-space:nowrap;color:#7a6650;font-size:13px}.rnm .g.ng{color:#d64545}
+.rst{font-size:11px;color:#9a8466;margin:3px 0 2px;line-height:1.4}
+.rmats{display:flex;gap:6px;flex-wrap:wrap}
+.mb{position:relative;width:46px;text-align:center;font-size:10px;color:#7a6650;line-height:1.3}
+.mb .bx{width:42px;height:42px;border-radius:10px;background:#fff6e8;border:2px solid #efe0c6;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.mb canvas{width:32px;height:32px;image-rendering:pixelated}
+.mb .minus{position:absolute;left:0;top:28px;width:13px;height:13px;border-radius:50%;background:#e04a4a;border:2px solid #fff;color:#fff;font-size:10px;line-height:9px;font-weight:bold}
+.mb.short{color:#d64545;font-weight:bold}.mb.short .bx{border-color:#f2b8b0}
+.racts{display:flex;margin-top:6px}.racts .btn{flex:1;padding:9px;font-size:14px}
+.pager{display:flex;align-items:center;justify-content:center;gap:18px;margin:10px 0 4px;font-size:16px;font-weight:bold;color:#7a6650}
+.pager .btn{padding:6px 18px;font-size:16px}
 #ask{position:fixed;inset:0;background:rgba(30,20,40,.5);display:flex;align-items:center;justify-content:center;z-index:20;padding:20px}
 #ask[hidden]{display:none}
 #ask .box{background:#fffaf0;border-radius:18px;padding:18px 16px 14px;width:100%;max-width:340px;box-shadow:0 4px 0 #d8c8a8;text-align:center}
@@ -147,6 +167,11 @@ h1{margin:4px 0 0;font-size:30px;text-align:center;color:#e07a2b;letter-spacing:
         <div class="lbl" id="attrLbl">ぞくせい</div><div class="chips" id="attrChips"></div>
       </div>
     </div>
+    <div id="lookBox">
+      <div class="lbl" id="hairLbl">かみがた</div><div class="chips" id="hairChips"></div>
+      <div class="lbl" id="hcLbl">かみのいろ</div><div class="sws" id="hcSws"></div>
+      <div class="lbl" id="faceLbl">ひょうじょう</div><div class="chips" id="faceChips"></div>
+    </div>
     <div class="statline" id="tStats"></div>
   </div>
   <div class="card">
@@ -155,7 +180,7 @@ h1{margin:4px 0 0;font-size:30px;text-align:center;color:#e07a2b;letter-spacing:
     <div id="loginBox" class="joinrow"></div>
     <div id="netState">接続を確認中…</div>
   </div>
-  <p class="muted">村のバザーでは、ほかの人と素材や装備を売り買いできるよ（ログインが必要）。<br>あそびかた：行きたい場所をタップすると走ります。押したまま引っぱると、その方向に走りつづけます。敵をタップすると近づいて自動でこうげき。右下のボタンでスキル（SPを使う）とくすり。敵が落とした素材は、さわるかタップでひろえます。<br>ぞくせい：火は草に、草は水に、水は火に強い。<br>パソコンなら矢印キーで移動、1・2・3でスキル、Q・Eでくすり、スペースで近くの素材をひろえます。</p>
+  <p class="muted">村のバザーでは、ほかの人と素材や装備を売り買いできるよ（ログインが必要）。<br>あそびかた：行きたい場所をタップすると走ります。押したまま引っぱると、その方向に走りつづけます。敵をタップすると近づいて自動でこうげき。右下のボタンでスキル（SPを使う）とくすり。敵が落とした素材は、さわるかタップでひろえます。草原や森の木・岩・草むらは、タップするとこうげきして壊せて、ときどき素材が出ます。ゴールドは、村のクエスト掲示板のおねがいをかなえるともらえます。<br>ぞくせい：火は草に、草は水に、水は火に強い。<br>パソコンなら矢印キーで移動、1・2・3でスキル、Q・Eでくすり、スペースで近くの素材をひろえます。</p>
   <p class="muted" id="saveNote"></p>
 </div>
 
@@ -170,7 +195,7 @@ h1{margin:4px 0 0;font-size:30px;text-align:center;color:#e07a2b;letter-spacing:
   </div>
   <div id="topR">
     <div id="mapName"></div>
-    <div class="tbtns"><button class="tb" id="bagBtn">バッグ</button><button class="tb" id="stBtn">つよさ<i class="dot" id="stDot" hidden></i></button><button class="tb" id="exitBtn">おわる</button></div>
+    <div class="tbtns"><button class="tb" id="bagBtn">バッグ</button><button class="tb" id="stBtn">つよさ<i class="dot" id="stDot" hidden></i></button><button class="tb" id="sndBtn">おと</button><button class="tb" id="exitBtn">おわる</button></div>
     <div id="party"></div>
   </div>
   <!-- 下：くすり2つ＋スキル3つを横一列 -->
@@ -217,34 +242,38 @@ function shade(hex,k){if(!hex||hex[0]!=='#')return hex;const n=parseInt(hex.slic
 // データ：職業・装備・モンスター・マップ
 // =====================================================================
 const JOBS={
-  // pw＝攻撃の強さ（いりょく）の計算。mul＝ポイントの倍率をかえる。spdCap＝すばやさの上限。critK＝うん1あたりのクリティカル率
-  fighter:{name:'ファイター',hpM:8,range:46,cd:.5,shot:null,sk:['spin','smash','guard'],pw:'atk',mul:{atk:4},body:{design:'tunic',color:'#c0504d'},wpn:'sword',wn:'つるぎ'},
-  mage:{name:'メイジ',hpM:5,range:290,cd:.85,shot:'fire',sk:['meteor','aqua','leaf'],pw:'mat',mag:true,body:{design:'robe',color:'#4b3f8f'},wpn:'staff',wn:'つえ'},
-  archer:{name:'アーチャー',hpM:6,range:340,cd:.55,shot:'arrow',sk:['triple','snipe','haste'],pw:'spd',spdCap:1,body:{design:'hoodie',color:'#6b9f5a'},wpn:'bow',wn:'ゆみ'},
-  thief:{name:'シーフ',hpM:6,range:46,cd:.4,shot:null,sk:['rengeki','steal','kagenui'],pw:'luk',critK:.01,body:{design:'thief',color:'#5a4a7a'},wpn:'dagger',wn:'ダガー'}
+  // dr＝いつも受けるダメージが減る割合（近接のファイターだけ）。ba＝ふつうの攻撃の倍率（遠距離は安全なぶん低め）
+  // pw＝いりょくのもと（こうげき か まほう）。mul＝ポイントの倍率をかえる。spdCap＝すばやさの上限。critK＝うん1あたりのクリティカル率
+  // skB＝スキルのときだけ上乗せするステータス（テクニカル型）。spc＝ふつうの攻撃1発で使うSP（最大SPの割合、最低1）
+  fighter:{name:'ファイター',hpM:8,dr:.25,range:46,cd:.5,shot:null,sk:['spin','smash','guard'],pw:'atk',mul:{atk:4},body:{design:'tunic',color:'#c0504d'},wpn:'sword',wn:'つるぎ'},
+  mage:{name:'メイジ',hpM:5,range:290,cd:.85,shot:'fire',ba:1.4,spc:.006,sk:['meteor','aqua','leaf'],pw:'mat',mul:{mat:4},mag:true,body:{design:'robe',color:'#4b3f8f'},wpn:'staff',wn:'つえ'},
+  archer:{name:'アーチャー',hpM:6,range:340,cd:.55,shot:'arrow',ba:.7,sk:['triple','snipe','haste'],pw:'atk',skB:'spd',spdCap:1,body:{design:'hoodie',color:'#6b9f5a'},wpn:'bow',wn:'ゆみ'},
+  thief:{name:'シーフ',hpM:6,range:46,cd:.4,shot:null,sk:['rengeki','steal','kagenui'],pw:'atk',skB:'luk',critK:.01,body:{design:'thief',color:'#5a4a7a'},wpn:'dagger',wn:'ダガー'}
 };
-// いりょく：ファイター＝こうげき、メイジ＝まほう、アーチャー＝こうげき＋すばやさ×3、シーフ＝こうげき＋うん×3
-const PW_K=3;
-const PW_NAME={atk:'こうげき',mat:'まほう',spd:'こうげき＋すばやさ×3',luk:'こうげき＋うん×3'};
+// いりょく：メイジ＝まほう、ほか＝こうげき（すばやさ・うんは入れない）
+// アーチャー・シーフはスキルのときだけ「すばやさ（うん）×2.5」を上乗せ。上乗せは いりょく と同じぶんまで（バランスが大事）
+const SKB_K=2.5;
+const PW_NAME={atk:'こうげき',mat:'まほう'};
 // ---- スキル：職業ごとに3つ。最初から全部使える。スキルLv＝冒険者Lv÷3（Lv60で最大20） ----
 // m＝[スキルLv1の倍率, Lv20の倍率]（あいだは等分）。v＝強化の効き目[Lv1, Lv20]
 // sh＝ボタンに出す短い名前、el＝決まった属性（なければ自分の属性）、town＝村でも使える
-// 目安：Lv80で得意ステータスにほぼ全部ふり、最終装備（いりょく+400くらい）なら、いちばん強い1発が約1万
+// 目安：Lv80で得意ステータスにほぼ全部ふり、最終装備（ぶき+350）なら、いちばん強い1発が約1万
+// cd＝まち時間（装備の「まち時間」で最大30%みじかくなる）
 const SK={
-  spin:{name:'回転斬り',sp:6,cd:5,m:[1.8,4],desc:'まわりの敵をまとめて斬る（いりょく×{m}）'},
-  smash:{name:'ためぎり',sp:10,cd:8,m:[3.6,8.4],desc:'近くの敵1体に大きな一撃（いりょく×{m}）'},
+  spin:{name:'回転斬り',sp:6,cd:6,m:[1.8,4],desc:'まわりの敵をまとめて斬る（いりょく×{m}）'},
+  smash:{name:'ためぎり',sp:10,cd:10,m:[3.6,8.4],desc:'近くの敵1体に大きな一撃（いりょく×{m}）'},
   guard:{name:'てっぺき',sp:14,cd:25,town:true,v:[.4,.6],desc:'10秒間、受けるダメージ−{v}%'},
-  meteor:{name:'メテオ',sp:10,cd:7,el:'fire',m:[2.4,5.5],desc:'火のいん石で、まわりの敵をまとめて攻撃（いりょく×{m}・火）'},
-  aqua:{name:'アクアショット',sh:'アクア',sp:8,cd:4,el:'water',m:[2.6,9],desc:'水のたまで敵1体を攻撃（いりょく×{m}・水）'},
-  leaf:{name:'リーフストーム',sh:'リーフ',sp:16,cd:10,el:'grass',m:[1.9,4.5],desc:'近くの敵5体まで、葉っぱのあらしで攻撃（いりょく×{m}・草）'},
-  triple:{name:'連射',sp:6,cd:6,m:[1.1,2.4],desc:'近くの敵3体まで矢をうつ（1本いりょく×{m}）。3本＋すばやさ40ごとに1本（最大6本）'},
-  snipe:{name:'ねらいうち',sh:'ねらい',sp:10,cd:8,m:[2.8,6],desc:'敵1体を必ずクリティカルでうつ（いりょく×{m}）'},
+  meteor:{name:'メテオ',sp:10,cd:9,el:'fire',m:[2.4,5.5],desc:'火のいん石で、まわりの敵をまとめて攻撃（いりょく×{m}・火）'},
+  aqua:{name:'アクアショット',sh:'アクア',sp:8,cd:5,el:'water',m:[2.6,9],desc:'水のたまで敵1体を攻撃（いりょく×{m}・水）'},
+  leaf:{name:'リーフストーム',sh:'リーフ',sp:16,cd:12,el:'grass',m:[1.9,4.5],desc:'近くの敵5体まで、葉っぱのあらしで攻撃（いりょく×{m}・草）'},
+  triple:{name:'連射',sp:6,cd:7,m:[1.1,2.4],desc:'近くの敵3体まで矢をうつ（1本いりょく×{m}）。3本＋すばやさ40ごとに1本（最大6本）'},
+  snipe:{name:'ねらいうち',sh:'ねらい',sp:10,cd:10,m:[2.8,6],desc:'敵1体を必ずクリティカルでうつ（いりょく×{m}）'},
   haste:{name:'かぜのステップ',sh:'かぜ',sp:14,cd:25,town:true,v:[.2,.4],desc:'10秒間、走る速さと攻撃の速さ+{v}%'},
-  rengeki:{name:'れんげき',sp:6,cd:5,m:[.7,1.6],desc:'敵1体に4回きりつける（1回いりょく×{m}）。1回ごとにクリティカルになるか決まる'},
-  steal:{name:'ぬすむ',sp:8,cd:6,m:[1.6,4.5],desc:'敵1体を攻撃（いりょく×{m}）。「30%＋うん×0.5%」（上限80%）で素材を1こ落とさせる（1体1回まで）'},
+  rengeki:{name:'れんげき',sp:6,cd:6,m:[.7,1.6],desc:'敵1体に4回きりつける（1回いりょく×{m}）。1回ごとにクリティカルになるか決まる'},
+  steal:{name:'ぬすむ',sp:8,cd:7,m:[1.6,4.5],desc:'敵1体を攻撃（いりょく×{m}）。「30%＋うん×0.5%」（上限80%）で素材を1こ落とさせる（1体1回まで）'},
   kagenui:{name:'かげぬい',sh:'かげ',sp:14,cd:25,town:true,v:[.2,.4],desc:'10秒間、クリティカル率+{v}%、クリティカルのダメージ2倍'}
 };
-const BUFF_T=10,SK_MAX=20;
+const BUFF_T=10,SK_MAX=20,CDR_MAX=.3;
 const skLvOf=lv=>clamp(Math.floor(lv/3),1,SK_MAX);   // Lv1〜5→1、Lv6→2 … Lv60→20
 const lerpSk=(a,slv)=>a[0]+(a[1]-a[0])*(slv-1)/(SK_MAX-1);
 const skM=(id,slv)=>lerpSk(SK[id].m,slv),skV=(id,slv)=>lerpSk(SK[id].v,slv);
@@ -260,10 +289,14 @@ const elName=e=>ELEM[e]?ELEM[e].name:'なし',elCol=e=>ELEM[e]?ELEM[e].col:'#9a8
 // 振ったポイント×倍率＋装備。HP＝職業の倍率(hpM)×(10＋防御ポイント)
 const STATS=['atk','mat','def','spd','luk'];
 const STATNAME={atk:'こうげき',mat:'まほう',def:'ぼうぎょ',spd:'すばやさ',luk:'うん'};
-const STATDESC={atk:'ファイター・アーチャー・シーフのいりょく（ファイターはポイント1につき+4）',mat:'メイジのいりょく。SPも増える（1につき+2）',def:'受けるダメージが減る。HPも増える',spd:'走る速さと攻撃の速さ（1につき+1%、上限+50%。アーチャーは+100%）。アーチャーはいりょくにも入る（×3）',luk:'クリティカル（1につき+0.5%、シーフは+1%。上限50%）とレア素材の出やすさ。シーフはいりょくにも入る（×3）'};
+const STATDESC={atk:'ファイター・アーチャー・シーフのいりょく（ファイターはポイント1につき+4）',mat:'メイジのいりょく（ポイント1につき+4）。SPも増える（1につき+2）',def:'受けるダメージが減る。HPも増える',spd:'走る速さと攻撃の速さ（1につき+1%、上限+50%。アーチャーは+100%）。アーチャーはスキルの威力も上がる（×2.5、いりょくと同じぶんまで）',luk:'クリティカル（1につき+0.5%、シーフは+1%。上限50%）とレア素材の出やすさ。シーフはスキルの威力も上がる（×2.5、いりょくと同じぶんまで）'};
 const STAT_MUL={atk:3,mat:3,def:3,spd:1,luk:1};
 const BASE_PT=5,PT_PER_LV=3;
-const HAIR='short',HC='#7a5236';   // 髪型・髪色はいまは変えられない
+// ---- 見た目：髪型・髪色・表情。タイトル画面で1回だけ選べる（あとからは変えられない） ----
+const HAIR='short',HC='#7a5236',FACE='normal';   // 決まっていないとき（NPC・ほかの人）の見た目
+const HAIRS=[['short','ショート'],['spiky','ツンツン'],['bob','ボブ'],['pony','ポニー'],['twin','ツイン'],['long','ロング']];
+const HCOLS=['#7a5236','#3b2a22','#2e2a36','#f2c14e','#e9874a','#eeeeee','#ff8fb1','#5a8fe0','#5ab07a','#9b6ae0'];
+const FACES=[['normal','ふつう'],['smile','にこにこ'],['kira','きらきら'],['tsuri','きりっ'],['sleepy','ねむねむ'],['cat','ねこぐち']];
 
 // ---- 装備：ぶき・たて・あたま・せなか・くつ ----
 // lv＝装備できるレベル。base＝作るのに使う下の装備、m＝素材、g＝ゴールド
@@ -271,7 +304,7 @@ const ITEMS={},ITEM_LIST=[];
 const SLOTS=['weapon','shield','head','body','back','feet'];
 const SLOTNAME={weapon:'ぶき',shield:'たて',head:'あたま',body:'ふく',back:'せなか',feet:'くつ'};
 const TIER_COL=['#9aa3ad','#4cbf5c','#3a8ee6','#e6a400'];
-function defItem(o){const it=Object.assign({atk:0,mat:0,def:0,spd:0,luk:0,base:null,m:{},g:0,tier:0,job:null},o);ITEMS[it.id]=it;ITEM_LIST.push(it);return it}
+function defItem(o){const it=Object.assign({atk:0,mat:0,def:0,spd:0,luk:0,spr:0,cdr:0,base:null,m:{},g:0,tier:0,job:null},o);ITEMS[it.id]=it;ITEM_LIST.push(it);return it}
 defItem({id:'s_puni',slot:'shield',design:'round',name:'ぷにぷにの盾',color:'#5fd0bd',lv:1,def:4,m:{m_puni_n:8},g:60});
 defItem({id:'s_drop',slot:'shield',design:'drop',name:'しずくの盾',color:'#8fe8ff',lv:5,tier:1,def:9,base:'s_puni',m:{m_puni_r:2,m_puni_n:5},g:130});
 defItem({id:'s_jelly',slot:'shield',design:'big',name:'ゼリーの大盾',color:'#2f9e8c',lv:10,tier:2,def:16,base:'s_drop',m:{m_puniking_n:2,m_puni_n:10},g:420});
@@ -288,57 +321,101 @@ defItem({id:'f_moko',slot:'feet',design:'boots',name:'もこもこブーツ',col
 defItem({id:'f_drop',slot:'feet',design:'shoes',name:'しずくのくつ',color:'#8fe8ff',lv:5,tier:1,spd:5,luk:3,base:'f_moko',m:{m_puni_r:2,m_mofu_n:6},g:190});
 defItem({id:'f_jelly',slot:'feet',design:'shoes',name:'ぷにぷにシューズ',color:'#5fd0bd',lv:10,tier:2,spd:8,luk:4,base:'f_drop',m:{m_puniking_n:2,m_puni_n:10},g:420});
 // ---- ささやきの森の装備（Lv13＝ふつう素材、Lv16＝レア素材、Lv20＝ヌシの素材）。ゴールドは調整がすむまで仮 ----
-defItem({id:'s_kino',slot:'shield',design:'round',name:'キノコの盾',color:'#e0533f',lv:13,tier:1,def:22,base:'s_jelly',m:{m_kino_n:12,m_kero_n:4},g:700});
+// 装備のつながりはマップごと：森のLv13は草原の装備がなくても素材とゴールドだけで作れる
+defItem({id:'s_kino',slot:'shield',design:'round',name:'キノコの盾',color:'#e0533f',lv:13,tier:1,def:22,m:{m_kino_n:12,m_kero_n:4},g:700});
 defItem({id:'s_dew',slot:'shield',design:'drop',name:'あまつゆの盾',color:'#7fd6c8',lv:16,tier:2,def:28,base:'s_kino',m:{m_kero_r:2,m_kero_n:10},g:1200});
 defItem({id:'s_nushi',slot:'shield',design:'big',name:'ヌシの大盾',color:'#5a6fa8',lv:20,tier:3,def:36,base:'s_dew',m:{m_nushi_n:3,m_kabu_n:10},g:2600});
-defItem({id:'h_leaf',slot:'head',design:'leaf',name:'はっぱのかざり',color:'#6cc07a',lv:13,tier:1,def:8,luk:9,base:'h_crown',m:{m_kino_n:8,m_kero_n:6},g:750});
+defItem({id:'h_leaf',slot:'head',design:'leaf',name:'はっぱのかざり',color:'#6cc07a',lv:13,tier:1,def:8,luk:9,m:{m_kino_n:8,m_kero_n:6},g:750});
 defItem({id:'h_beret',slot:'head',design:'beret',name:'キノコのベレー',color:'#c94fd6',lv:16,tier:2,def:10,luk:11,base:'h_leaf',m:{m_kino_r:2,m_kino_n:10},g:1300});
 defItem({id:'h_flower',slot:'head',design:'flower',name:'ヌシのはなかんむり',color:'#ffb6c8',lv:20,tier:3,def:13,luk:13,base:'h_beret',m:{m_nushi_r:1,m_nushi_n:2},g:3500});
-defItem({id:'b_moss',slot:'body',design:'overall',name:'こけのオーバーオール',color:'#6a9a4a',lv:13,tier:1,def:14,spd:3,base:'b_jelly',m:{m_kero_n:8,m_kino_n:6},g:800});
+defItem({id:'b_moss',slot:'body',design:'overall',name:'こけのオーバーオール',color:'#6a9a4a',lv:13,tier:1,def:14,spd:3,m:{m_kero_n:8,m_kino_n:6},g:800});
 defItem({id:'b_frog',slot:'body',design:'frogsuit',name:'ケロッパのきぐるみ',color:'#5cbf5a',lv:16,tier:2,def:18,spd:3,luk:2,base:'b_moss',m:{m_kero_r:2,m_kero_n:12},g:1350});
 defItem({id:'b_yukata',slot:'body',design:'yukata',name:'ほたるのゆかた',color:'#2f3f6a',lv:20,tier:3,def:23,spd:4,luk:3,base:'b_frog',m:{m_nushi_n:2,m_hota_n:12},g:2700});
-defItem({id:'k_cape',slot:'back',design:'cape',name:'はっぱのマント',color:'#5aa85a',lv:13,tier:1,spd:10,luk:6,base:'k_rainbow',m:{m_kino_n:6,m_hota_n:4},g:800});
+defItem({id:'k_cape',slot:'back',design:'cape',name:'はっぱのマント',color:'#5aa85a',lv:13,tier:1,spd:10,luk:6,m:{m_kino_n:6,m_hota_n:4},g:800});
 defItem({id:'k_fly',slot:'back',design:'butterfly',name:'ほたるの羽',color:'#ffe066',lv:16,tier:2,spd:12,luk:7,base:'k_cape',m:{m_hota_r:2,m_hota_n:10},g:1300});
 defItem({id:'k_nushi',slot:'back',design:'wings',name:'ヌシのつばさ',color:'#7f93c8',lv:20,tier:3,spd:14,luk:8,base:'k_fly',m:{m_nushi_n:2,m_kabu_n:10},g:2700});
-defItem({id:'f_moss',slot:'feet',design:'shoes',name:'こけのくつ',color:'#6a9a4a',lv:13,tier:1,def:2,spd:10,luk:4,base:'f_jelly',m:{m_kero_n:8,m_kino_n:4},g:700});
+defItem({id:'f_moss',slot:'feet',design:'shoes',name:'こけのくつ',color:'#6a9a4a',lv:13,tier:1,def:2,spd:10,luk:4,m:{m_kero_n:8,m_kino_n:4},g:700});
 defItem({id:'f_root',slot:'feet',design:'shoes',name:'きのねっこブーツ',color:'#8a6244',lv:16,tier:2,def:3,spd:11,luk:5,base:'f_moss',m:{m_kabu_r:2,m_kabu_n:8},g:1250});
 defItem({id:'f_nushi',slot:'feet',design:'shoes',name:'ヌシのくつ',color:'#5a6fa8',lv:20,tier:3,def:4,spd:13,luk:6,base:'f_root',m:{m_nushi_n:2,m_hota_n:10},g:2600});
+// ---- きらきら洞くつの装備（Lv23＝いりぐちの素材、Lv26＝レア素材、Lv30＝イワオウの素材）。ゴールドは調整がすむまで仮 ----
+defItem({id:'s_stone',slot:'shield',design:'round',name:'いしの盾',color:'#9a958d',lv:23,tier:1,def:41,m:{m_koiwa_n:14,m_bat_n:4},g:1800});
+defItem({id:'s_crys',slot:'shield',design:'drop',name:'すいしょうの盾',color:'#9ff0ff',lv:26,tier:2,def:46,base:'s_stone',m:{m_crys_r:2,m_crys_n:12},g:3200});
+defItem({id:'s_golem',slot:'shield',design:'big',name:'イワオウの大盾',color:'#8d8a85',lv:30,tier:3,def:53,base:'s_crys',m:{m_golem_n:3,m_mogu_n:12},g:7000});
+defItem({id:'h_iron',slot:'head',design:'helm',name:'てつのかぶと',color:'#b8c0c8',lv:23,tier:1,def:14,luk:13,m:{m_koiwa_n:10,m_bat_n:6},g:1900});
+defItem({id:'h_crys',slot:'head',design:'helm',name:'すいしょうのかぶと',color:'#9ff0ff',lv:26,tier:2,def:15,luk:14,base:'h_iron',m:{m_bat_r:2,m_crys_n:10},g:3300});
+defItem({id:'h_golem',slot:'head',design:'helm',name:'イワオウのかぶと',color:'#8d8a85',lv:30,tier:3,def:16,luk:15,base:'h_crys',m:{m_golem_r:1,m_golem_n:2},g:8500});
+defItem({id:'b_iron',slot:'body',design:'armor',name:'てつのよろい',color:'#b8c0c8',lv:23,tier:1,def:24,spd:3,luk:3,m:{m_koiwa_n:12,m_bat_n:6},g:2000});
+defItem({id:'b_crys',slot:'body',design:'armor',name:'すいしょうのよろい',color:'#9fdcf0',lv:26,tier:2,def:26,spd:4,luk:3,base:'b_iron',m:{m_koiwa_r:2,m_crys_n:12},g:3400});
+defItem({id:'b_golem',slot:'body',design:'armor',name:'イワオウのよろい',color:'#8d8a85',lv:30,tier:3,def:28,spd:4,luk:3,base:'b_crys',m:{m_golem_n:2,m_mogu_n:12},g:7000});
+defItem({id:'k_bat',slot:'back',design:'devil',name:'コウモリのつばさ',color:'#7a58c8',lv:23,tier:1,spd:14,luk:8,m:{m_bat_n:12,m_koiwa_n:4},g:2000});
+defItem({id:'k_crys',slot:'back',design:'wings',name:'すいしょうの羽',color:'#bfefff',lv:26,tier:2,spd:15,luk:9,base:'k_bat',m:{m_bat_r:2,m_bat_n:10},g:3300});
+defItem({id:'k_dark',slot:'back',design:'devil',name:'やみのつばさ',color:'#4a4060',lv:30,tier:3,spd:16,luk:9,base:'k_crys',m:{m_golem_n:2,m_mogu_n:10},g:7000});
+defItem({id:'f_iron',slot:'feet',design:'shoes',name:'てつのブーツ',color:'#b8c0c8',lv:23,tier:1,def:4,spd:13,luk:6,m:{m_bat_n:8,m_koiwa_n:6},g:1800});
+defItem({id:'f_crys',slot:'feet',design:'shoes',name:'すいしょうのくつ',color:'#9ff0ff',lv:26,tier:2,def:5,spd:14,luk:7,base:'f_iron',m:{m_mogu_r:2,m_mogu_n:8},g:3200});
+defItem({id:'f_golem',slot:'feet',design:'shoes',name:'イワオウのくつ',color:'#8d8a85',lv:30,tier:3,def:5,spd:15,luk:7,base:'f_crys',m:{m_golem_n:2,m_crys_n:12},g:6800});
+// まほう系の列（あたま・ふく・せなか）：すばやさ・うん・ぼうぎょは低め、かわりに SPかいふく（spr、毎秒）と まち時間（cdr）。レア素材で作る
+// Lv30を3つそろえると SPかいふく+1.2/秒・まち時間−6%
+defItem({id:'h_circ',slot:'head',design:'circlet',name:'すいしょうのサークレット',color:'#9ff0ff',lv:26,tier:2,def:10,luk:5,spr:.3,cdr:.01,m:{m_crys_r:3,m_bat_n:10},g:3500});
+defItem({id:'h_circ2',slot:'head',design:'circlet',name:'まどうのサークレット',color:'#c49bff',lv:30,tier:3,def:12,luk:6,spr:.4,cdr:.02,base:'h_circ',m:{m_golem_r:1,m_crys_r:2},g:8500});
+defItem({id:'b_robe',slot:'body',design:'robe',name:'すいしょうのローブ',color:'#5a8fc0',lv:26,tier:2,def:20,spr:.3,cdr:.01,m:{m_koiwa_r:3,m_crys_n:10},g:3500});
+defItem({id:'b_robe2',slot:'body',design:'robe',name:'まどうのローブ',color:'#6a3fa0',lv:30,tier:3,def:24,spd:2,spr:.4,cdr:.02,base:'b_robe',m:{m_golem_n:3,m_mogu_r:2},g:8000});
+defItem({id:'k_mcape',slot:'back',design:'cape',name:'まどうのマント',color:'#7a58c8',lv:26,tier:2,spd:6,luk:3,spr:.3,cdr:.01,m:{m_bat_r:3,m_bat_n:10},g:3500});
+defItem({id:'k_mcape2',slot:'back',design:'cape',name:'ほしくずのマント',color:'#3a4a8a',lv:30,tier:3,spd:8,luk:4,spr:.4,cdr:.02,base:'k_mcape',m:{m_golem_n:2,m_crys_r:2},g:8000});
 // 武器は職業ごと。メイジは「まほう」、ほかは「こうげき」が上がる
-// [ID, 名前の頭, 強さ, Lv, 素材, ゴールド, 色（nullは職業の木の色）, 枠の色（tier）]
-const WTIERS=[['wood','きの',4,1,{m_puni_n:3,m_mofu_n:3},50,null,0],['drop','しずくの',10,5,{m_puni_r:2,m_pyoko_n:5},195,'#8fe8ff',1],['jelly','ゼリーの',18,10,{m_puniking_n:3,m_puni_n:10},590,'#5fd0bd',2],['king','オオプニの',28,10,{m_puniking_r:1,m_puniking_n:5},1550,'#3eae9c',3],
-  ['kino','キノコの',38,13,{m_kino_n:10,m_kero_n:6},900,'#e0533f',1],['hota','ほたるの',50,16,{m_hota_r:2,m_hota_n:10},1600,'#ffe066',2],['nushi','ヌシの',65,20,{m_nushi_r:1,m_nushi_n:5},4000,'#5a6fa8',3]];
+// [ID, 名前の頭, 強さ, Lv, 素材, ゴールド, 色（nullは職業の木の色）, 枠の色（tier）, 作るのに使う下のぶき（nullならいらない）]
+// きの〇〇は道具屋で売る（鍛冶場では作らない）。つながりはマップごと
+const WTIERS=[['wood','きの',4,1,{},50,null,0,null],['drop','しずくの',10,5,{m_puni_r:2,m_pyoko_n:5},195,'#8fe8ff',1,'wood'],['jelly','ゼリーの',18,10,{m_puniking_n:3,m_puni_n:10},590,'#5fd0bd',2,'drop'],['king','オオプニの',28,10,{m_puniking_r:1,m_puniking_n:5},1550,'#3eae9c',3,'jelly'],
+  ['kino','キノコの',38,13,{m_kino_n:10,m_kero_n:6},900,'#e0533f',1,null],['hota','ほたるの',50,16,{m_hota_r:2,m_hota_n:10},1600,'#ffe066',2,'kino'],['nushi','ヌシの',65,20,{m_nushi_r:1,m_nushi_n:5},4000,'#5a6fa8',3,'hota'],
+  ['iron','てつの',79,23,{m_koiwa_n:12,m_bat_n:8},2200,'#b8c0c8',1,null],['crys','すいしょうの',93,26,{m_crys_r:2,m_crys_n:12},3800,'#9ff0ff',2,'iron'],['golem','イワオウの',112,30,{m_golem_r:1,m_golem_n:5},9000,'#8d8a85',3,'crys']];
 const WCOL={fighter:'#b5835a',mage:'#ff8a3d',archer:'#8a5a2a',thief:'#b5835a'};
-for(const j in JOBS)WTIERS.forEach(([k,pre,pow,lv,m,g,col,tier],i)=>{const J=JOBS[j];defItem({id:'w_'+j+'_'+k,slot:'weapon',design:J.wpn,name:pre+J.wn,color:col||WCOL[j],lv,tier,job:j,[J.pw==='mat'?'mat':'atk']:pow,base:i?'w_'+j+'_'+WTIERS[i-1][0]:null,m,g})});
+for(const j in JOBS)WTIERS.forEach(([k,pre,pow,lv,m,g,col,tier,b])=>{const J=JOBS[j];defItem({id:'w_'+j+'_'+k,slot:'weapon',design:J.wpn,name:pre+J.wn,color:col||WCOL[j],lv,tier,job:j,[J.pw==='mat'?'mat':'atk']:pow,base:b?'w_'+j+'_'+b:null,m,g,shop:k==='wood'})});
 
 // ---- どうぐ（道具屋で買う） ----
 const CONS={
-  c_potion:{id:'c_potion',name:'回復薬（小）',price:10,sell:3,desc:'HPを50回復する。右下の「くすり」ボタンでも使える'},
-  c_ether:{id:'c_ether',name:'SP回復薬（小）',price:15,sell:4,desc:'SPを30回復する。右下の「SP薬」ボタンでも使える'},
+  c_potion:{id:'c_potion',name:'回復薬（小）',price:10,sell:3,desc:'HPを50回復する'},
+  c_potion2:{id:'c_potion2',name:'回復薬（中）',price:35,sell:9,desc:'HPを150回復する'},
+  c_potion3:{id:'c_potion3',name:'回復薬（大）',price:110,sell:28,desc:'HPを400回復する'},
+  c_ether:{id:'c_ether',name:'SP回復薬（小）',price:15,sell:4,desc:'SPを30回復する'},
+  c_ether2:{id:'c_ether2',name:'SP回復薬（中）',price:40,sell:10,desc:'SPを80回復する'},
+  c_ether3:{id:'c_ether3',name:'SP回復薬（大）',price:120,sell:30,desc:'SPを200回復する'},
   c_forget:{id:'c_forget',name:'わすれ草',price:300,sell:100,desc:'いまの職業のステータスポイントをふりなおせる'}
 };
 const POTION_HEAL=50,POTION_CD=3,ETHER_SP=30,ETHER_CD=3;
+// 回復量。右下の「くすり」「SP薬」ボタン（Q・Eキー）は、減っている分をうめられるいちばん小さいびんを使う（どれも足りなければいちばん大きいびん）
+const POT_AMT={c_potion:POTION_HEAL,c_potion2:150,c_potion3:400},ETHER_AMT={c_ether:ETHER_SP,c_ether2:80,c_ether3:200};
+const BOTTLE_TAG={c_potion2:'中',c_potion3:'大',c_ether2:'中',c_ether3:'大'};
+function pickBottle(A,miss){const own=Object.keys(A).filter(k=>save.bag[k]).sort((a,b)=>A[a]-A[b]);if(!own.length)return null;return own.find(k=>A[k]>=miss)||own[own.length-1]}
 // ---- SP：最大＝20＋Lv×2＋まほうのポイント×2。外では毎秒0.5＋最大の1%、村ではHPとSPが早く回復 ----
 const SP_BASE=20,SP_PER_LV=2,SP_PER_MAT=2;
 // ---- 地面に落ちた素材：60秒で消える。マップを出ても消える ----
 const DROP_LIFE=60,DROP_MAX=40,PICK_R=30,PICK_KEY_R=90;
 // ---- バッグと倉庫 ----
-const BAG_KINDS=20,BAG_MAX=99,STORE_KINDS=100,STORE_MAX=999;
+const BAG_KINDS=40,BAG_MAX=999,STORE_KINDS=500,STORE_MAX=999;
+// ---- ゴールドの上限（バザーの値段の上限も同じ）。後半のマップで大きな数のやり取りになるので1億近くまで ----
+const GOLD_MAX=99999999;
+function gainGold(g){save.gold=Math.min(GOLD_MAX,save.gold+g)}
 
+// qg＝クエスト掲示板の「たおして」で、1体あたりにもらえるおれい（ゴールド）。数字は仮
 const MON={
-  puni:{name:'プニ',hp:30,atk:6,xp:6,gold:3,spd:45,r:16,h:26,aggro:false,el:'water'},
-  mofu:{name:'モフル',hp:55,atk:9,xp:9,gold:4,spd:65,r:16,h:30,aggro:false,el:'grass'},
-  kino:{name:'キノッコ',hp:420,atk:22,xp:24,gold:6,spd:60,r:15,h:36,aggro:true,el:'grass'},
-  bat:{name:'パタパタ',hp:60,atk:14,xp:15,gold:8,spd:95,r:16,h:40,aggro:true,fly:true},
-  koiwa:{name:'コイワ',hp:130,atk:18,xp:22,gold:11,spd:38,r:19,h:34,aggro:true},
-  golem:{name:'イワオウ',hp:1800,atk:28,xp:300,gold:180,spd:34,r:46,h:120,aggro:true,boss:true,barH:205},
+  puni:{name:'プニ',qg:5,hp:30,atk:6,xp:6,gold:3,spd:45,r:16,h:26,aggro:false,el:'water'},
+  mofu:{name:'モフル',qg:7,hp:55,atk:9,xp:9,gold:4,spd:65,r:16,h:30,aggro:false,el:'grass'},
+  kino:{name:'キノッコ',qg:12,hp:420,atk:22,xp:24,gold:6,spd:60,r:15,h:36,aggro:true,el:'grass'},
+  // きらきら洞くつ（Lv20〜30）。bat・koiwa・golem は前からある番号を使う
+  bat:{name:'パタパタ',qg:30,hp:900,atk:48,xp:70,gold:0,spd:110,r:16,h:40,aggro:true,fly:true,el:'fire'},
+  koiwa:{name:'コイワ',qg:45,hp:2000,atk:58,xp:110,gold:0,spd:38,r:19,h:34,aggro:true,el:'grass'},
+  // rocks＝落石（cd 間隔、n 数、warn 影が出てから落ちるまでの秒、mul 倍率、r 当たる広さ）
+  golem:{name:'イワオウ',qg:4000,hp:90000,atk:85,xp:6000,gold:0,spd:34,r:46,h:120,aggro:true,boss:true,barH:205,aggR:520,leash:320,el:'grass',rocks:{cd:4.2,n:4,warn:1.1,mul:1.1,r:44}},
   // ここから追加（通信で番号を使うので、新しい敵は必ず末尾に足す）
-  pyoko:{name:'ピヨッコ',hp:75,atk:12,xp:12,gold:5,spd:75,r:14,h:26,aggro:false,el:'fire'},
-  puniking:{name:'オオプニ',hp:4500,atk:20,xp:220,gold:70,spd:42,r:40,h:80,aggro:true,boss:true,barH:110,aggR:420,leash:250,el:'water'},
+  pyoko:{name:'ピヨッコ',qg:9,hp:75,atk:12,xp:12,gold:5,spd:75,r:14,h:26,aggro:false,el:'fire'},
+  puniking:{name:'オオプニ',qg:300,hp:4500,atk:20,xp:220,gold:70,spd:42,r:40,h:80,aggro:true,boss:true,barH:110,aggR:420,leash:250,el:'water'},
   // ささやきの森（Lv10〜20）。shoot＝遠くから撃つ（rng 射程、cd 間隔、spd 弾の速さ、n 本数、spread 広がり、mul ダメージ倍率）
-  kero:{name:'ケロッパ',hp:360,atk:24,xp:28,gold:0,spd:55,r:15,h:26,aggro:true,aggR:300,el:'water',shoot:{rng:270,cd:2.4,spd:230,k:'bubble'}},
-  hota:{name:'ホタルン',hp:520,atk:30,xp:40,gold:0,spd:105,r:14,h:40,aggro:true,fly:true,el:'fire'},
-  kabu:{name:'キリカブン',hp:1300,atk:40,xp:72,gold:0,spd:40,r:20,h:34,aggro:true,el:'grass'},
-  nushi:{name:'ヌシフクロウ',hp:32000,atk:55,xp:1800,gold:0,spd:55,r:44,h:110,aggro:true,boss:true,barH:140,aggR:480,leash:300,el:'water',shoot:{rng:430,cd:3.4,spd:250,k:'feather',n:5,spread:.42,mul:.8}}
+  kero:{name:'ケロッパ',qg:14,hp:360,atk:24,xp:28,gold:0,spd:55,r:15,h:26,aggro:true,aggR:300,el:'water',shoot:{rng:270,cd:2.4,spd:230,k:'bubble'}},
+  hota:{name:'ホタルン',qg:20,hp:520,atk:30,xp:40,gold:0,spd:105,r:14,h:40,aggro:true,fly:true,el:'fire'},
+  kabu:{name:'キリカブン',qg:36,hp:1300,atk:40,xp:72,gold:0,spd:40,r:20,h:34,aggro:true,el:'grass'},
+  nushi:{name:'ヌシフクロウ',qg:1500,hp:32000,atk:55,xp:1800,gold:0,spd:55,r:44,h:110,aggro:true,boss:true,barH:140,aggR:480,leash:300,el:'water',shoot:{rng:430,cd:3.4,spd:250,k:'feather',n:5,spread:.42,mul:.8}},
+  // 洞くつの新しい敵（番号のため末尾に足す）。burrow＝地面にもぐって近くに出てくる
+  crys:{name:'クリスタ',qg:50,hp:1500,atk:55,xp:120,gold:0,spd:50,r:15,h:30,aggro:true,aggR:320,el:'water',shoot:{rng:300,cd:2.6,spd:240,k:'shard',n:3,spread:.35,mul:.8}},
+  mogu:{name:'モグラン',qg:70,hp:2600,atk:70,xp:180,gold:0,spd:70,r:16,h:26,aggro:true,aggR:360,el:'fire',burrow:true}
 };
 const MTYPES=Object.keys(MON);
 
@@ -355,9 +432,11 @@ const MAT_DEF={ // 敵:[[名前,形,色,売値], [レアの名前,形,色,売値
   hota:[['ひかりのこな','dust','fff27a',11],['ほたる石','crystal','ffd23f',75]],
   kabu:[['こけむした木','wood','8a6244',14],['としつきの年輪','ring','b89058',90]],
   nushi:[['ヌシの羽根','feather','7f93c8',60],['もりのひとみ','orb','4cb050',450]],
-  bat:[['コウモリの羽','wing','7a58c8',8],['ムーンストーン','crystal','e0e0ff',60]],
-  koiwa:[['いしころ','stone','9a958d',10],['こけの宝石','crystal','6fbf5a',70]],
-  golem:[['イワオウのかけら','stone','8d8a85',40],['たいようの石','crystal','ff9a3a',300]]
+  bat:[['コウモリの羽','wing','7a58c8',18],['ムーンストーン','crystal','e0e0ff',120]],
+  koiwa:[['いしころ','stone','9a958d',20],['こけの宝石','crystal','6fbf5a',130]],
+  golem:[['イワオウのかけら','stone','8d8a85',120],['たいようの石','crystal','ff9a3a',900]],
+  crys:[['すいしょうのかけら','crystal','9ff0ff',22],['ふかみの水晶','orb','3a6ee0',140]],
+  mogu:[['モグランのつめ','claw','e8d2b0',25],['ほのおの原石','crystal','ff6a3a',160]]
 };
 for(const t in MAT_DEF)MAT_DEF[t].forEach(([name,shape,col,price],i)=>{const id='m_'+t+(i?'_r':'_n');const m={id,name,shape,color:'#'+col,rare:!!i,price,from:t};MATS[id]=m;MAT_LIST.push(m);(MON[t].drop=MON[t].drop||[])[i]=id});
 const BACK_TOWN={x:40,y:600,to:'town',sx:1280,sy:560,label:'← 村へもどる'};
@@ -368,31 +447,82 @@ const MAPS={
           {id:'smith',x:825,y:430,name:'鍛冶場 ガンテツ',stall:'#7a7a8a',look:{job:'fighter',hair:'spiky',hc:'#3b2a22',eq:{weapon:'w_fighter_jelly',shield:'s_jelly',feet:'f_moko'}}},
           {id:'store',x:575,y:760,name:'倉庫番 クラリ',stall:'#b5835a',look:{job:'archer',hair:'pony',hc:'#e9874a',eq:{back:'k_small',feet:'f_drop'}}},
           {id:'bazaar',x:700,y:405,name:'バザー マルシェ',stall:'#3a9a6a',look:{job:'archer',hair:'twin',hc:'#f2c14e',eq:{head:'h_ribbon'}}},
-          {id:'temple',x:825,y:760,name:'転職神殿 ミコト',stall:'#9b6ae0',look:{job:'mage',hair:'long',hc:'#eeeeee',eq:{head:'h_crown',back:'k_gold'}}}]},
+          {id:'temple',x:825,y:760,name:'転職神殿 ミコト',stall:'#9b6ae0',look:{job:'mage',hair:'long',hc:'#eeeeee',eq:{head:'h_crown',back:'k_gold'}}},
+          {id:'quest',x:390,y:600,name:'クエスト掲示板 ノノ',board:true,look:{job:'thief',hair:'twin',hc:'#e9874a',eq:{head:'h_leaf',body:'b_moko'}}}]},
   // mons：[敵, 数, [出てくるxの範囲]]。boss：ボスの立ち位置。arena：ボスのひろば（しげみで囲む）
+  // ---- マップは「エリア」に分かれる。grp＝どのマップのエリアか（なければ自分のID）。はしの出口で となりのエリアへ ----
+  // 同じマップの中でエリアを行き来しても、敵・素材・ボスのHPはそのまま（村にもどると全部そろった状態から）
   field:{name:'ぽかぽか草原',theme:'grass',w:3000,h:1800,lvl:1,rec:1,spawn:[150,900],
     // mons：いつも決まった数だけ出る敵（ボス）。pool：n匹の枠に、湧くたびに確率（w）で種類を決めて出す。[敵, 確率, [出てくるxの範囲]]
-    mons:[['puniking',1]],pool:{n:39,list:[['puni',50,[220,1300]],['mofu',30,[600,1900]],['pyoko',20,[1350,2250]]]},
-    boss:{t:'puniking',x:2680,y:900},arena:{x:2640,y:900,r:300},
-    path:[[60,900],[520,820],[980,1000],[1450,880],[1900,1010],[2350,900]],
+    mons:[],pool:{n:39,list:[['puni',50,[220,1300]],['mofu',30,[600,1900]],['pyoko',20,[1350,2700]]]},
+    path:[[60,900],[520,820],[980,1000],[1450,880],[1900,1010],[2350,900],[2940,900]],
     ponds:[[1150,420,190,95],[700,1430,150,75],[1950,1480,130,70]],
-    signs:[{x:2260,y:790,t:'この先 ボスのひろば'}],
-    portals:[{x:40,y:900,to:'town',sx:1280,sy:560,label:'← 村へもどる'}],desc:'のんびりした広い草原。東のひろばにボスがいる。'},
-  // 広さは草原の約3.6倍。西（入口）→東（おく）へ行くほど強い敵。敵はみんな自分から襲ってくる。ケロッパとヌシは遠くから撃つ
-  forest:{name:'ささやきの森',theme:'forest',w:6000,h:3200,lvl:2,rec:10,spawn:[150,1600],
-    mons:[['nushi',1]],pool:{n:99,list:[['kino',34,[300,2400]],['kero',26,[900,3600]],['hota',22,[2600,5100]],['kabu',18,[3700,5200]]]},
-    boss:{t:'nushi',x:5640,y:1600},arena:{x:5600,y:1600,r:340},
-    path:[[60,1600],[600,1460],[1200,1700],[1800,1500],[2400,1260],[3000,1460],[3600,1740],[4200,1560],[4800,1620],[5250,1600]],
-    paths:[[[1800,1500],[2150,950],[2750,640],[3350,720]],[[3000,1460],[3300,2250],[3950,2580],[4550,2420]]],   // わき道（北・南）
-    ponds:[[1000,2500,260,130],[2550,2450,200,100],[3950,950,300,140],[4750,2750,180,90],[700,700,170,85]],
-    signs:[{x:2550,y:1160,t:'この先 森のおく（強い敵）'},{x:5120,y:1500,t:'この先 ヌシのひろば'}],
-    portals:[{x:40,y:1600,to:'town',sx:1280,sy:560,label:'← 村へもどる'},{x:5100,y:1820,to:'town',sx:1280,sy:560,label:'← 村へもどる'}],
-    desc:'しずかで深い森。敵が自分から襲ってくる。東のひろばにヌシがいる。'},
-  cave:{name:'きらきら洞くつ',theme:'cave',w:1800,h:1200,lvl:3,rec:10,spawn:[130,600],mons:[['bat',6],['koiwa',4]],portals:[BACK_TOWN],desc:'水晶が光る洞くつ。'},
-  boss:{name:'岩の王の間',theme:'boss',w:1200,h:900,lvl:4,rec:15,spawn:[130,450],mons:[['golem',1],['koiwa',2]],boss:{t:'golem',x:744,y:450},portals:[{x:40,y:450,to:'town',sx:1280,sy:560,label:'← 村へもどる'}],desc:'ボス「イワオウ」のすみか。みんなで挑もう。'}
+    signs:[{x:2760,y:790,t:'この先 ボスのひろば'}],
+    portals:[{x:40,y:900,to:'town',sx:1280,sy:560,label:'← 村へもどる'},{x:2960,y:900,to:'fieldB',sx:130,sy:500,label:'ボスのひろば →'}],desc:'のんびりした広い草原。東のおくに「オオプニのひろば」がある。'},
+  fieldB:{grp:'field',name:'オオプニのひろば',theme:'grass',w:1400,h:1000,lvl:1,rec:8,spawn:[130,500],
+    mons:[['puniking',1]],boss:{t:'puniking',x:820,y:500},arena:{x:780,y:500,r:300},
+    path:[[60,500],[460,500]],
+    portals:[{x:40,y:500,to:'field',sx:2870,sy:900,label:'← 草原へ'},{x:130,y:840,to:'town',sx:1280,sy:560,label:'← 村へもどる'}]},
+  // 森は草原くらいの広さのエリア3つ＋ヌシのねどこ。いりぐち→こみち→おく→ねどこ と進むほど強い敵。敵はみんな自分から襲ってくる
+  // 村へもどれるのは いりぐち と ねどこ だけ（ダンジョンのように、行きも帰りも歩いて通る）
+  forest:{name:'ささやきの森・いりぐち',grpName:'ささやきの森',theme:'forest',w:3000,h:1800,lvl:2,rec:10,spawn:[150,900],
+    mons:[],pool:{n:33,list:[['kino',60,[250,2800]],['kero',40,[900,2800]]]},
+    path:[[60,900],[600,780],[1200,980],[1800,820],[2400,960],[2940,900]],
+    paths:[[[1800,820],[2100,450],[2600,380]]],
+    ponds:[[900,1400,220,110],[2300,1420,160,80],[600,420,150,75]],
+    signs:[{x:2760,y:790,t:'この先 森のこみち'}],
+    portals:[{x:40,y:900,to:'town',sx:1280,sy:560,label:'← 村へもどる'},{x:2960,y:900,to:'forest2',sx:130,sy:900,label:'森のこみち →'}],
+    desc:'しずかで深い森。敵が自分から襲ってくる。いりぐち→こみち→おく と進んで、ヌシのねどこをめざそう。'},
+  forest2:{grp:'forest',name:'ささやきの森・こみち',theme:'forest',w:3000,h:1800,lvl:2,rec:13,spawn:[130,900],
+    mons:[],pool:{n:33,list:[['kino',20,[250,1600]],['kero',40,[300,2800]],['hota',40,[1200,2800]]]},
+    path:[[60,900],[500,1050],[1100,850],[1700,1100],[2300,900],[2940,900]],
+    paths:[[[1700,1100],[1900,1450],[2500,1550]]],
+    ponds:[[1300,420,250,120],[700,1450,180,90],[2600,460,150,80]],
+    signs:[{x:2760,y:790,t:'この先 森のおく（強い敵）'}],
+    portals:[{x:40,y:900,to:'forest',sx:2870,sy:900,label:'← いりぐちへ'},{x:2960,y:900,to:'forest3',sx:130,sy:900,label:'森のおく →'}]},
+  forest3:{grp:'forest',name:'ささやきの森・おく',theme:'forest',w:3000,h:1800,lvl:2,rec:16,spawn:[130,900],
+    mons:[],pool:{n:33,list:[['kero',15,[250,1500]],['hota',40,[250,2800]],['kabu',45,[900,2800]]]},
+    path:[[60,900],[700,760],[1300,1000],[1900,780],[2500,950],[2940,900]],
+    paths:[[[1300,1000],[1500,500],[2100,350]],[[1900,780],[2100,1300],[2600,1450]]],
+    ponds:[[1000,1450,240,110],[2250,560,170,85],[400,420,150,75]],
+    signs:[{x:2760,y:790,t:'この先 ヌシのねどこ'}],
+    portals:[{x:40,y:900,to:'forest2',sx:2870,sy:900,label:'← こみちへ'},{x:2960,y:900,to:'forestB',sx:130,sy:550,label:'ヌシのねどこ →'}]},
+  forestB:{grp:'forest',name:'ヌシのねどこ',theme:'forest',w:1600,h:1100,lvl:2,rec:20,spawn:[130,550],
+    mons:[['nushi',1]],boss:{t:'nushi',x:1000,y:550},arena:{x:960,y:550,r:340},
+    path:[[60,550],[600,550]],
+    portals:[{x:40,y:550,to:'forest3',sx:2870,sy:900,label:'← 森のおくへ'},{x:150,y:900,to:'town',sx:1280,sy:560,label:'← 村へもどる'}]},
+  // きらきら洞くつ：森と同じく、草原くらいのエリア3つ＋イワオウの間。上と下のはしは岩のかべ。水晶と岩は壊せる
+  cave:{name:'きらきら洞くつ・いりぐち',grpName:'きらきら洞くつ',theme:'cave',w:3000,h:1800,lvl:3,rec:20,spawn:[150,900],
+    mons:[],pool:{n:33,list:[['bat',60,[250,2800]],['koiwa',40,[700,2800]]]},
+    path:[[60,900],[650,800],[1250,990],[1850,830],[2450,950],[2940,900]],
+    paths:[[[1250,990],[1500,1380],[2100,1450]]],
+    ponds:[[700,1400,170,80],[2300,450,150,70]],
+    signs:[{x:2760,y:790,t:'この先 水晶のみち'}],
+    portals:[{x:40,y:900,to:'town',sx:1280,sy:560,label:'← 村へもどる'},{x:2960,y:900,to:'cave2',sx:130,sy:900,label:'水晶のみち →'}],
+    desc:'水晶がぼんやり光る洞くつ。いりぐち→水晶のみち→地底湖 と進んで、イワオウの間をめざそう。水晶や岩は壊せる。'},
+  cave2:{grp:'cave',name:'きらきら洞くつ・水晶のみち',theme:'cave',w:3000,h:1800,lvl:3,rec:23,spawn:[130,900],
+    mons:[],pool:{n:33,list:[['bat',25,[250,2800]],['koiwa',35,[250,2000]],['crys',40,[1000,2800]]]},
+    path:[[60,900],[550,1050],[1150,820],[1750,1080],[2350,880],[2940,900]],
+    paths:[[[1150,820],[1350,420],[1950,360]],[[1750,1080],[1950,1480],[2600,1500]]],
+    ponds:[[1500,620,160,70],[600,1450,150,70]],
+    signs:[{x:2760,y:790,t:'この先 地底湖（強い敵）'}],
+    portals:[{x:40,y:900,to:'cave',sx:2870,sy:900,label:'← いりぐちへ'},{x:2960,y:900,to:'cave3',sx:130,sy:900,label:'地底湖 →'}]},
+  cave3:{grp:'cave',name:'きらきら洞くつ・地底湖',theme:'cave',w:3000,h:1800,lvl:3,rec:26,spawn:[130,900],
+    mons:[],pool:{n:33,list:[['koiwa',25,[250,2800]],['crys',30,[250,2800]],['mogu',45,[800,2800]]]},
+    path:[[60,900],[500,880],[900,1350],[1500,1480],[2100,1350],[2500,900],[2940,900]],
+    paths:[[[500,880],[800,420],[1500,330],[2200,420],[2500,900]]],
+    ponds:[[1500,880,520,250]],
+    signs:[{x:2760,y:790,t:'この先 イワオウの間'}],
+    portals:[{x:40,y:900,to:'cave2',sx:2870,sy:900,label:'← 水晶のみちへ'},{x:2960,y:900,to:'caveB',sx:130,sy:550,label:'イワオウの間 →'}]},
+  caveB:{grp:'cave',name:'イワオウの間',theme:'cave',w:1600,h:1100,lvl:3,rec:30,spawn:[130,550],
+    mons:[['golem',1]],boss:{t:'golem',x:1000,y:560},arena:{x:960,y:550,r:360},
+    path:[[60,550],[580,550]],
+    portals:[{x:40,y:550,to:'cave3',sx:2870,sy:900,label:'← 地底湖へ'},{x:150,y:900,to:'town',sx:1280,sy:560,label:'← 村へもどる'}]}
 };
-const FIELD_ORDER=['field','forest','cave','boss'];
-const OPEN_MAPS=['field','forest'];   // ぽかぽか草原とささやきの森
+const FIELD_ORDER=['field','forest','cave'];   // 村の「でかける」に出るのは、各マップの最初のエリアだけ
+const grpOf=id=>MAPS[id].grp||id;
+const grpAreas=id=>Object.keys(MAPS).filter(k=>grpOf(k)===grpOf(id));
+const OPEN_MAPS=['field','forest','cave'];   // ぽかぽか草原・ささやきの森・きらきら洞くつ
 const PATH_W=28;
 function segD(px,py,ax,ay,bx,by){const dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy;const t=l?clamp(((px-ax)*dx+(py-ay)*dy)/l,0,1):0;return Math.hypot(px-ax-dx*t,py-ay-dy*t)}
 // 道：path（本道）＋ paths（わき道のリスト）
@@ -416,10 +546,58 @@ function stash(id,n){let k=bagAdd(id,n);if(k<n)k+=storeAdd(id,n-k);return k}   /
 function haveAll(id){return(save.bag[id]||0)+(save.store[id]||0)}
 
 // =====================================================================
+// クエスト掲示板：村の人のおねがい（ゴールドの入り口）
+// たおして（kill）＝うけてから数える。ボス（boss）も同じ。ほしい（bring）＝素材をわたすだけ（うけなくてよい）
+// 掲示板にはいつも Q_BOARD 件。うけられるのは Q_ACT 件まで。ほうこく・わたすと、その場で新しいおねがいがはられる
+// おれい：たおして＝数×MON の qg。ほしい＝数×素材の売値×Q_BRING_K。数字はすべて仮
+// =====================================================================
+const Q_BOARD=5,Q_ACT=3,Q_BRING_K=2,Q_KINDS=['kill','boss','bring'];
+const Q_WHO=['パン屋のモモ','ひつじかいのトト','おばあちゃんのウメ','こどものチビ','木こりのゴロウ','薬屋のハッカ','学者のメガネ','花屋のスズ'];
+const Q_KILL_N={field:[10,20],forest:[8,15],cave:[12,22]};   // 洞くつの敵はみんなEXP60以上なので、6割になって 8〜14体くらい   // たおす数のはば（マップごと）
+const randInt=(a,b)=>Math.floor(rand(a,b+1));
+const r5=v=>Math.max(5,Math.round(v/5)*5);
+function qGold(q){return r5(q.k==='bring'?q.n*MATS[q.t].price*Q_BRING_K:q.n*MON[q.t].qg)}
+function qValid(k,t){return k==='bring'?!!MATS[t]:k==='boss'?!!(MON[t]&&MON[t].boss&&MON[t].qg):k==='kill'?!!(MON[t]&&!MON[t].boss&&MON[t].qg):false}
+function clampQuests(src){const o={list:[],seq:0};if(!src||typeof src!=='object')return o;o.seq=Math.max(0,Math.floor(Number(src.seq))||0);
+  if(Array.isArray(src.list))for(const a of src.list.slice(0,Q_BOARD)){if(!a||typeof a!=='object'||!qValid(a.k,a.t))continue;
+    const n=clamp(Math.floor(Number(a.n))||1,1,99),q={id:Math.floor(Number(a.id))||++o.seq,k:a.k,t:a.t,n,c:a.k==='bring'?0:clamp(Math.floor(Number(a.c))||0,0,n),on:a.k!=='bring'&&!!a.on,r:clamp(Math.floor(Number(a.r))||0,0,Q_WHO.length-1)};
+    q.g=qGold(q);o.list.push(q)}
+  while(o.list.filter(q=>q.on).length>Q_ACT)o.list.find(q=>q.on).on=false;return o}
+// 敵がどのマップ（どのエリア）に出るか
+function qMapOf(t){return FIELD_ORDER.find(g=>grpAreas(g).some(k=>monTypes(MAPS[k]).includes(t)))||null}
+function qWhere(q){const t=q.k==='bring'?MATS[q.t].from:q.t,g=qMapOf(t);if(!g)return'';const all=grpAreas(g),hit=all.filter(k=>monTypes(MAPS[k]).includes(t));
+  const nm=MAPS[g].grpName||MAPS[g].name,sub=hit.map(k=>MAPS[k].name.split('・').pop()).filter(x=>x!==nm);return hit.length<all.length&&sub.length?nm+'（'+sub.join('・')+'）':nm}
+function qTitle(q){if(q.k==='kill')return MON[q.t].name+'を '+q.n+'体たおして';if(q.k==='boss')return'ボス「'+MON[q.t].name+'」をたおして';return MATS[q.t].name+'を '+q.n+'こ ほしい'}
+// 全職業でいちばん高いレベルで行けるマップから選ぶ（いちばん奥のマップが出やすい）。転職しても高いおねがいが出る
+const topLv=()=>Math.max(...Object.values(save.jobs).map(J=>J.lv));
+function qMaps(){const lv=topLv();const ok=OPEN_MAPS.filter(id=>MAPS[id].rec<=lv+1);return ok.length?ok:[OPEN_MAPS[0]]}
+function qCands(g){const out=[],types=[...new Set(grpAreas(g).flatMap(k=>monTypes(MAPS[k])))];
+  for(const t of types){const T=MON[t];if(!T.qg)continue;
+    if(T.boss){out.push({k:'boss',t,w:2});if(T.drop)out.push({k:'bring',t:T.drop[0],w:1})}
+    else{out.push({k:'kill',t,w:6});if(T.drop){out.push({k:'bring',t:T.drop[0],w:3});out.push({k:'bring',t:T.drop[1],w:1})}}}
+  return out}
+function pickW(L){let r=Math.random()*L.reduce((a,e)=>a+e.w,0);for(const e of L){r-=e.w;if(r<0)return e}return L[L.length-1]}
+function newQuest(){
+  const maps=qMaps(),top=maps[maps.length-1],Q=save.q;
+  const g=pickW(maps.map(id=>({id,w:id===top?3:1}))).id;
+  const L=qCands(g).filter(c=>!Q.list.some(q=>q.k===c.k&&q.t===c.t));if(!L.length)return null;
+  const c=pickW(L);let n=1;
+  if(c.k==='kill'){const R=Q_KILL_N[g]||[8,15];n=randInt(R[0],R[1]);if(MON[c.t].xp>=60)n=Math.ceil(n*.6)}
+  else if(c.k==='bring'){const mt=MATS[c.t];n=MON[mt.from].boss?randInt(1,3):mt.rare?randInt(1,2):randInt(5,15)}
+  const q={id:++Q.seq,k:c.k,t:c.t,n,c:0,on:false,r:randInt(0,Q_WHO.length-1)};q.g=qGold(q);return q}
+function qFill(){const Q=save.q;for(let i=0;i<10&&Q.list.length<Q_BOARD;i++){const q=newQuest();if(!q)break;Q.list.push(q)}}
+const qDone=q=>q.k==='bring'?haveAll(q.t)>=q.n:q.c>=q.n;
+// 敵を倒したとき（reward から）。うけている「たおして」を数える
+function questKill(t){for(const q of save.q.list)if(q.on&&q.t===t&&q.k!=='bring'&&q.c<q.n){q.c++;if(q.c>=q.n){toast('クエストたっせい！ 村の掲示板でほうこくしよう','#9ff0b0');SND.se('rare')}}}
+function qReport(q){const Q=save.q;if(!Q.list.includes(q)||!qDone(q))return;
+  if(q.k==='bring')takeAny(q.t,q.n);gainGold(q.g);
+  Q.list=Q.list.filter(x=>x!==q);qFill();queueSave();SND.se('coin');toast(Q_WHO[q.r]+'「ありがとう！」 '+q.g+' G もらった','#ffe27a');renderModal()}
+
+// =====================================================================
 // セーブ（v3：職業ごとにレベル・経験値・ポイントを持つ）
 // =====================================================================
 function freshJob(){const pt={};for(const k of STATS)pt[k]=BASE_PT;return{lv:1,xp:0,pt,free:0}}
-function freshSave(){const jobs={};for(const j in JOBS)jobs[j]=freshJob();return{v:3,name:'',job:'fighter',attr:'fire',started:false,gold:50,jobs,bag:{},store:{},eq:{}}}
+function freshSave(){const jobs={};for(const j in JOBS)jobs[j]=freshJob();return{v:3,name:'',job:'fighter',attr:'fire',hair:HAIR,hc:HC,face:FACE,lookSet:false,started:false,gold:50,jobs,bag:{},store:{},eq:{},q:{list:[],seq:0}}}
 let save=freshSave();
 function JS(s){s=s||save;return s.jobs[s.job]}
 let saveTimer=null,saving=false,saveAgain=false;
@@ -429,7 +607,9 @@ function clampSave(s){
   if(typeof s.name==='string')o.name=cleanText(s.name,10);
   if(JOBS[s.job])o.job=s.job;o.started=!!s.started;
   o.attr=ELEM[s.attr]?s.attr:'none';   // 属性ができる前のセーブは「なし」（神殿で1回だけ無料で決められる）
-  const g=Number(s.gold);if(Number.isFinite(g)&&g>=0)o.gold=Math.min(Math.floor(g),9999999);
+  // 見た目：まだ決めていないセーブ（lookSet なし）は、タイトル画面で1回だけ選べる
+  if(HAIRS.some(h=>h[0]===s.hair))o.hair=s.hair;if(HCOLS.includes(s.hc))o.hc=s.hc;if(FACES.some(f=>f[0]===s.face))o.face=s.face;o.lookSet=!!s.lookSet;
+  const g=Number(s.gold);if(Number.isFinite(g)&&g>=0)o.gold=Math.min(Math.floor(g),GOLD_MAX);
   if(s.jobs&&typeof s.jobs==='object')for(const j in JOBS){const a=s.jobs[j];if(!a||typeof a!=='object')continue;const J=o.jobs[j];
     J.lv=clamp(Math.floor(Number(a.lv))||1,1,MAX_LV);J.xp=J.lv>=MAX_LV?0:Math.max(0,Math.floor(Number(a.xp))||0);let used=0;
     if(a.pt&&typeof a.pt==='object')for(const k of STATS){J.pt[k]=Math.max(BASE_PT,Math.floor(Number(a.pt[k]))||BASE_PT);used+=J.pt[k]-BASE_PT}
@@ -437,6 +617,7 @@ function clampSave(s){
   const box=(src,kinds,max)=>{const out={};if(src&&typeof src==='object')for(const k in src){const n=Math.floor(Number(src[k]))||0;if(defOf(k)&&n>0&&Object.keys(out).length<kinds)out[k]=Math.min(n,max)}return out};
   o.bag=box(s.bag,BAG_KINDS,BAG_MAX);o.store=box(s.store,STORE_KINDS,STORE_MAX);
   if(s.eq&&typeof s.eq==='object')for(const sl of SLOTS){const it=ITEMS[s.eq[sl]];if(it&&it.slot===sl)o.eq[sl]=it.id}
+  o.q=clampQuests(s.q);
   return o;
 }
 function progressOf(s){let p=s.started?1:0;for(const j in s.jobs){const J=s.jobs[j];p+=(J.lv-1)*1e6+J.xp}return p}
@@ -459,16 +640,18 @@ const MAX_LV=80;   // 1次職の最大レベル（2次職はLv80から予定）
 const isMax=J=>J.lv>=MAX_LV;
 function statsOf(s){s=s||save;const J=JOBS[s.job],P=JS(s).pt,o={lv:JS(s).lv};
   for(const k of STATS)o[k]=P[k]*((J.mul&&J.mul[k])||STAT_MUL[k]);
-  for(const sl of SLOTS){const it=ITEMS[s.eq[sl]];if(it&&canWear(it,s))for(const k of STATS)o[k]+=it[k]}
-  // いりょく（アーチャー・シーフは、はじめの5ポイントより上の分だけ×3で足す）
-  o.pow=J.pw==='atk'||J.pw==='mat'?o[J.pw]:o.atk+Math.max(0,o[J.pw]-BASE_PT*STAT_MUL[J.pw])*PW_K;
+  o.spr=0;o.cdr=0;   // 装備の「SPかいふく（毎秒）」と「まち時間（−の割合）」
+  for(const sl of SLOTS){const it=ITEMS[s.eq[sl]];if(it&&canWear(it,s)){for(const k of STATS)o[k]+=it[k];o.spr+=it.spr;o.cdr+=it.cdr}}
+  o.cdr=Math.min(CDR_MAX,Math.round(o.cdr*1000)/1000);o.spr=Math.round(o.spr*100)/100;
+  // いりょく＝こうげき（メイジはまほう）。アーチャー・シーフのスキルは skPow で上乗せ
+  o.pow=o[J.pw];o.skb=J.skB?Math.min(o[J.skB]*SKB_K,o.pow):0;
   o.crit=Math.min(.5,o.luk*(J.critK||.005));o.spdCap=J.spdCap||.5;o.slv=skLvOf(o.lv);
   o.mhp=J.hpM*(10+P.def);o.msp=SP_BASE+o.lv*SP_PER_LV+P.mat*SP_PER_MAT;return o}
 const skillsOf=job=>JOBS[job].sk.map(id=>Object.assign({id},SK[id]));
 const spdMul=st=>1+Math.min(st.spdCap,st.spd*.01);
 const critRate=st=>st.crit;
 const rareRate=st=>RARE_RATE+Math.min(.1,st.luk*.0005);
-function lookOf(s){return{job:s.job,hair:HAIR,hc:HC,eq:Object.assign({},s.eq)}}
+function lookOf(s){return{job:s.job,hair:s.hair||HAIR,hc:s.hc||HC,face:s.face||FACE,eq:Object.assign({},s.eq)}}
 
 // =====================================================================
 // ドット絵エンジン（部品を色替えして組み合わせる）
@@ -496,7 +679,7 @@ const SPR=new Map();
 function cached(key,make){let c=SPR.get(key);if(c)return c;if(SPR.size>900)SPR.clear();c=make();SPR.set(key,c);return c}
 
 // ---- キャラクター ----
-function lookKey(a){return a.job+'|'+a.hair+'|'+a.hc+'|'+SLOTS.map(s=>(a.eq&&a.eq[s])||'').join(',')}
+function lookKey(a){return a.job+'|'+a.hair+'|'+a.hc+'|'+(a.face||FACE)+'|'+SLOTS.map(s=>(a.eq&&a.eq[s])||'').join(',')}
 function charSprite(a,frame){return cached('c|'+lookKey(a)+'|'+frame,()=>paintChar(a,frame).outline(OUTC).canvas())}
 function paintChar(a,frame){
   const B=new Buf(40,46,18,43);
@@ -516,13 +699,25 @@ function paintChar(a,frame){
   if(shield)shieldPx(B,shield,-6,Y(-8));
   B.e(0,Y(-18),6.5,6.2,(x,y)=>x<=-5||y>=Y(-13)?SKIN2:SKIN);
   if(dead){for(const ex of[2,5]){B.p(ex-1,Y(-20),EYE);B.p(ex+1,Y(-20),EYE);B.p(ex,Y(-19),EYE);B.p(ex-1,Y(-18),EYE);B.p(ex+1,Y(-18),EYE)}}
-  else{for(const ex of[2,5]){B.p(ex,Y(-19),EYE);B.p(ex,Y(-18),EYE)}B.p(1,Y(-16),BLUSH);B.p(6,Y(-16),BLUSH);B.p(4,Y(-15),'#c96a66')}
+  else facePx(B,a.face||FACE,Y);
   hairFrontPx(B,a.hair,a.hc,bob);
   if(hat)hatPx(B,hat,bob);
   B.r(4,Y(-10),1,2,SKIN);
   if(wpn)weaponPx(B,wpn,frame,5,Y(-8));
   B.p(5,Y(-8),SKIN);B.p(4,Y(-8),SKIN);
   return B;
+}
+// 表情：目はx=2と5のあたり、口は(4,-15)のあたり
+function facePx(B,f,Y){
+  const MO='#c96a66';const blush=()=>{B.p(1,Y(-16),BLUSH);B.p(6,Y(-16),BLUSH)};
+  switch(f){
+    case'smile':for(const ex of[2,5]){B.p(ex-1,Y(-18),EYE);B.p(ex,Y(-19),EYE);B.p(ex+1,Y(-18),EYE)}blush();B.p(3,Y(-15),MO);B.p(4,Y(-14),MO);B.p(5,Y(-15),MO);break;
+    case'kira':for(const ex of[1,4]){B.p(ex,Y(-20),EYE);B.p(ex+1,Y(-20),EYE);B.p(ex,Y(-19),'#ffffff');B.p(ex+1,Y(-19),EYE);B.p(ex,Y(-18),EYE);B.p(ex+1,Y(-18),EYE)}blush();B.p(4,Y(-15),MO);break;
+    case'tsuri':for(const ex of[2,5]){B.p(ex,Y(-19),EYE);B.p(ex,Y(-18),EYE)}B.p(1,Y(-19),EYE);B.p(6,Y(-19),EYE);B.p(3,Y(-15),MO);B.p(4,Y(-15),MO);break;
+    case'sleepy':for(const ex of[2,5]){B.p(ex,Y(-18),EYE);B.p(ex+1,Y(-18),EYE)}blush();B.p(4,Y(-15),MO);break;
+    case'cat':for(const ex of[2,5]){B.p(ex,Y(-19),EYE);B.p(ex,Y(-18),EYE)}blush();B.p(2,Y(-14),MO);B.p(3,Y(-15),MO);B.p(4,Y(-14),MO);break;
+    default:for(const ex of[2,5]){B.p(ex,Y(-19),EYE);B.p(ex,Y(-18),EYE)}blush();B.p(4,Y(-15),MO);
+  }
 }
 function hairBackPx(B,st,hc,bob){
   const hs=sh(hc,-.28),Y=v=>v+bob;
@@ -554,7 +749,7 @@ function bodyPx(B,it,bob){
     case'sailor':torso('#fafafa','#d6d8e2');B.r(-3,Y(-11),4,2,c);B.r(-4,Y(-11),1,3,c);B.p(2,Y(-10),'#e63946');B.p(3,Y(-10),'#e63946');B.p(2,Y(-9),'#e63946');B.r(-3,Y(-6),7,2,c);break;
     case'overall':torso('#f4f0e6','#d8d0c0');B.r(-2,Y(-9),5,5,(x)=>x===-2?cs:c);for(const x of[-2,2]){B.p(x,Y(-11),c);B.p(x,Y(-10),c)}B.p(-1,Y(-8),'#ffd23f');B.p(1,Y(-8),'#ffd23f');break;
     case'hoodie':torso(c,cs);B.r(-6,Y(-13),3,3,cs);B.r(-1,Y(-7),4,2,cs);B.p(1,Y(-10),'#ffffff');B.p(2,Y(-10),'#ffffff');break;
-    case'armor':{const m='#c9d1d9',ms='#8d98a3',ml='#f0f4f7';torso(m,ms);B.r(-5,Y(-12),3,2,ml);B.r(3,Y(-12),3,2,ml);B.p(0,Y(-9),'#4a6fa5');B.p(1,Y(-9),'#4a6fa5');B.p(0,Y(-8),'#4a6fa5');B.r(-3,Y(-6),7,1,'#e0b84a');B.p(-1,Y(-10),ml);break}
+    case'armor':{const m=it?c:'#c9d1d9',ms=it?sh(c,-.3):'#8d98a3',ml=it?sh(c,.45):'#f0f4f7';torso(m,ms);B.r(-5,Y(-12),3,2,ml);B.r(3,Y(-12),3,2,ml);B.p(0,Y(-9),'#4a6fa5');B.p(1,Y(-9),'#4a6fa5');B.p(0,Y(-8),'#4a6fa5');B.r(-3,Y(-6),7,1,'#e0b84a');B.p(-1,Y(-10),ml);break}
     case'frogsuit':torso(c,cs);B.e(1,Y(-8),2.2,2.5,'#e9f7d6');break;
     case'thief':torso(c,cs);B.r(-4,Y(-12),9,2,(x)=>x<=-2?'#c0303a':'#e63946');B.p(-5,Y(-10),'#c0303a');B.r(-3,Y(-7),7,1,'#3a2a22');B.p(2,Y(-7),'#c9a24a');break;
     case'mokofuku':{const fl=sh(c,-.1),fs=sh(c,-.22);torso(c,fs);for(let y=-10;y<=-6;y++)for(let x=-2;x<=3;x++)if(((x*3+y)&3)===0)B.p(x,Y(y),fl);
@@ -597,6 +792,7 @@ function hatPx(B,it,bob){
     case'frog':B.e(0,Y(-18),7.4,7,(x)=>x<-4?cs:c,(x,y)=>y<=Y(-20)||x<=-4);for(const ex of[-3,3]){B.e(ex,Y(-26),2.3,2.3,c);B.p(ex,Y(-26),'#ffffff');B.p(ex+1,Y(-26),'#222222')}B.p(-6,Y(-14),'#ff9fb0');break;
     case'pumpkin':B.e(0,Y(-24),7.5,4.6,(x)=>(x===-3||x===0||x===3)?cs:c);B.p(0,Y(-29),'#4a8a3a');B.p(1,Y(-30),'#4a8a3a');B.p(2,Y(-30),'#5aa85a');B.p(-2,Y(-24),'#3a2010');B.p(2,Y(-24),'#3a2010');B.p(-1,Y(-26),cl);break;
     case'halo':for(let x=-4;x<=4;x++){B.p(x,Y(-31),c);B.p(x,Y(-29),cs)}B.p(-5,Y(-30),c);B.p(5,Y(-30),c);break;
+    case'circlet':{B.r(-6,Y(-21),13,1,(x)=>x<-3?cs:c);B.p(-6,Y(-20),cs);B.p(6,Y(-20),c);B.p(1,Y(-23),c);B.p(0,Y(-22),c);B.p(1,Y(-22),'#ffffff');B.p(2,Y(-22),c);break}
     case'crown':B.r(-5,Y(-26),11,3,c);for(const x of[-5,0,5]){B.p(x,Y(-27),c);B.p(x,Y(-28),c)}B.p(-3,Y(-27),c);B.p(3,Y(-27),c);B.p(0,Y(-25),'#e63946');B.p(-3,Y(-25),'#3a86ff');B.p(3,Y(-25),'#3a86ff');B.r(-5,Y(-24),11,1,cs);B.p(-4,Y(-26),cl);break;
   }
 }
@@ -639,7 +835,7 @@ function weaponPx(B,it,frame,hx,hy){
 function weaponIcon(it){return cached('wi|'+it.id,()=>{const B=new Buf(22,22,7,15);weaponPx(B,it,'icon',0,0);return B.outline(OUTC).canvas()})}
 
 // ---- モンスター ----
-const MSPR={puni:[28,24,14,22],mofu:[28,30,14,28],kino:[26,28,13,26],bat:[40,40,20,38],koiwa:[32,30,16,28],golem:[84,100,42,96],pyoko:[28,28,14,26],puniking:[64,58,32,56],kero:[30,26,15,24],hota:[30,42,15,40],kabu:[38,36,19,34],nushi:[78,72,39,68]};
+const MSPR={puni:[28,24,14,22],mofu:[28,30,14,28],kino:[26,28,13,26],bat:[40,40,20,38],koiwa:[32,30,16,28],golem:[84,100,42,96],crys:[28,30,14,28],mogu:[30,26,15,24],pyoko:[28,28,14,26],puniking:[64,58,32,56],kero:[30,26,15,24],hota:[30,42,15,40],kabu:[38,36,19,34],nushi:[78,72,39,68]};
 function monSprite(t,frame,flash){return cached('m|'+t+'|'+frame+'|'+(flash?1:0),()=>{const[w,h,ox,oy]=MSPR[t];const B=new Buf(w,h,ox,oy);paintMon(B,t,frame);B.outline(OUTC);return B.canvas(flash)})}
 function eyesPx(B,x,y,col){B.p(x,y,col||EYE);B.p(x,y+1,col||EYE);B.p(x+3,y,col||EYE);B.p(x+3,y+1,col||EYE)}
 function paintMon(B,t,f){
@@ -662,7 +858,7 @@ function paintMon(B,t,f){
     B.r(-30,-44+s,10,26,(x)=>x<=-28?gs:g);B.r(20,-44+s,10,26,(x)=>x>=28?gs:g);B.r(-31,-20+s,12,6,gs);B.r(19,-20+s,12,6,gs);
     const ec=st?'#ff4a2a':'#ffb03a';B.r(-7,-55,4,3,ec);B.r(4,-55,4,3,ec);
     B.r(-10,-64,20,2,'#6fbf5a');B.p(-6,-65,'#6fbf5a');B.p(5,-65,'#5aa85a');
-    for(const x of[-9,-3,3,9]){B.p(x,-66,'#ffd23f');B.p(x,-67,'#ffd23f')}B.r(-10,-65,21,1,'#ffd23f');
+    for(const[x,h]of[[-9,3],[-3,5],[3,4],[9,3]]){B.r(x,-65-h,2,h,'#9ff0ff');B.p(x,-65-h,'#e8ffff')}B.r(-10,-65,21,1,'#5ac8e8');   // 頭の水晶
     for(const[x,y]of[[-8,-30],[-7,-29],[-6,-28],[10,-24],[11,-23]])B.p(x,y,'#5f5b55')}
   else if(t==='pyoko'){const hop=[0,-1,-2,-1][f],Y=v=>v+hop;
     B.r(-3,-2,2,2,'#e08a2a');B.r(1,-2,2,2,'#e08a2a');
@@ -694,6 +890,16 @@ function paintMon(B,t,f){
     B.r(-9,-15+s,6,2,'#6fbf5a');B.p(-8,-13+s,'#5aa85a');B.p(5,-15+s,'#6fbf5a');
     B.p(3,-21+s,'#4a8a3a');B.p(3,-22+s,'#4a8a3a');B.e(5,-23+s,1.8,1,'#6cc07a');B.e(1,-23+s,1.8,1,'#6cc07a');
     eyesPx(B,-1,-11+s);B.r(-2,-13+s,2,1,EYE);B.r(2,-13+s,2,1,EYE);B.p(-4,-8+s,'#d88a7a');B.p(5,-8+s,'#d88a7a')}
+  else if(t==='crys'){const s=[0,-1,-2,-1][f],C='#9ff0ff',CS='#5ac8e8',CL='#e8ffff';
+    B.e(0,-5,8,4,(x,y)=>y>=-4?'#3a6ea0':'#5a8fc0',(x,y)=>y<=-2);
+    for(const[dx,h,w]of[[-5,9,2],[0,15,3],[5,10,2]]){for(let i=0;i<h;i++){const ww=Math.max(0,Math.round(w*Math.min(1,(h-i)/(w*1.6))));B.r(dx-ww,-6+s-i,ww*2+1,1,(x)=>x<dx?CS:(x===dx+1&&i<h-3?CL:C))}}
+    B.p(-1,-12+s,EYE);B.p(-1,-11+s,EYE);B.p(2,-12+s,EYE);B.p(2,-11+s,EYE);B.p(0,-9+s,'#3a6ea0')}
+  else if(t==='mogu'){const hop=[0,-1,0,1][f],Y=v=>v+hop,c='#8a6244',cs='#6e4a30';
+    B.r(-7,-2,4,2,cs);B.r(3,-2,4,2,cs);
+    B.e(0,Y(-9),10,8.5,(x,y)=>x<=-6||y>=Y(-4)?cs:c);B.e(3,Y(-6),5,3.6,'#e8d2b0');
+    B.p(-1,Y(-18),cs);B.p(0,Y(-19),cs);B.p(1,Y(-18),cs);
+    B.p(4,Y(-12),EYE);B.p(7,Y(-12),EYE);B.e(10,Y(-9),1.8,1.5,'#ff8fa0');B.p(10,Y(-10),'#ffd0d8');
+    for(const[x,y]of[[8,-4],[9,-4],[10,-5],[11,-4],[11,-3]])B.p(x,Y(y),'#f3e2c4')}
   else if(t==='nushi'){const ch=f>=4,s=f%2,c='#5a6fa8',cs='#44558a',belly='#d8e2f4';const by=-28+(ch?(s?2:1):(s?-1:0)),wy=ch?-6:0;
     B.r(-9,-3,6,3,'#e0a020');B.r(4,-3,6,3,'#e0a020');
     B.e(-22,by+4+wy,8,16,(x)=>x<=-26?cs:c);B.e(22,by+4+wy,8,16,(x)=>x>=26?cs:c);
@@ -728,6 +934,7 @@ function paintMat(B,shape,c){
     case'wood':B.r(-7,-8,14,7,(x,y)=>y>=-2?cs:c);B.e(6,-4.5,2,3.4,'#e0c08a');B.p(6,-5,cs);B.r(-7,-9,7,2,'#6fbf5a');B.p(-2,-9,'#5aa85a');B.r(-4,-5,5,1,cs);break;
     case'ring':B.e(0,-6,6.5,6,(x,y)=>{const d=Math.round(Math.hypot(x,y+6));return d>=6?cs:(d%2?'#e0c08a':c)});B.p(-2,-9,'#fff0d0');break;
     case'orb':B.e(0,-6,5.5,5.5,(x,y)=>x>=2&&y>=-4?cs:c);B.p(-2,-9,'#ffffff');B.p(-3,-8,'#ffffff');B.p(-2,-8,cl);B.p(3,-3,cl);break;
+    case'claw':for(const dx of[-4,0,4]){B.l(dx-1,-1,dx+1,-9,c);B.p(dx+2,-10,c);B.p(dx-1,-1,cs);B.p(dx+1,-8,cl)}break;
     case'crystal':for(const[dx,h,w]of[[-3,8,2],[2,12,3]]){for(let i=0;i<h;i++){const ww=Math.max(0,Math.round(w*Math.min(1,(h-i)/(w*1.6))));B.r(dx-ww,-1-i,ww*2+1,1,(x)=>x<dx?cs:(x===dx+1&&i<h-3?cl:c))}}break;
   }
 }
@@ -761,6 +968,10 @@ function paintProp(k,theme,v,fr,c){
     case'bush':{B=new Buf(34,26,17,24);const g=['#3f9a4a','#55b05c','#7fd07e'];B.e(-6,-7,7,6,g[0]);B.e(6,-7,7,6,g[0]);B.e(0,-11,8,6.5,g[1]);B.e(-2,-13,3,2,g[2]);B.e(5,-9,2,1.5,g[2]);
       if(v>.6)for(const[x,y]of[[-7,-8],[4,-12],[8,-6]])B.p(x,y,'#ff9fc0');break}
     case'sign':{B=new Buf(22,28,11,26);B.r(-1,-12,3,12,'#8a6244');B.r(-9,-22,19,10,(x,y)=>y===-13||x===-9?'#a07850':'#c99a6a');B.r(-6,-19,10,1,'#7a5236');B.r(-6,-16,7,1,'#7a5236');break}
+    case'board':{B=new Buf(52,48,26,46);const w='#b5835a',ws='#8a6244';B.r(-19,-30,3,30,ws);B.r(16,-30,3,30,ws);
+      B.r(-22,-36,44,4,(x,y)=>y===-33?'#a85a3a':'#d9734f');B.r(-20,-32,40,22,(x,y)=>x===-20||y===-11?ws:w);
+      for(const[x,y,ww,hh,cc]of[[-17,-30,9,8,'#fffaf0'],[-6,-29,8,9,'#ffe8a0'],[4,-30,10,7,'#ffffff'],[-15,-20,8,7,'#ffd6e0'],[-4,-18,9,6,'#fffaf0'],[7,-21,9,8,'#d8f0ff']]){B.r(x,y,ww,hh,cc);B.r(x+1,y+2,ww-3,1,'#b8a890');if(hh>6)B.r(x+1,y+4,ww-4,1,'#b8a890');B.p(x+Math.floor(ww/2),y,'#e63946')}break}
+    case'stal':{B=new Buf(28,46,14,44);const h=Math.round(24+v*14),cc='#6e6488',cs='#544b69',cl='#8f86ab';for(let i=0;i<h;i++){const w=Math.max(0,Math.round(9*(1-i/h)));B.r(-w,-1-i,w*2+1,1,(x)=>x<-w/3?cs:(x===Math.round(w/3)&&i<h-4?cl:cc))}B.p(-1,-h+4,cl);break}
     case'lamp':{B=new Buf(12,40,6,38);B.r(-1,-28,2,28,'#4a4a5a');B.r(-3,-34,6,6,'#ffe8a0');B.r(-3,-35,6,1,'#4a4a5a');B.p(-1,-32,'#fffbe0');break}
   }
   return B;
@@ -781,14 +992,15 @@ function groundCanvas(id){
     for(let py=0;py<gh;py++)for(let px=0;px<gw;px++){const dx=(px-cx)/125,dy=(py-cy)/85;if(dx*dx+dy*dy<1||(px>=350&&py>=260&&py<305)||(px>=310&&px<390&&(py<280||py>300)))stone(px,py)}}
   // ひろば→道→池の順に上から塗る。広いマップでも速いように、それぞれのまわりの四角だけ調べる
   {const A=M.arena,fo=M.theme==='forest';
-    const AC=fo?['#8cc47a','#78b468','#80bc70']:['#bfe69a','#a6dc80','#b0e18b'],PC=fo?['#a88a58','#bfa070','#cbb080']:['#bfa26a','#cdb27a','#dcc48e'];
+    const cv_=M.theme==='cave';
+    const AC=cv_?['#6a6088','#5e5478','#665c82']:fo?['#8cc47a','#78b468','#80bc70']:['#bfe69a','#a6dc80','#b0e18b'],PC=cv_?['#3e3650','#6e6488','#7a7094']:fo?['#a88a58','#bfa070','#cbb080']:['#bfa26a','#cdb27a','#dcc48e'];
     const box=(x0,y0,x1,y1,fn)=>{const a=Math.max(0,Math.floor(x0/PX)),b=Math.min(gw-1,Math.ceil(x1/PX)),c0=Math.max(0,Math.floor(y0/PX)),d=Math.min(gh-1,Math.ceil(y1/PX));for(let py=c0;py<=d;py++)for(let px=a;px<=b;px++)fn(px,py,px*PX,py*PX)};
     if(A)box(A.x-A.r,A.y-A.r,A.x+A.r,A.y+A.r,(px,py,wx,wy)=>{const d=dist(wx,wy,A.x,A.y);if(d<A.r)set(px,py,R()<.08?AC[0]:(d>A.r-60?AC[1]:AC[2]))});
     // 道：先にふちを全部塗ってから中を塗る（つなぎ目にふちの線が出ないように）
     for(const pass of[0,1])for(const P of pathsOf(M))for(let i=0;i<P.length-1;i++){const[ax,ay]=P[i],[bx,by]=P[i+1];
       box(Math.min(ax,bx)-PATH_W,Math.min(ay,by)-PATH_W,Math.max(ax,bx)+PATH_W,Math.max(ay,by)+PATH_W,(px,py,wx,wy)=>{const pd=segD(wx,wy,ax,ay,bx,by);
         if(!pass){if(pd<PATH_W)set(px,py,PC[0])}else if(pd<=PATH_W-5)set(px,py,R()<.12?PC[1]:PC[2])})}
-    for(const[cx,cy,rx,ry]of M.ponds||[])box(cx-rx*1.2,cy-ry*1.2,cx+rx*1.2,cy+ry*1.2,(px,py,wx,wy)=>{const e=pondE(M,wx,wy);if(e<1.32)set(px,py,e>=1?(R()<.3?'#d8c890':'#e6d6a0'):e>.78?'#4f9fd6':(R()<.015?'#bfeaff':'#69bdea'))})}
+    for(const[cx,cy,rx,ry]of M.ponds||[])box(cx-rx*1.2,cy-ry*1.2,cx+rx*1.2,cy+ry*1.2,(px,py,wx,wy)=>{const e=pondE(M,wx,wy);if(e<1.32)set(px,py,cv_?(e>=1?(R()<.3?'#3a3350':'#433b5c'):e>.78?'#22406a':(R()<.02?'#8fd0ff':'#2d5a8a')):e>=1?(R()<.3?'#d8c890':'#e6d6a0'):e>.78?'#4f9fd6':(R()<.015?'#bfeaff':'#69bdea'))})}
   if(M.theme==='boss')for(let py=0;py<gh;py++)for(let px=0;px<gw;px++){const dx=(px-M.w/4)/180,dy=(py-M.h/4)/125;if(dx*dx+dy*dy<1&&R()<.5)set(px,py,'#6b4844')}
   for(let px=0;px<gw;px++)for(let py=0;py<20;py++)set(px,py,sh(th[0],-.25+py*.01));
   for(const d of gen.deco){const px=Math.round(d.x/PX),py=Math.round(d.y/PX);
@@ -798,6 +1010,7 @@ function groundCanvas(id){
       case'fern':{const g='#3f8a3f';for(let i=0;i<3;i++){set(px-i,py-i,g);set(px+i,py-i,g)}set(px,py-1,g);break}
       case'stone':set(px,py,'#3a3348');set(px+1,py,'#433b52');break;
       case'puddle':for(let i=-7;i<=7;i++)for(let j=-3;j<=3;j++)if(i*i/49+j*j/9<1)set(px+i,py+j,j<0?'#6a7ea8':'#5d6f98');break;
+      case'shine':set(px,py,'#9ff0ff');set(px+1,py-1,'#e8ffff');set(px-1,py+1,'#5ac8e8');break;
       case'crack':{let cx=px,cy=py;for(let i=0;i<9;i++){set(cx,cy,i%3===1?'#ff9a4a':'#e0602a');cx++;cy+=(i%3===0)?1:(i%3===1?-1:0)}break}
     }}
   if(M.theme==='town')for(const[bx,by]of[[300,560],[1100,560]]){const px=bx/PX,py=by/PX;for(let i=-22;i<=22;i++)for(let j=-7;j<=7;j++)if(i*i/484+j*j/49<1)set(px+i,py+j,'#8a6244');
@@ -805,20 +1018,46 @@ function groundCanvas(id){
   x.putImageData(im,0,0);return GROUND[id]=c;
 }
 
+// =====================================================================
+// 壊せる木・岩：こうげきで壊すと、BRK_DROP の確率で、そのエリアの敵の「ふつう素材」が出る
+// 壊れた物は BRK_RESPAWN 秒でもどる。同じマップのエリアどうしなら状態が残り、村にもどると全部もとどおり
+// =====================================================================
+const BRK_HITS={rock:4,tree:3,pine:3,bush:2,bigshroom:2,crystal:3};   // 壊すのに必要な回数（職業に関係なし）
+const BRK_DROP=.35,BRK_RESPAWN=[90,150];
+function brkGone(mp,p){const B=G&&G.brk&&G.brk[mp];return!!(B&&B[p.i]!=null)}
+function brkReset(){if(G.brk)for(const mp in G.brk)for(const i in G.brk[mp]){const p=GEN[mp]&&GEN[mp].props[i];if(p&&p.ob)p.ob.off=false;if(p)p.hits=0}G.brk={}}
+// タップした所にある壊せる物
+function brkAt(x,y){const gen=GEN[G.map];if(!gen)return null;let best=null,bd=1e9;
+  for(const p of gen.props){if(!p.br||brkGone(G.map,p))continue;const h=p.k==='tree'||p.k==='pine'?34:p.k==='bigshroom'||p.k==='crystal'?22:12;const d=Math.hypot(x-p.x,(y-(p.y-h))*.8);if(d<(p.k==='rock'||p.k==='bush'?26:34)&&d<bd){bd=d;best=p}}return best}
+// そのエリアに出る敵（ボスはのぞく）の割合で、ふつう素材を1つえらぶ
+function brkMat(M){const L=[];for(const[t,n]of M.mons)if(!MON[t].boss)L.push([t,n]);if(M.pool)for(const e of M.pool.list)if(!MON[e[0]].boss)L.push([e[0],e[1]]);
+  if(!L.length)return null;let r=Math.random()*L.reduce((a,e)=>a+e[1],0);for(const e of L){r-=e[1];if(r<0)return MON[e[0]].drop&&MON[e[0]].drop[0]}return MON[L[0][0]].drop&&MON[L[0][0]].drop[0]}
+function brkHit(p){if(!G||brkGone(G.map,p))return;p.hits=(p.hits||0)+1;p.shk=G.t+.25;SND.se('hit');
+  for(let i=0;i<3;i++)G.fx.push({k:'chip',x:p.x+rand(-10,10),y:p.y-rand(8,30),vx:rand(-40,40),vy:rand(-60,-20),life:.4,c:p.k==='crystal'?'#9ff0ff':p.k==='rock'?(MAPS[G.map].theme==='cave'?'#8a80a6':'#a8a49c'):p.k==='bush'?'#55b05c':p.k==='bigshroom'?'#e0533f':'#8a6244'});
+  if(p.hits<BRK_HITS[p.k])return;
+  p.hits=0;(G.brk[G.map]=G.brk[G.map]||{})[p.i]=G.t+rand(BRK_RESPAWN[0],BRK_RESPAWN[1]);if(p.ob)p.ob.off=true;
+  G.fx.push({k:'poof',x:p.x,y:p.y-16,life:.45});SND.se('kill');if(G.me.obj===p){G.me.obj=null;G.me.tx=G.me.x;G.me.ty=G.me.y}
+  if(Math.random()<BRK_DROP){const id=brkMat(MAPS[G.map]);if(MATS[id])dropItem(id,p.x,p.y,false)}}
+// もどる時間になったら元どおり（上に人が立っていたら少し待つ）
+function updateBrk(){if(!G.brk)return;for(const mp in G.brk){const B=G.brk[mp];for(const i in B){if(G.t<B[i])continue;const p=GEN[mp].props[i];
+  if(mp===G.map&&dist(G.me.x,G.me.y,p.x,p.y)<(p.ob?p.ob.r:14)+20){B[i]=G.t+3;continue}delete B[i];if(p.ob)p.ob.off=false}}}
+
 const GEN={};
 function genMap(id){
   if(GEN[id])return GEN[id];
   const M=MAPS[id],R=mulberry(hashStr(id+'v2'));const props=[],deco=[],obs=[];
   const keep=[...M.portals.map(p=>[p.x,p.y,120]),[M.spawn[0],M.spawn[1],110],...(M.npcs||[]).map(n=>[n.x,n.y,110])];
   const free=(x,y,r)=>keep.every(([kx,ky,kr])=>dist(x,y,kx,ky)>kr+r)&&props.every(p=>dist(x,y,p.x,p.y)>(p.rad||30)+r)&&!blockedAt(M,x,y,r);
-  const add=(k,x,y,rad,ob,ex)=>{const p=Object.assign({k,x,y,rad,s:.85+R()*.35,v:R()},ex||{});props.push(p);if(ob)obs.push(Object.assign({},ob))};
-  const scatter=(k,n,rad,obR,minY)=>{let tries=0;while(n>0&&tries++<n*40){const x=40+R()*(M.w-80),y=(minY||90)+R()*(M.h-(minY||90)-30);if(free(x,y,rad)){add(k,x,y,rad,obR?{c:1,x,y,r:obR}:null);n--}}};
+  const add=(k,x,y,rad,ob,ex)=>{const p=Object.assign({k,x,y,rad,s:.85+R()*.35,v:R()},ex||{});props.push(p);if(ob){const o=Object.assign({},ob);obs.push(o);p.ob=o}};
+  // br＝こうげきで壊せる（草原・森のなかの木・岩・草むら・キノコ。森のかべ・ひろばのしげみ・村の物は壊せない）
+  const BR_THEME=M.theme==='grass'||M.theme==='forest'||M.theme==='cave';
+  const scatter=(k,n,rad,obR,minY)=>{let tries=0;while(n>0&&tries++<n*40){const x=40+R()*(M.w-80),y=(minY||90)+R()*(M.h-(minY||90)-30);if(free(x,y,rad)){add(k,x,y,rad,obR?{c:1,x,y,r:obR}:null,BR_THEME&&BRK_HITS[k]?{br:1}:null);n--}}};
   const dec=(k,n,cols)=>{for(let i=0;i<n;i++){const x=R()*M.w,y=60+R()*(M.h-60);if(pondE(M,x,y,6)<1.3||pathD(M,x,y)<PATH_W+4)continue;deco.push({k,x,y,c:cols?cols[Math.floor(R()*cols.length)]:null,v:R()})}};
   const th=M.theme;
   if(th==='town'){
     for(const[x,y,c]of[[260,260,'#d9534f'],[1120,250,'#4a7ab8'],[260,880,'#5a9a5a'],[1120,880,'#9b6ae0']]){add('house',x,y,90,{c:0,x:x-66,y:y-48,w:132,h:48},{c});keep.push([x,y,40])}
     add('fountain',700,560,70,{c:1,x:700,y:560,r:58});
-    for(const n of M.npcs)add('stall',n.x,n.y-34,10,null,{c:n.stall});
+    for(const n of M.npcs)add(n.board?'board':'stall',n.x,n.y-34,10,null,{c:n.stall});
     for(const[x,y]of[[470,640],[930,640],[470,480],[930,480]])add('lamp',x,y,12,{c:1,x,y,r:7});
     for(let x=30;x<M.w;x+=80){if(Math.abs(x-700)>60){add('tree',x,70+R()*10,30,{c:1,x,y:75,r:14});add('tree',x+20,M.h-16,30,null)}}
     for(let y=140;y<M.h-60;y+=90){if(Math.abs(y-560)>90)add('tree',30,y,30,{c:1,x:30,y,r:14})}
@@ -834,24 +1073,29 @@ function genMap(id){
     addFeatures(M,add,keep,obs);
     // 上と下のはしは木がびっしり（森のかべ）。中はところどころ木立
     for(let x=30;x<M.w;x+=46+R()*20){add('pine',x,70+R()*30,30,{c:1,x,y:80,r:14});if(R()<.7)add('pine',x+18,150+R()*50,30,{c:1,x:x+18,y:170,r:14});add('pine',x+10,M.h-12-R()*20,30,null)}
-    const grove=(n)=>{for(let g=0;g<n;g++){const cx=200+R()*(M.w-400),cy=300+R()*(M.h-600);let k=6+Math.floor(R()*7),tries=0;while(k>0&&tries++<60){const x=cx+R()*340-170,y=cy+R()*220-110;if(x>40&&x<M.w-40&&y>90&&y<M.h-30&&free(x,y,36)){add(R()<.65?'pine':'tree',x,y,36,{c:1,x,y,r:14});k--}}}};
+    const grove=(n)=>{for(let g=0;g<n;g++){const cx=200+R()*(M.w-400),cy=300+R()*(M.h-600);let k=6+Math.floor(R()*7),tries=0;while(k>0&&tries++<60){const x=cx+R()*340-170,y=cy+R()*220-110;if(x>40&&x<M.w-40&&y>90&&y<M.h-30&&free(x,y,36)){add(R()<.65?'pine':'tree',x,y,36,{c:1,x,y,r:14},{br:1});k--}}}};
     grove(Math.round(6*area));
     scatter('pine',Math.round(10*area),38,14);scatter('tree',Math.round(8*area),40,15);scatter('bigshroom',Math.round(4*area),28,16);scatter('bush',Math.round(4*area),24,15);scatter('rock',Math.round(2*area),24,16);
     dec('tuft',Math.round(200*area));dec('fern',Math.round(140*area));dec('flower',Math.round(40*area),['#fff','#c49bff','#ffe066']);
     if(M.arena){const A=M.arena;for(let i=0;i<70;i++){const a=R()*Math.PI*2,r=A.r-30-R()*30;deco.push({k:i%2?'fern':'flower',x:A.x+Math.cos(a)*r,y:A.y+Math.sin(a)*r,c:['#fff','#c49bff'][i%2],v:R()})}}
   }else if(th==='cave'){
-    scatter('crystal',18,30,13);scatter('rock',24,26,17);dec('stone',220);dec('puddle',24);
+    const area=M.w*M.h/2.16e6;
+    addFeatures(M,add,keep,obs);
+    // 上と下のはしは岩のかべ（壊せない）。中は水晶・岩（壊せる）と石筍（壊せない）
+    for(let x=30;x<M.w;x+=40+R()*18){add('stal',x,80+R()*30,26,{c:1,x,y:90,r:15});if(R()<.7)add('stal',x+16,160+R()*50,26,{c:1,x:x+16,y:175,r:15});add('stal',x+8,M.h-10-R()*16,26,null)}
+    scatter('crystal',Math.round(11*area),30,13);scatter('rock',Math.round(8*area),24,16);scatter('stal',Math.round(6*area),30,15);
+    dec('stone',Math.round(220*area));dec('puddle',Math.round(14*area));dec('shine',Math.round(70*area));
   }else if(th==='boss'){
     for(let i=0;i<8;i++){const a=i/8*Math.PI*2;const x=M.w/2+Math.cos(a)*420,y=M.h/2+Math.sin(a)*300;add('pillar',x,y,30,{c:1,x,y,r:22})}
     dec('crack',70);dec('stone',90);
   }
-  props.sort((a,b)=>a.y-b.y);
+  props.sort((a,b)=>a.y-b.y);props.forEach((p,i)=>p.i=i);
   return GEN[id]={props,deco,obs};
 }
 // 池・ボスのひろば・看板など、マップのデータから作る地形（どのテーマでも使える）
 function addFeatures(M,add,keep,obs){
   for(const[cx,cy,rx,ry]of M.ponds||[])for(let k=-3;k<=3;k++){const t=k/4.2;obs.push({c:1,x:cx+t*rx,y:cy,r:ry*Math.sqrt(1-t*t)*.95})}
-  if(M.arena){const A=M.arena,step=36/A.r;for(let a=0;a<Math.PI*2;a+=step){if(Math.abs(a-Math.PI)<.33)continue;const x=A.x+Math.cos(a)*A.r,y=A.y+Math.sin(a)*A.r;add('bush',x,y,18,{c:1,x,y,r:17})}}
+  if(M.arena){const A=M.arena,step=36/A.r;for(let a=0;a<Math.PI*2;a+=step){if(Math.abs(a-Math.PI)<.33)continue;const x=A.x+Math.cos(a)*A.r,y=A.y+Math.sin(a)*A.r;add(M.theme==='cave'?'rock':'bush',x,y,18,{c:1,x,y,r:17})}}
   for(const s of M.signs||[]){add('sign',s.x,s.y,14,{c:1,x:s.x,y:s.y,r:7},{label:s.t});keep.push([s.x,s.y,30])}
 }
 function drawPortal(c,p,t,theme){
@@ -867,7 +1111,8 @@ function blit(c,spr,x,y,ox,oy,flip,alpha){const sx=Math.round(x*Z)/Z,sy=Math.rou
 let SHADOW=null;function shadowSpr(){if(!SHADOW){const B=new Buf(16,6,8,3);B.e(0,0,7,2.2,'#00000040');SHADOW=B.canvas()}return SHADOW}
 function avatarFrame(o,t){if(o.dead)return'd';if(o.atk>0)return o.atk>.15?'a0':'a1';if(o.walk)return'w'+(Math.floor(t*9)%4);return'i'+(Math.floor(t*1.7)%2)}
 function drawAvatarAt(c,look,x,y,o,t){const fr=avatarFrame(o,t);const dy=o.dead?-6+Math.sin(t*3)*2:0;blit(c,shadowSpr(),x,y,8,3,false,o.dead?.4:1);blit(c,charSprite(look,fr),x,y+dy,18,43,o.f<0,(o.alpha==null?1:o.alpha)*(o.dead?.55:1))}
-function drawMonAt(c,mo,t){const T=MON[mo.t],[w,h,ox,oy]=MSPR[mo.t];const fr=T.boss?(mo.st===1?4:0)+(Math.floor(t*3)%2):Math.floor(t*6+mo.id)%4;
+function drawMonAt(c,mo,t){const T=MON[mo.t],[w,h,ox,oy]=MSPR[mo.t];
+  if(hidMon(mo)){for(let i=0;i<7;i++){const a=i/7*Math.PI+t*4;pxDot(c,mo.dx+Math.cos(a)*12,mo.dy-Math.abs(Math.sin(a))*6,i%2?'#6e4a30':'#8a6244',2)}return}const fr=T.boss?(mo.st===1?4:0)+(Math.floor(t*3)%2):Math.floor(t*6+mo.id)%4;
   blit(c,shadowSpr(),mo.dx,mo.dy,8,3,false);let a=1,dy=0;if(mo.dead){a=clamp(mo.dead/.4,0,1);dy=-(.4-mo.dead)*20}
   const shake=mo.st===1?Math.round(Math.sin(t*50)):0;blit(c,monSprite(mo.t,fr,mo.flash>0),mo.dx+shake*PX,mo.dy+dy,ox,oy,mo.f<0,a)}
 
@@ -881,6 +1126,14 @@ function renderTitle(){
   else{$('jobLbl').textContent='しょくぎょう：'+JOBS[save.job].name+'（転職は村の転職神殿で）';$('jobChips').innerHTML=''}
   if(!save.started){$('attrLbl').textContent='ぞくせい（あとで転職神殿でかえられる）';chipRow($('attrChips'),Object.keys(ELEM).map(k=>[k,ELEM[k].name]),save.attr,k=>{save.attr=k;queueSave();renderTitle()})}
   else{$('attrLbl').textContent='ぞくせい：'+elName(save.attr)+'（転職神殿でかえられる）';$('attrChips').innerHTML=''}
+  // 見た目は1回だけ。決めたあとは名前だけ出す
+  const nameOf=(L,k)=>(L.find(e=>e[0]===k)||L[0])[1];
+  if(!save.lookSet){
+    $('hairLbl').textContent='かみがた（あとからは変えられないよ）';chipRow($('hairChips'),HAIRS,save.hair,k=>{save.hair=k;queueSave();renderTitle()});
+    $('hcLbl').textContent='かみのいろ';const sw=$('hcSws');sw.innerHTML='';
+    for(const c of HCOLS){const b=document.createElement('button');b.className='sw'+(c===save.hc?' on':'');b.style.background=c;b.setAttribute('aria-label','かみのいろ');b.onclick=()=>{save.hc=c;queueSave();renderTitle()};sw.appendChild(b)}
+    $('faceLbl').textContent='ひょうじょう';chipRow($('faceChips'),FACES,save.face,k=>{save.face=k;queueSave();renderTitle()})}
+  else{$('hairLbl').textContent='かみがた：'+nameOf(HAIRS,save.hair)+'　ひょうじょう：'+nameOf(FACES,save.face);for(const id of['hairChips','hcSws','faceChips'])$(id).innerHTML='';$('hcLbl').textContent='';$('faceLbl').textContent=''}
   const st=statsOf(save);
   $('tStats').innerHTML='';for(const[a,b]of[['Lv',JS().lv],['HP',st.mhp],['SP',st.msp],['いりょく',st.pow],['ぼうぎょ',st.def],['ゴールド',save.gold+'G']]){const s=document.createElement('span');s.append(a+' ');const bb=document.createElement('b');bb.textContent=b;s.appendChild(bb);s.append('　');$('tStats').appendChild(s)}
   updateSaveNote();renderLogin();
@@ -939,7 +1192,9 @@ function renderLogin(){
   if(NET.user){st.textContent='ログイン中：セーブはネットに保存されます。バザーも使えます';box.appendChild(btn('ログアウト','gray',async()=>{await flushSave();await NET.logout()}))}
   else{st.textContent='ログインすると、セーブがネットに保存され、バザーが使えます';box.appendChild(btn('Googleでログイン','alt',async()=>{try{await NET.login()}catch(e){if(e&&e.code!=='auth/popup-closed-by-user')toast('ログインできませんでした')}}))}
 }
-$('soloBtn').onclick=()=>startGame(null);
+// 見た目がまだ決まっていなければ、はい・いいえで確認してから始める（あとからは変えられない）
+$('soloBtn').onclick=()=>{if(save.lookSet){startGame(null);return}
+  ask('この見た目ではじめる？\n（かみがた・かみのいろ・ひょうじょうは\nあとから変えられないよ）',()=>{save.lookSet=true;queueSave();startGame(null)})};
 
 // =====================================================================
 // ゲーム本体
@@ -952,7 +1207,7 @@ addEventListener('resize',fit);
 function newGame(code){
   const st=statsOf(save);const sp=MAPS.town.spawn;
   return{code,map:'town',me:{x:sp[0],y:sp[1],tx:sp[0],ty:sp[1],f:1,hp:st.mhp,mhp:st.mhp,sp:st.msp,msp:st.msp,st,pcd:0,ecd:0,hv:0,inv:0,dead:0,acd:0,scd:[0,0,0],buf:{},bv:{},regT:0,as:0,ak:'b',hs:0,anim:0,walk:false,tgt:null,npc:null,portalCD:1},
-    drops:[],fullNag:0,dmg:{},rewarded:new Set(),shots:[],fx:[],nums:[],amHost:false,hostPeer:null,joinGrace:0,resumeGrace:0,mapT:0,
+    drops:[],brk:{},fullNag:0,dmg:{},rewarded:new Set(),shots:[],fx:[],nums:[],amHost:false,hostPeer:null,joinGrace:0,resumeGrace:0,mapT:0,
     H:{mons:[],nextId:1,ko:[],pend:[]},view:{mons:new Map()},others:new Map(),lastHost:null,rawS:null,cookS:null,
     cam:{x:0,y:0},sendT:0,say:null,sayS:0,healSeen:new Map(),atkSeen:new Map(),sayShown:new Map(),t:0,fade:1,banner:{t:MAPS.town.name,life:2.4},tap:null,hudT:0};
 }
@@ -966,30 +1221,41 @@ function leaveGame(){
 }
 $('exitBtn').onclick=leaveGame;
 function changeMap(to,sx,sy){
-  const m=G.me;G.map=to;m.x=m.tx=sx;m.y=m.ty=sy;m.tgt=null;m.npc=null;m.portalCD=1.2;
-  G.view.mons.clear();G.shots=[];G.drops=[];G.dmg={};G.H={mons:[],nextId:1,ko:[],pend:[]};G.amHost=false;G.hostPeer=null;G.lastHost=null;G.rawS=null;G.cookS=null;
+  SND.se('warp');const m=G.me,from=G.map;
+  // 同じマップのエリアどうしなら、いまのエリアの敵・素材・ダメージをとっておく。村やほかのマップへ行くと全部すてる
+  G.areas=G.areas||{};
+  if(MAPS[to].safe||grpOf(to)!==grpOf(from)){G.areas={};brkReset()}
+  else if(!MAPS[from].safe)G.areas[from]={H:G.H,drops:G.drops,dmg:G.dmg,left:G.t};
+  G.map=to;m.x=m.tx=sx;m.y=m.ty=sy;m.tgt=null;m.npc=null;m.portalCD=1.2;m.inv=Math.max(m.inv,1);
+  G.view.mons.clear();G.shots=[];G.falls=[];G.drops=[];G.dmg={};G.H={mons:[],nextId:1,ko:[],pend:[]};G.amHost=false;G.hostPeer=null;G.lastHost=null;G.rawS=null;G.cookS=null;
+  const A=G.areas[to];
+  if(A){delete G.areas[to];G.H=A.H;G.dmg=A.dmg;G.amHost=true;   // もどってきた：敵はそのまま（倒した敵は いつもどおりの時間で湧き直す）
+    const gone=G.t-A.left;G.drops=A.drops.filter(d=>(d.life-=gone)>0)}   // 素材は60秒で消える（はなれていた時間もへる）
   G.joinGrace=cur?1.3:0;G.mapT=0;G.inArena=false;G.fade=1;G.banner={t:MAPS[to].name,life:2.4};G.sendT=0;genMap(to);
 }
 function recalc(){const st=statsOf(save);const m=G&&G.me;if(!m)return;const r=m.hp/m.mhp,rs=m.sp/m.msp;m.mhp=st.mhp;m.msp=st.msp;m.st=st;m.hp=Math.min(m.mhp,Math.max(1,Math.round(m.mhp*r)));m.sp=Math.min(m.msp,m.msp*rs)}
 const spdNow=m=>spdMul(m.st)*(m.buf.haste>0?1+(m.bv.haste||0):1);
+// メイジはふつうの攻撃でもSPを使う（最大SPの0.6%、最低1）。たりないと攻撃しない
+const basicSp=m=>{const k=JOBS[save.job].spc;return k?Math.max(1,Math.round(m.msp*k*10)/10):0};
 
 // ---- 入力 ----
 let ptr=null;
 function toWorld(cx,cy){return{x:G.cam.x+cx*DPR/Z,y:G.cam.y+cy*DPR/Z}}
 cv.addEventListener('pointerdown',e=>{if(!G)return;e.preventDefault();ptr=e.pointerId;try{cv.setPointerCapture(e.pointerId)}catch(_){}
   const w=toWorld(e.clientX,e.clientY);tapAt(w.x,w.y,true)});
-cv.addEventListener('pointermove',e=>{if(!G||ptr!==e.pointerId)return;const w=toWorld(e.clientX,e.clientY);const m=G.me;if(m.tgt==null&&!m.npc){m.tx=w.x;m.ty=w.y}});
+cv.addEventListener('pointermove',e=>{if(!G||ptr!==e.pointerId)return;const w=toWorld(e.clientX,e.clientY);const m=G.me;if(m.tgt==null&&!m.npc&&!m.obj){m.tx=w.x;m.ty=w.y}});
 const endPtr=e=>{if(ptr===e.pointerId)ptr=null};
 cv.addEventListener('pointerup',endPtr);cv.addEventListener('pointercancel',endPtr);
 function tapAt(x,y){
   const m=G.me;if(m.dead>0)return;const M=MAPS[G.map];
   let best=null,bd=1e9;
-  for(const mo of G.view.mons.values()){if(mo.hp<=0||mo.dead)continue;const T=MON[mo.t];const d=dist(x,y,mo.dx,mo.dy-T.h*.45);if(d<T.r+26&&d<bd){bd=d;best=mo}}
-  if(best){m.tgt=best.id;m.npc=null;G.tap={x:best.dx,y:best.dy,life:.5,c:'#ff6a5a'};return}
+  for(const mo of G.view.mons.values()){if(mo.hp<=0||mo.dead||hidMon(mo))continue;const T=MON[mo.t];const d=dist(x,y,mo.dx,mo.dy-T.h*.45);if(d<T.r+26&&d<bd){bd=d;best=mo}}
+  if(best){m.tgt=best.id;m.npc=null;m.obj=null;G.tap={x:best.dx,y:best.dy,life:.5,c:'#ff6a5a'};return}
   let dr=null,dd=26;for(const d of G.drops){const k=dist(x,y,d.x,d.y-8);if(k<dd){dd=k;dr=d}}
-  if(dr){m.tgt=null;m.npc=null;m.tx=dr.x;m.ty=dr.y;G.tap={x:dr.x,y:dr.y,life:.5,c:'#c7f0ff'};return}
-  for(const n of M.npcs||[])if(dist(x,y,n.x,n.y-28)<36){m.npc=n;m.tgt=null;G.tap={x:n.x,y:n.y,life:.5,c:'#ffd84a'};return}
-  m.tgt=null;m.npc=null;m.tx=x;m.ty=y;G.tap={x,y,life:.5,c:'#fff'};
+  if(dr){m.tgt=null;m.npc=null;m.obj=null;m.tx=dr.x;m.ty=dr.y;G.tap={x:dr.x,y:dr.y,life:.5,c:'#c7f0ff'};return}
+  for(const n of M.npcs||[])if(dist(x,y,n.x,n.y-28)<36){m.npc=n;m.tgt=null;m.obj=null;G.tap={x:n.x,y:n.y,life:.5,c:'#ffd84a'};return}
+  const ob=brkAt(x,y);if(ob){m.obj=ob;m.tgt=null;m.npc=null;G.tap={x:ob.x,y:ob.y,life:.5,c:'#ffb36b'};return}
+  m.obj=null;m.tgt=null;m.npc=null;m.tx=x;m.ty=y;G.tap={x,y,life:.5,c:'#fff'};
 }
 const keys={};
 addEventListener('keydown',e=>{if(!G||document.activeElement.tagName==='INPUT')return;keys[e.code]=true;if(e.code==='Space'){pickNear();e.preventDefault()}
@@ -1005,7 +1271,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)flushSave()
 // ---- 当たり判定 ----
 function pushOut(o,r,mapId){
   const M=MAPS[mapId],gen=GEN[mapId];
-  for(const ob of gen.obs){
+  for(const ob of gen.obs){if(ob.off)continue;
     if(ob.c){const dx=o.x-ob.x,dy=o.y-ob.y,d=Math.hypot(dx,dy),min=ob.r+r;if(d<min&&d>0.01){o.x=ob.x+dx/d*min;o.y=ob.y+dy/d*min}}
     else{const cx=clamp(o.x,ob.x,ob.x+ob.w),cy=clamp(o.y,ob.y,ob.y+ob.h),dx=o.x-cx,dy=o.y-cy,d=Math.hypot(dx,dy);
       if(d<r){if(d>0.01){o.x=cx+dx/d*r;o.y=cy+dy/d*r}else{o.y=ob.y+ob.h+r}}}
@@ -1016,20 +1282,25 @@ function pushOut(o,r,mapId){
 // ---- プレイヤー ----
 function updateMe(dt){
   const m=G.me,M=MAPS[G.map],J=JOBS[save.job];
+  G.spNag=Math.max(0,(G.spNag||0)-dt);
   m.inv=Math.max(0,m.inv-dt);m.acd=Math.max(0,m.acd-dt);m.pcd=Math.max(0,m.pcd-dt);m.ecd=Math.max(0,m.ecd-dt);for(let i=0;i<3;i++)m.scd[i]=Math.max(0,m.scd[i]-dt);m.anim=Math.max(0,m.anim-dt);m.portalCD-=dt;
   for(const k in m.buf){m.buf[k]-=dt;if(m.buf[k]<=0)delete m.buf[k]}
   if(m.dead>0){m.dead-=dt;m.walk=false;if(m.dead<=0){m.dead=0;m.hp=m.mhp;m.sp=m.msp;const sp=MAPS.town.spawn;changeMap('town',sp[0],sp[1]+40);toast('村にもどってきた')}return}
   // 自然回復：SPは外でも少しずつ。村ではHPもSPも早く回復
-  if(M.safe){m.hp=Math.min(m.mhp,m.hp+m.mhp*.08*dt);m.sp=Math.min(m.msp,m.sp+m.msp*.1*dt)}else m.sp=Math.min(m.msp,m.sp+(.5+m.msp*.01)*dt);
+  if(M.safe){m.hp=Math.min(m.mhp,m.hp+m.mhp*.08*dt);m.sp=Math.min(m.msp,m.sp+m.msp*.1*dt)}else m.sp=Math.min(m.msp,m.sp+(.5+m.msp*.01+(m.st.spr||0))*dt);
   if(m.buf.regen>0){m.regT-=dt;if(m.regT<=0){m.regT=1;healMe(m.st.mat*.6)}}
   // キーボード
   let kx=(keys.ArrowRight||keys.KeyD?1:0)-(keys.ArrowLeft||keys.KeyA?1:0),ky=(keys.ArrowDown||keys.KeyS?1:0)-(keys.ArrowUp||keys.KeyW?1:0);
-  if(kx||ky){m.tgt=null;m.npc=null;m.tx=m.x+kx*60;m.ty=m.y+ky*60}
+  if(kx||ky){m.tgt=null;m.npc=null;m.obj=null;m.tx=m.x+kx*60;m.ty=m.y+ky*60}
   let goal=null;
   if(m.tgt!=null){const mo=G.view.mons.get(m.tgt);if(!mo||mo.hp<=0||mo.dead){m.tgt=null;m.tx=m.x;m.ty=m.y}}   // 倒したらその場で止まる（次の敵へは自動で行かない）
   if(m.tgt!=null){const mo=G.view.mons.get(m.tgt),T=MON[mo.t];const rng=J.range+T.r;const d=dist(m.x,m.y,mo.dx,mo.dy);
-    if(d>rng)goal={x:mo.dx,y:mo.dy};else{m.f=mo.dx<m.x?-1:1;if(m.acd<=0){m.acd=J.cd/spdNow(m);basicAttack(mo)}}}
+    if(hidMon(mo)){/* もぐっている：出てくるまで待つ */}else if(d>rng)goal={x:mo.dx,y:mo.dy};else{m.f=mo.dx<m.x?-1:1;if(m.acd<=0){const c=basicSp(m);
+      if(m.sp<c){if(!(G.spNag>0)){toast('SPがたりない！（SP薬を使おう）','#9fd0ff');G.spNag=4}m.acd=.25}else{m.sp-=c;m.acd=J.cd/spdNow(m);basicAttack(mo)}}}}
   else if(m.npc){const n=m.npc;if(dist(m.x,m.y,n.x,n.y)<52){openNpc(n);m.npc=null;m.tx=m.x;m.ty=m.y}else goal={x:n.x,y:n.y+20}}
+  else if(m.obj){const p=m.obj;if(brkGone(G.map,p)){m.obj=null;m.tx=m.x;m.ty=m.y}else{const d=dist(m.x,m.y,p.x,p.y);
+    if(d>J.range+20)goal={x:p.x,y:p.y+18};else{m.f=p.x<m.x?-1:1;if(m.acd<=0){m.acd=J.cd/spdNow(m);m.as++;m.ak='b';m.anim=.3;   // 木や岩はSPを使わない
+      if(J.shot)G.shots.push({k:J.shot,x:m.x+m.f*14,y:m.y-26,obj:p,mp:G.map,spd:J.shot==='arrow'?620:420,mine:true,life:1.6,vx:m.f,vy:0});else brkHit(p)}}}}
   else goal={x:m.tx,y:m.ty};
   m.walk=false;
   if(goal){const dx=goal.x-m.x,dy=goal.y-m.y,d=Math.hypot(dx,dy);if(d>3){const sp=250*spdNow(m),st=Math.min(d,sp*dt);const ox=m.x,oy=m.y;m.x+=dx/d*st;m.y+=dy/d*st;if(Math.abs(dx)>2)m.f=dx<0?-1:1;
@@ -1039,14 +1310,14 @@ function updateMe(dt){
   updateDrops(dt);
   if(M.arena&&M.boss){const A=M.arena,inA=dist(m.x,m.y,A.x,A.y)<A.r-30;if(inA&&!G.inArena)G.banner={t:'ボス「'+MON[M.boss.t].name+'」のひろば',life:2.2};G.inArena=inA}
   if(m.portalCD<=0)for(const p of M.portals)if(dist(m.x,m.y,p.x,p.y)<34){if(p.to==='travel'){m.x-=60;m.tx=m.x;m.ty=m.y;m.portalCD=.8;openModal('travel')}else changeMap(p.to,p.sx,p.sy);return}
-  if(m.inv<=0)for(const mo of G.view.mons.values()){if(mo.hp<=0||mo.dead)continue;const T=MON[mo.t];if(!(mo.ag||T.aggro))continue;
+  if(m.inv<=0)for(const mo of G.view.mons.values()){if(mo.hp<=0||mo.dead||hidMon(mo))continue;const T=MON[mo.t];if(!(mo.ag||T.aggro))continue;
     if(Math.abs(mo.dx-m.x)<T.r+12&&Math.abs(mo.dy-m.y)<14+T.r*.3){hurt(mo.atk,T.el);break}}
 }
 // ---- 地面の素材 ----
 function dropItem(id,x,y,rare){if(G.drops.length>=DROP_MAX)G.drops.shift();G.drops.push({id,x:x+rand(-16,16),y:y+rand(-4,12),life:DROP_LIFE,rare,pop:.45})}
 function pickDrop(d){
   if(!bagAdd(d.id,1)){if(G.fullNag<=0){toast('バッグがいっぱいで「'+MATS[d.id].name+'」をひろえない…','#ffb0a0');G.fullNag=3}return false}
-  d.life=0;G.fx.push({k:'drop',x:d.x,y:d.y,life:1.2,c:d.rare?'#c77dff':'#f2e6c8'});
+  d.life=0;SND.se(d.rare?'rare':'pick');G.fx.push({k:'drop',x:d.x,y:d.y,life:1.2,c:d.rare?'#c77dff':'#f2e6c8'});
   toast((d.rare?'レア！ ':'')+'「'+MATS[d.id].name+'」をひろった！',d.rare?'#e2b6ff':'#fff');queueSave();return true}
 function updateDrops(dt){
   const m=G.me;G.fullNag=Math.max(0,G.fullNag-dt);
@@ -1056,20 +1327,24 @@ function updateDrops(dt){
 // スペースキー：近くの素材をまとめてひろう
 function pickNear(){if(!G||G.me.dead>0)return;const m=G.me;let n=0;for(const d of G.drops.slice().sort((a,b)=>dist(m.x,m.y,a.x,a.y)-dist(m.x,m.y,b.x,b.y)))if(d.life>0&&dist(m.x,m.y,d.x,d.y)<PICK_KEY_R){if(!pickDrop(d))break;n++}
   G.drops=G.drops.filter(d=>d.life>0);if(!n&&!G.drops.some(d=>dist(m.x,m.y,d.x,d.y)<PICK_KEY_R))toast('近くに素材はないよ')}
-function hurt(d,el){const m=G.me;d=d*elemMul(el,save.attr)*(m.buf.guard>0?1-(m.bv.guard||0):1);d=Math.max(1,Math.round(d*50/(50+m.st.def)));m.hp-=d;m.inv=.8;G.nums.push({x:m.x,y:m.y-66,t:'-'+d,c:'#ff6a6a',life:.9});
-  if(m.hp<=0){m.hp=0;m.dead=4;m.tgt=null;toast('やられちゃった… 村にもどります')}}
+function hurt(d,el){const m=G.me;d=d*elemMul(el,save.attr)*(m.buf.guard>0?1-(m.bv.guard||0):1)*(1-(JOBS[save.job].dr||0));d=Math.max(1,Math.round(d*50/(50+m.st.def)));m.hp-=d;m.inv=.8;SND.se('hurt');G.nums.push({x:m.x,y:m.y-66,t:'-'+d,c:'#ff6a6a',life:.9});
+  if(m.hp<=0){m.hp=0;m.dead=4;m.tgt=null;SND.se('down');toast('やられちゃった… 村にもどります')}}
 function basicAttack(mo){
   const m=G.me,J=JOBS[save.job],el=save.attr;m.as++;m.ak='b';m.anim=.3;const pw=m.st.pow;
   if(!J.shot){dealDamage(mo,pw,{el});G.fx.push({k:'slash',x:mo.dx,y:mo.dy-MON[mo.t].h*.5,f:m.f,life:.22});
-    if(save.job==='fighter')for(const o of G.view.mons.values())if(o!==mo&&o.hp>0&&!o.dead&&dist(o.dx,o.dy,mo.dx,mo.dy)<42)dealDamage(o,pw*.5,{el})}
-  else G.shots.push({k:J.shot,x:m.x+m.f*14,y:m.y-26,tid:mo.id,spd:J.shot==='arrow'?620:420,d:pw*(J.shot==='arrow'?.95:1.1),el,mine:true,life:1.6,vx:m.f,vy:0});
+    if(save.job==='fighter')for(const o of G.view.mons.values())if(o!==mo&&o.hp>0&&!o.dead&&!hidMon(o)&&dist(o.dx,o.dy,mo.dx,mo.dy)<42)dealDamage(o,pw*.5,{el})}
+  else G.shots.push({k:J.shot,x:m.x+m.f*14,y:m.y-26,tid:mo.id,spd:J.shot==='arrow'?620:420,d:pw*(J.ba||1),el,mine:true,life:1.6,vx:m.f,vy:0});
 }
-function nearMons(r){const m=G.me;return[...G.view.mons.values()].filter(o=>o.hp>0&&!o.dead&&dist(o.dx,o.dy,m.x,m.y)<r).sort((a,b)=>dist(a.dx,a.dy,m.x,m.y)-dist(b.dx,b.dy,m.x,m.y))}
+// もぐっている敵（モグラン）は、ねらえない・当たらない
+const hidMon=mo=>mo.st===2&&!!MON[mo.t].burrow;
+function nearMons(r){const m=G.me;return[...G.view.mons.values()].filter(o=>o.hp>0&&!o.dead&&!hidMon(o)&&dist(o.dx,o.dy,m.x,m.y)<r).sort((a,b)=>dist(a.dx,a.dy,m.x,m.y)-dist(b.dx,b.dy,m.x,m.y))}
 // ねらう敵：いまのターゲット（射程内）か、いちばん近い敵
-function aimMon(r){const m=G.me,t=G.view.mons.get(m.tgt);if(t&&t.hp>0&&!t.dead&&dist(t.dx,t.dy,m.x,m.y)<r)return t;return nearMons(r)[0]||null}
+function aimMon(r){const m=G.me,t=G.view.mons.get(m.tgt);if(t&&t.hp>0&&!t.dead&&!hidMon(t)&&dist(t.dx,t.dy,m.x,m.y)<r)return t;return nearMons(r)[0]||null}
 // スキルの中身。false を返すと「使わなかった」（SPもクールタイムも減らない）
 // スキルLvでの倍率：skPow(m,'smash')。いりょく×倍率
-const skPow=(m,id)=>m.st.pow*skM(id,m.st.slv);
+// アーチャー・シーフ：スキルの元＝いりょく＋すばやさ（うん）×2.5（上乗せは いりょく と同じぶんまで）
+const skPow=(m,id)=>(m.st.pow+m.st.skb)*skM(id,m.st.slv);
+const skCd=(S,st)=>S.cd*(1-(st.cdr||0));   // 装備でみじかくなったまち時間
 const STEAL_BASE=.3,STEAL_LUK=.005,STEAL_MAX=.8;
 const SKILL_FN={
   spin(m){const ts=nearMons(115);G.fx.push({k:'spin',x:m.x,y:m.y-20,life:.35,r:110});for(const o of ts)dealDamage(o,skPow(m,'spin'),{el:save.attr})},
@@ -1077,7 +1352,7 @@ const SKILL_FN={
     G.fx.push({k:'slash',x:t.dx,y,f:m.f,life:.3});G.fx.push({k:'boom',x:t.dx,y,life:.4,r:40});dealDamage(t,skPow(m,'smash'),{el:save.attr})},
   guard(m){m.buf.guard=BUFF_T;m.bv.guard=skV('guard',m.st.slv);G.fx.push({k:'ring',x:m.x,y:m.y,life:.5,r:60});toast('てっぺき！ 10秒間ダメージ−'+Math.round(m.bv.guard*100)+'%','#bfe0ff')},
   meteor(m){let tx=m.x+m.f*120,ty=m.y;const tg=aimMon(360);if(tg){tx=tg.dx;ty=tg.dy}const d=skPow(m,'meteor');
-    G.fx.push({k:'meteor',x:tx,y:ty,life:.55,r:100});setTimeout(()=>{if(!G)return;G.fx.push({k:'boom',x:tx,y:ty-10,life:.5,r:100});for(const o of G.view.mons.values())if(o.hp>0&&!o.dead&&dist(o.dx,o.dy,tx,ty)<100)dealDamage(o,d,{el:'fire'})},350)},
+    G.fx.push({k:'meteor',x:tx,y:ty,life:.55,r:100});setTimeout(()=>{if(!G)return;G.fx.push({k:'boom',x:tx,y:ty-10,life:.5,r:100});for(const o of G.view.mons.values())if(o.hp>0&&!o.dead&&!hidMon(o)&&dist(o.dx,o.dy,tx,ty)<100)dealDamage(o,d,{el:'fire'})},350)},
   aqua(m){const t=aimMon(360);if(!t)return false;m.tgt=t.id;G.shots.push({k:'water',x:m.x+m.f*14,y:m.y-26,tid:t.id,spd:520,d:skPow(m,'aqua'),el:'water',mine:true,life:1.6,vx:m.f,vy:0})},
   leaf(m){const ts=nearMons(230).slice(0,5);if(!ts.length)return false;G.fx.push({k:'leaf',x:m.x,y:m.y-20,life:.6,r:230});
     for(const o of ts){G.fx.push({k:'leafhit',x:o.dx,y:o.dy-MON[o.t].h*.5,life:.5});dealDamage(o,skPow(m,'leaf'),{el:'grass'})}},
@@ -1086,19 +1361,21 @@ const SKILL_FN={
   snipe(m){const t=aimMon(440);if(!t)return false;m.tgt=t.id;G.shots.push({k:'arrow',x:m.x+m.f*14,y:m.y-26,tid:t.id,spd:900,d:skPow(m,'snipe'),el:save.attr,fc:true,mine:true,life:1.6,vx:m.f,vy:0})},
   haste(m){m.buf.haste=BUFF_T;m.bv.haste=skV('haste',m.st.slv);G.fx.push({k:'leaf',x:m.x,y:m.y-20,life:.5,r:60});toast('かぜのステップ！ 10秒間 +'+Math.round(m.bv.haste*100)+'%','#c8f5c8')},
   rengeki(m){const t=aimMon(JOBS.thief.range+60);if(!t)return false;m.tgt=t.id;m.f=t.dx<m.x?-1:1;const d=skPow(m,'rengeki'),id=t.id;
-    for(let i=0;i<4;i++)setTimeout(()=>{if(!G)return;const o=G.view.mons.get(id);if(!o||o.hp<=0||o.dead)return;G.fx.push({k:'slash',x:o.dx+rand(-6,6),y:o.dy-MON[o.t].h*.5+rand(-6,6),f:i%2?-1:1,life:.18});dealDamage(o,d,{el:save.attr})},i*110)},
+    for(let i=0;i<4;i++)setTimeout(()=>{if(!G)return;const o=G.view.mons.get(id);if(!o||o.hp<=0||o.dead||hidMon(o))return;G.fx.push({k:'slash',x:o.dx+rand(-6,6),y:o.dy-MON[o.t].h*.5+rand(-6,6),f:i%2?-1:1,life:.18});dealDamage(o,d,{el:save.attr})},i*110)},
   steal(m){const t=aimMon(JOBS.thief.range+60);if(!t)return false;m.tgt=t.id;m.f=t.dx<m.x?-1:1;const y=t.dy-MON[t.t].h*.5;
     G.fx.push({k:'slash',x:t.dx,y,f:m.f,life:.25});dealDamage(t,skPow(m,'steal'),{el:save.attr});const T=MON[t.t];
     if(!t.stolen&&T.drop){t.stolen=true;if(Math.random()<Math.min(STEAL_MAX,STEAL_BASE+m.st.luk*STEAL_LUK)){const rare=Math.random()<rareRate(m.st);const id=T.drop[rare?1:0];if(MATS[id]){dropItem(id,t.dx,t.dy,rare);G.fx.push({k:'poof',x:t.dx,y,life:.4});toast('ぬすんだ！','#e2b6ff')}}}},
   kagenui(m){m.buf.kage=BUFF_T;m.bv.kage=skV('kagenui',m.st.slv);G.fx.push({k:'ring',x:m.x,y:m.y,life:.5,r:50});toast('かげぬい！ 10秒間クリティカル+'+Math.round(m.bv.kage*100)+'%','#e2b6ff')}
 };
+// スキルの効果音
+const SK_SE={spin:'slash',smash:'slash',guard:'buff',meteor:'boom',aqua:'magic',leaf:'magic',triple:'arrow',snipe:'arrow',haste:'buff',rengeki:'slash',steal:'slash',kagenui:'buff'};
 function useSkill(i){
   if(!G)return;const m=G.me,S=skillsOf(save.job)[i];if(!S||m.dead>0)return;
   if(m.scd[i]>0)return;
   if(MAPS[G.map].safe&&!S.town){toast('村ではそのスキルは使えないよ');return}
   if(m.sp<S.sp){toast('SPがたりないよ');return}
   if(SKILL_FN[S.id](m)===false){toast('近くに敵がいないよ');m.scd[i]=.4;return}
-  m.sp-=S.sp;m.scd[i]=S.cd;m.as++;m.ak='s';m.anim=.35;
+  m.sp-=S.sp;m.scd[i]=skCd(S,m.st);m.as++;m.ak='s';m.anim=.35;SND.se(SK_SE[S.id]||'slash');
 }
 function healMe(h){const m=G.me;if(m.dead>0)return;h=Math.round(h);m.hp=Math.min(m.mhp,m.hp+h);G.nums.push({x:m.x,y:m.y-70,t:'+'+h,c:'#5ad17a',life:1})}
 // o.el＝攻撃の属性、o.crit＝必ずクリティカル
@@ -1106,15 +1383,17 @@ function dealDamage(mo,d,o){o=o||{};
   const em=elemMul(o.el,MON[mo.t].el);
   const me=G.me,kage=me.buf.kage>0;
   const crit=o.crit||Math.random()<Math.min(.9,critRate(me.st)+(kage?me.bv.kage||0:0));d=Math.max(1,Math.round(d*em*rand(.9,1.1)*(crit?(kage?2:1.5):1)));const key='m'+mo.id;
-  G.dmg[key]=(G.dmg[key]||0)+d;mo.flash=.12;
+  G.dmg[key]=(G.dmg[key]||0)+d;mo.flash=.12;SND.se(crit?'crit':'hit');
   G.nums.push({x:mo.dx+rand(-10,10),y:mo.dy-MON[mo.t].h-8,t:crit?d+'!':String(d),c:crit?'#ffd84a':em>1?'#ffa040':em<1?'#b8b4c8':'#fff',life:.8,big:crit||em>1});
 }
 function updateShots(dt){
   const me=G.me;
   for(const s of G.shots){s.life-=dt;
     if(s.foe){s.x+=s.vx*s.spd*dt;s.y+=s.vy*s.spd*dt;if(me.dead<=0&&Math.abs(s.x-me.x)<13&&Math.abs(s.y-(me.y-22))<22){s.life=0;G.fx.push({k:'splash',x:s.x,y:s.y,life:.35});if(me.inv<=0)hurt(s.d,s.el)}continue}
+    if(s.obj){const p=s.obj,tx=p.x,ty=p.y-20,dx=tx-s.x,dy=ty-s.y,d=Math.hypot(dx,dy);if(s.mp!==G.map||brkGone(G.map,p)){s.life=0;continue}
+      if(d<14){s.life=0;brkHit(p);continue}s.vx+=(dx/d-s.vx)*Math.min(1,dt*10);s.vy+=(dy/d-s.vy)*Math.min(1,dt*10);const l=Math.hypot(s.vx,s.vy)||1;s.vx/=l;s.vy/=l;s.x+=s.vx*s.spd*dt;s.y+=s.vy*s.spd*dt;continue}
     const mo=s.tid!=null?G.view.mons.get(s.tid):null;
-    if(mo&&mo.hp>0&&!mo.dead){const tx=mo.dx,ty=mo.dy-MON[mo.t].h*.5,dx=tx-s.x,dy=ty-s.y,d=Math.hypot(dx,dy);
+    if(mo&&mo.hp>0&&!mo.dead&&!hidMon(mo)){const tx=mo.dx,ty=mo.dy-MON[mo.t].h*.5,dx=tx-s.x,dy=ty-s.y,d=Math.hypot(dx,dy);
       const nvx=dx/d,nvy=dy/d;s.vx+=(nvx-s.vx)*Math.min(1,dt*10);s.vy+=(nvy-s.vy)*Math.min(1,dt*10);const l=Math.hypot(s.vx,s.vy)||1;s.vx/=l;s.vy/=l;
       if(d<14){s.life=0;if(s.mine)dealDamage(mo,s.d,{el:s.el,crit:s.fc});if(s.k==='fire')G.fx.push({k:'boom',x:s.x,y:s.y,life:.25,r:22});if(s.k==='water')G.fx.push({k:'splash',x:s.x,y:s.y,life:.35});if(s.k==='holy')G.fx.push({k:'poof',x:s.x,y:s.y,life:.35})}}
     s.x+=s.vx*s.spd*dt;s.y+=s.vy*s.spd*dt}
@@ -1156,7 +1435,7 @@ function spawnMon(t){
     else{x=zone?rand(zone[0],zone[1]):rand(160,M.w-60);y=rand(110,M.h-40)}
     const tmp={x,y};pushOut(tmp,T.r,G.map);x=tmp.x;y=tmp.y;if(T.boss)break;
     if(M.arena&&dist(x,y,M.arena.x,M.arena.y)<M.arena.r+60)continue;
-    if(dist(x,y,M.spawn[0],M.spawn[1])>260&&playersHere().every(p=>dist(p.x,p.y,x,y)>200))break}
+    if(dist(x,y,M.spawn[0],M.spawn[1])>260&&M.portals.every(p=>dist(p.x,p.y,x,y)>240)&&playersHere().every(p=>dist(p.x,p.y,x,y)>200))break}   // 出口のそばには湧かない
   // マップの段階による見えない上乗せはなし（MON の数字そのまま）
   G.H.mons.push({id:G.H.nextId++,t,x,y,hx:x,hy:y,mhp:T.hp,base:0,start:{},seen:{},f:Math.random()<.5?-1:1,st:0,stT:3,ag:false,atk:T.atk,wt:rand(0,2),wx:x,wy:y});
 }
@@ -1186,8 +1465,12 @@ function hostUpdate(dt){
         if(T.leash&&(mo.ret||!agg)&&hd>8){mo.x+=(mo.hx-mo.x)/hd*T.spd*1.3*dt;mo.y+=(mo.hy-mo.y)/hd*T.spd*1.3*dt;mo.f=mo.hx<mo.x?-1:1}
         else if(agg&&nd>40){mo.x+=(near.x-mo.x)/nd*T.spd*dt;mo.y+=(near.y-mo.y)/nd*T.spd*dt;mo.f=near.x<mo.x?-1:1}
         if(mo.stT<=0&&agg&&!mo.ret&&nd<240){mo.st=1;mo.stT=1.1}
+        if(T.rocks&&agg&&!mo.ret){mo.rk=(mo.rk==null?3:mo.rk)-dt;if(mo.rk<=0){mo.rk=T.rocks.cd*rand(.85,1.15);rockFall(mo,near)}}
         if(T.shoot&&agg&&!mo.ret){mo.sht=(mo.sht==null?2:mo.sht)-dt;if(mo.sht<=0&&nd<T.shoot.rng&&nd>110){mo.sht=T.shoot.cd*rand(.85,1.15);monShoot(mo,near)}}}
       else if(mo.stT<=0){mo.st=0;mo.stT=rand(2.8,4.2)}}
+    else if(T.burrow&&(agg||mo.st===2)){mo.bt=(mo.bt==null?rand(1,2):mo.bt)-dt;   // もぐる敵：遠いともぐって近づき、近くで出てくる
+      if(mo.st===2){if(near&&nd>50){const k=T.spd*2.4*dt;mo.x+=(near.x-mo.x)/nd*k;mo.y+=(near.y-mo.y)/nd*k;mo.f=near.x<mo.x?-1:1}if(mo.bt<=0||!near||nd<70){mo.st=0;mo.bt=rand(3,4.5)}}
+      else{if(nd>18){mo.x+=(near.x-mo.x)/nd*T.spd*dt;mo.y+=(near.y-mo.y)/nd*T.spd*dt}mo.f=near.x<mo.x?-1:1;if(mo.bt<=0){if(nd>140){mo.st=2;mo.bt=rand(1.2,1.8)}else mo.bt=rand(1,2)}}}
     else if(agg&&T.shoot){const S=T.shoot,mv=nd>S.rng*.8?1:nd<S.rng*.45?-.6:0;   // 遠くから撃つ敵：近づきすぎたら下がる
       if(mv){mo.x+=(near.x-mo.x)/nd*T.spd*mv*dt;mo.y+=(near.y-mo.y)/nd*T.spd*mv*dt}mo.f=near.x<mo.x?-1:1;
       mo.sht=(mo.sht==null?rand(.6,1.4):mo.sht)-dt;if(mo.sht<=0&&nd<S.rng){mo.sht=S.cd*rand(.85,1.15);monShoot(mo,near)}}
@@ -1197,7 +1480,7 @@ function hostUpdate(dt){
     if(!T.fly)pushOut(mo,T.r*.8,G.map);else{mo.x=clamp(mo.x,20,M.w-20);mo.y=clamp(mo.y,60,M.h-10)}}
 }
 // 敵の弾：まっすぐ飛ぶ（追いかけない）。よければ当たらない
-function monShoot(mo,p){const T=MON[mo.t],S=T.shoot,n=S.n||1,y0=mo.y-T.h*.5,a=Math.atan2(p.y-22-y0,p.x-mo.x);mo.f=p.x<mo.x?-1:1;
+function monShoot(mo,p){const T=MON[mo.t],S=T.shoot,n=S.n||1,y0=mo.y-T.h*.5,a=Math.atan2(p.y-22-y0,p.x-mo.x);mo.f=p.x<mo.x?-1:1;if(dist(mo.x,mo.y,G.me.x,G.me.y)<600)SND.se(T.boss?'magic':'pew');
   for(let i=0;i<n;i++){const b=a+(i-(n-1)/2)*(S.spread||0);G.shots.push({k:S.k,x:mo.x+Math.cos(b)*T.r*.6,y:y0,vx:Math.cos(b),vy:Math.sin(b),spd:S.spd,d:mo.atk*(S.mul||1),el:T.el,foe:true,life:S.rng/S.spd+.5})}}
 function hostSnapshot(){const Hs=G.H;const L=[...Hs.mons.filter(m=>MON[m.t].boss),...Hs.mons.filter(m=>!MON[m.t].boss)];return{mp:G.map,m:L.slice(0,MON_CAP).map(m=>[m.id,MTYPES.indexOf(m.t),Math.round(m.x),Math.round(m.y),Math.max(0,Math.round(m.hp)),m.mhp,m.f,m.st,m.ag?1:0,m.atk]),ko:Hs.ko,n:Hs.nextId}}
 function sanitizeSnap(s){
@@ -1215,6 +1498,7 @@ function syncView(dt){
     for(const[id,ti,x,y,hp,mhp,f,st,ag,atk]of snap.m){const t=MTYPES[ti];if(!t)continue;ids.add(id);
       let mo=V.mons.get(id);if(!mo){mo={id,t,dx:x,dy:y,flash:0,st:0,spawn:.4};V.mons.set(id,mo)}
       if(mo.st===1&&st===0&&MON[t].boss)slam(mo);
+      if(MON[t].burrow&&mo.st===2&&st===0){G.fx.push({k:'boom',x:x,y:y-6,life:.35,r:34});if(dist(x,y,G.me.x,G.me.y)<500)SND.se('hurt')}
       mo.tx=x;mo.ty=y;mo.hp=hp;mo.mhp=Math.max(1,mhp);mo.f=f;mo.st=st;mo.ag=!!ag;mo.atk=atk||MON[t].atk}
     for(const[id,mo]of V.mons)if(!ids.has(id)&&!mo.dead){mo.dead=.4;mo.hp=0}
     for(const[id,ti,x,y]of snap.ko){const key=G.map+':'+id;if(G.rewarded.has(key))continue;G.rewarded.add(key);const t=MTYPES[ti];if(!t)continue;if(G.mapT<1&&!G.amHost)continue;reward(t,x,y)}
@@ -1222,14 +1506,24 @@ function syncView(dt){
   for(const[id,mo]of V.mons){if(mo.dead){mo.dead-=dt;if(mo.dead<=0)V.mons.delete(id);continue}const k=G.amHost?1:Math.min(1,dt*10);mo.dx+=(mo.tx-mo.dx)*k;mo.dy+=(mo.ty-mo.dy)*k;mo.flash=Math.max(0,mo.flash-dt);if(mo.spawn>0)mo.spawn-=dt}
   if(Math.random()<.05)for(const k in G.dmg)if(!V.mons.has(+k.slice(1)))delete G.dmg[k];
 }
-function slam(mo){G.fx.push({k:'ring',x:mo.dx,y:mo.dy,life:.5,r:170});const m=G.me;if(m.dead<=0&&dist(m.x,m.y,mo.dx,mo.dy)<170)hurt(mo.atk*1.4,MON[mo.t].el)}
+// 落石：地面に影が出て、warn 秒後に落ちる。影の中にいるとダメージ。1つめは自分のいる所、ほかはそのまわり
+function rockFall(mo,p){const R=MON[mo.t].rocks;G.falls=G.falls||[];SND.se('boom');
+  for(let i=0;i<R.n;i++){const x=i?p.x+rand(-150,150):p.x,y=i?p.y+rand(-100,100):p.y;G.falls.push({x,y,t:R.warn*(i?rand(1,1.35):1),w:R.warn*1.35,r:R.r,d:mo.atk*R.mul,el:MON[mo.t].el})}}
+function updateFalls(dt){if(!G.falls||!G.falls.length)return;const m=G.me;
+  for(const f of G.falls){f.t-=dt;if(f.t<=0&&!f.done){f.done=true;G.fx.push({k:'boom',x:f.x,y:f.y-6,life:.4,r:f.r});SND.se('boom');
+    if(m.dead<=0&&m.inv<=0&&Math.hypot(m.x-f.x,(m.y-f.y)*1.6)<f.r)hurt(f.d,f.el)}}
+  G.falls=G.falls.filter(f=>!f.done)}
+function drawFalls(c,t){for(const f of G.falls||[]){const k=1-clamp(f.t/f.w,0,1);c.save();c.globalAlpha=.25+.35*k;c.fillStyle='#120a18';c.beginPath();c.ellipse(f.x,f.y,f.r*(.5+.5*k),f.r*.42*(.5+.5*k),0,0,7);c.fill();c.restore();
+  if(f.t<.45){const y=f.y-8-f.t*560;pxDot(c,f.x-8,y-8,'#6e6b66',8);pxDot(c,f.x-6,y-8,'#8d8a85',5);pxDot(c,f.x-6,y-8,'#b0aca5',2)}}}
+function slam(mo){G.fx.push({k:'ring',x:mo.dx,y:mo.dy,life:.5,r:170});SND.se('boom');const m=G.me;if(m.dead<=0&&dist(m.x,m.y,mo.dx,mo.dy)<170)hurt(mo.atk*1.4,MON[mo.t].el)}
 function reward(t,x,y){
   const T=MON[t],J=JS(),xp=T.xp;
   // 敵を倒してもゴールドは入らない（ゴールドは道具屋で売るか、バザーで売れたときだけ）
-  if(!isMax(J)){J.xp+=xp;G.nums.push({x,y:y-T.h-24,t:'+'+xp+'EXP',c:'#ffe27a',life:1.2})}G.fx.push({k:'poof',x,y:y-T.h*.4,life:.45});
+  if(!isMax(J)){J.xp+=xp;G.nums.push({x,y:y-T.h-24,t:'+'+xp+'EXP',c:'#ffe27a',life:1.2})}G.fx.push({k:'poof',x,y:y-T.h*.4,life:.45});SND.se('kill');
+  questKill(t);
   // 素材は地面に落ちる（さわるか、タップ・スペースでひろう）
   if(T.drop&&Math.random()<DROP_RATE){const rare=Math.random()<rareRate(G.me.st);const mt=MATS[T.drop[rare?1:0]];if(mt)dropItem(mt.id,x,y,rare)}
-  while(!isMax(J)&&J.xp>=xpNeed(J.lv)){J.xp-=xpNeed(J.lv);J.lv++;if(isMax(J)){J.xp=0;toast('Lv'+MAX_LV+'（最大）になった！','#ffd84a')}J.free+=PT_PER_LV;recalc();G.me.hp=G.me.mhp;G.me.sp=G.me.msp;G.fx.push({k:'lvup',x:G.me.x,y:G.me.y,life:1.5});toast('レベルアップ！ Lv'+J.lv+'（ポイント+'+PT_PER_LV+'）','#ffe27a');
+  while(!isMax(J)&&J.xp>=xpNeed(J.lv)){J.xp-=xpNeed(J.lv);J.lv++;if(isMax(J)){J.xp=0;toast('Lv'+MAX_LV+'（最大）になった！','#ffd84a')}J.free+=PT_PER_LV;recalc();G.me.hp=G.me.mhp;G.me.sp=G.me.msp;G.fx.push({k:'lvup',x:G.me.x,y:G.me.y,life:1.5});SND.se('lvup');toast('レベルアップ！ Lv'+J.lv+'（ポイント+'+PT_PER_LV+'）','#ffe27a');
     if(skLvOf(J.lv)>skLvOf(J.lv-1))toast('スキルがLv'+skLvOf(J.lv)+'になった！'+(skLvOf(J.lv)>=SK_MAX?'（最大）':''),'#bfd0ff')}
   queueSave();
 }
@@ -1279,10 +1573,10 @@ function say(t){if(!G)return;G.sayS++;G.say={t,s:G.sayS,at:performance.now()}}
 // バッグ・お店・きせかえ
 // =====================================================================
 let modalKind=null,modalSel=null,modalSrc=null,modalFilter='all',forgetArm=false;
-function openModal(kind){modalKind=kind;modalSel=null;modalSrc=null;forgetArm=false;modalFilter={shop:'buy',smith:'weapon',store:'bag',bazaar:'buy'}[kind]||'all';$('modal').hidden=false;renderModal()}
+function openModal(kind){SND.se('tap');modalKind=kind;smithPg=0;modalSel=null;modalSrc=null;forgetArm=false;modalFilter={shop:'buy',smith:'weapon',store:'bag',bazaar:'buy'}[kind]||'all';$('modal').hidden=false;renderModal()}
 function closeModal(){modalKind=null;$('modal').hidden=true;askClose()}
 $('mClose').onclick=closeModal;$('modal').addEventListener('pointerdown',e=>{if(e.target===$('modal'))closeModal()});
-$('bagBtn').onclick=()=>openModal('bag');$('stBtn').onclick=()=>openModal('status');
+$('bagBtn').onclick=()=>openModal('bag');$('sndBtn').onclick=()=>openModal('sound');$('stBtn').onclick=()=>openModal('status');
 function openNpc(n){openModal(n.id)}
 const npcLook=id=>MAPS.town.npcs.find(n=>n.id===id).look;
 const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e};
@@ -1297,8 +1591,8 @@ function btn(label,cls,on,dis){const b=el('button','btn'+(cls?' '+cls:''),label)
 // ---- アイコン ----
 function sprCanvas(spr,size,cell){const c=document.createElement('canvas');const s=(size||52)*2;c.width=s;c.height=s;const x=c.getContext('2d');x.imageSmoothingEnabled=false;const k=Math.floor(s/(cell||22));x.drawImage(spr,(s-spr.width*k)/2,(s-spr.height*k)/2,spr.width*k,spr.height*k);return c}
 function conSprite(id){return cached('cn|'+id,()=>{const B=new Buf(18,18,9,15);
-  if(id==='c_potion'){B.r(-1,-13,3,2,'#b5835a');B.r(-1,-11,3,2,'#e8f4ff');B.e(0,-5,5,5,(x,y)=>y<=-7?'#e8f4ff':(x>=2?'#c0303a':'#ff5a6a'));B.p(-2,-6,'#ffffff');B.p(-3,-5,'#ffffff')}
-  else if(id==='c_ether'){B.r(-1,-13,3,2,'#b5835a');B.r(-1,-11,3,2,'#e8f4ff');B.e(0,-5,5,5,(x,y)=>y<=-7?'#e8f4ff':(x>=2?'#2a6fb8':'#5ab0ff'));B.p(-2,-6,'#ffffff');B.p(-3,-5,'#ffffff')}
+  const BOT={c_potion:[5,'#ff5a6a','#c0303a'],c_potion2:[6,'#ff5a6a','#c0303a'],c_potion3:[7,'#ff8a3d','#c05a20'],c_ether:[5,'#5ab0ff','#2a6fb8'],c_ether2:[6,'#8a7aff','#4a3fa8'],c_ether3:[7,'#c46aff','#7a2ab8']}[id];
+  if(BOT){const[r,c,cs]=BOT,top=-5-r-3;B.r(-1,top-2,3,2,'#b5835a');B.r(-1,top,3,2,'#e8f4ff');B.e(0,-r,r,r,(x,y)=>y<=-r-2?'#e8f4ff':(x>=2?cs:c));B.p(-2,-r-1,'#ffffff');B.p(-3,-r,'#ffffff');if(r>=6)B.p(2,-3,'#ffe066');if(r>=7){B.p(-1,-3,'#ffe066');B.p(3,-6,'#ffffff')}}
   else{B.l(0,0,0,-9,'#4a8a3a');B.e(-3,-6,3,1.6,'#6cc07a');B.e(3,-9,3,1.6,'#5aa85a');B.e(0,-12,2.2,2.2,'#c49bff');B.p(0,-12,'#ffe0ff')}
   return B.outline(OUTC).canvas()})}
 function eqSprite(it){return cached('ei|'+it.id,()=>{
@@ -1322,23 +1616,23 @@ function tryLook(id){const l=lookOf(save);const it=ITEMS[id];if(it&&(!it.job||it
 function pvBox(body,look,lines){const pv=el('div','pv');pv.appendChild(previewCanvas(look));const st=el('div','st');
   for(const[a,b]of lines){const d=el('div');d.append(a+' ');const bb=el('b',null,b);d.appendChild(bb);st.appendChild(d)}pv.appendChild(st);body.appendChild(pv)}
 function baseLines(){const st=statsOf(),J=JS();return[[JOBS[save.job].name,'Lv'+J.lv],['HP',st.mhp],['SP',st.msp],['いりょく',st.pow],['ぼうぎょ',st.def],['ゴールド',save.gold+' G']]}
-function statText(it){const a=[];for(const k of STATS)if(it[k])a.push(STATNAME[k]+'+'+it[k]);return a.join('　')}
+function statText(it){const a=[];for(const k of STATS)if(it[k])a.push(STATNAME[k]+'+'+it[k]);if(it.spr)a.push('SPかいふく+'+it.spr+'/秒');if(it.cdr)a.push('まち時間−'+Math.round(it.cdr*100)+'%');return a.join('　')}
 function diffText(id){const it=ITEMS[id];if(!it||!canWear(it))return'';const a=statsOf(),s2=Object.assign({},save,{eq:Object.assign({},save.eq,{[it.slot]:id})}),b=statsOf(s2);
-  const out=[];for(const k of STATS)if(a[k]!==b[k])out.push(STATNAME[k]+' '+a[k]+'→'+b[k]);return out.length?'そうびすると：'+out.join('　'):''}
+  const out=[];for(const k of STATS)if(a[k]!==b[k])out.push(STATNAME[k]+' '+a[k]+'→'+b[k]);if(a.spr!==b.spr)out.push('SPかいふく '+a.spr+'→'+b.spr);if(a.cdr!==b.cdr)out.push('まち時間 −'+Math.round(a.cdr*100)+'%→−'+Math.round(b.cdr*100)+'%');return out.length?'そうびすると：'+out.join('　'):''}
 function chips(body,items){const ch=el('div','chips');chipRow(ch,items,modalFilter,k=>{modalFilter=k;modalSel=null;modalSrc=null;renderModal()});body.appendChild(ch)}
 function renderModal(){
   const body=$('mBody');body.innerHTML='';
-  ({travel:renderTravel,bag:renderBag,status:renderStatus,shop:renderShop,smith:renderSmith,store:renderStore,temple:renderTemple,bazaar:renderBazaar})[modalKind](body);
+  ({travel:renderTravel,bag:renderBag,status:renderStatus,shop:renderShop,smith:renderSmith,store:renderStore,temple:renderTemple,bazaar:renderBazaar,sound:renderSound,quest:renderQuest})[modalKind](body);
 }
 
 // ---- バッグ ----
 function equipItem(id){const it=ITEMS[id];if(!it||!canWear(it))return;if(!takeFrom(save.bag,id,1))return;const old=save.eq[it.slot];save.eq[it.slot]=id;
   if(old&&!bagAdd(old,1)){save.eq[it.slot]=old;bagAdd(id,1);toast('バッグがいっぱいで入れかえられないよ');return}recalc();queueSave()}
 function unequip(sl){const id=save.eq[sl];if(!id)return;if(!bagAdd(id,1)){toast('バッグがいっぱいだよ');return}delete save.eq[sl];recalc();queueSave()}
-function usePotion(){if(!G){toast('冒険中に使えるよ');return}const m=G.me;if(m.dead>0||m.pcd>0)return;if(!save.bag.c_potion){toast('回復薬がないよ（道具屋で買えるよ）');return}
-  if(m.hp>=m.mhp){toast('HPはまんたんだよ');return}takeFrom(save.bag,'c_potion',1);m.pcd=POTION_CD;healMe(POTION_HEAL);G.fx.push({k:'heal',x:m.x,y:m.y-30,life:1});queueSave()}
-function useEther(){if(!G){toast('冒険中に使えるよ');return}const m=G.me;if(m.dead>0||m.ecd>0)return;if(!save.bag.c_ether){toast('SP回復薬がないよ（道具屋で買えるよ）');return}
-  if(m.sp>=m.msp-.5){toast('SPはまんたんだよ');return}takeFrom(save.bag,'c_ether',1);m.ecd=ETHER_CD;const h=Math.min(ETHER_SP,Math.round(m.msp-m.sp));m.sp=Math.min(m.msp,m.sp+ETHER_SP);
+function usePotion(id){if(!G){toast('冒険中に使えるよ');return}const m=G.me;if(m.dead>0||m.pcd>0)return;id=id||pickBottle(POT_AMT,m.mhp-m.hp);if(!id||!save.bag[id]){toast('回復薬がないよ（道具屋で買えるよ）');return}
+  if(m.hp>=m.mhp){toast('HPはまんたんだよ');return}takeFrom(save.bag,id,1);SND.se('potion');m.pcd=POTION_CD;healMe(POT_AMT[id]);G.fx.push({k:'heal',x:m.x,y:m.y-30,life:1});queueSave()}
+function useEther(id){if(!G){toast('冒険中に使えるよ');return}const m=G.me;if(m.dead>0||m.ecd>0)return;id=id||pickBottle(ETHER_AMT,m.msp-m.sp);if(!id||!save.bag[id]){toast('SP回復薬がないよ（道具屋で買えるよ）');return}
+  if(m.sp>=m.msp-.5){toast('SPはまんたんだよ');return}const amt=ETHER_AMT[id];takeFrom(save.bag,id,1);SND.se('potion');m.ecd=ETHER_CD;const h=Math.min(amt,Math.round(m.msp-m.sp));m.sp=Math.min(m.msp,m.sp+amt);
   G.nums.push({x:m.x,y:m.y-70,t:'+'+h+'SP',c:'#7ac4ff',life:1});queueSave()}
 function useForget(){const J=JS();let used=0;for(const k of STATS)used+=J.pt[k]-BASE_PT;if(!used){toast('まだポイントをふっていないよ');return}
   if(!takeFrom(save.bag,'c_forget',1))return;for(const k of STATS)J.pt[k]=BASE_PT;J.free=(J.lv-1)*PT_PER_LV;recalc();queueSave();toast('ポイントがもどった！ ふりなおしてね')}
@@ -1359,7 +1653,7 @@ function renderBag(body){
         acts.appendChild(btn('そうびする','',()=>{equipItem(sel);if(!save.bag[sel])modalSel=null;renderModal()},!ok))}}
     else if(k==='mat'){const mt=MATS[sel];d.appendChild(el('div',null,(mt.rare?'レアそざい':'そざい')+'　'+MON[mt.from].name+'が落とす　もっている：'+(save.bag[sel]||0)));d.appendChild(el('div','muted','鍛冶場で装備を作るのに使うよ'))}
     else{const c=CONS[sel];d.appendChild(el('div',null,c.desc+'　もっている：'+(save.bag[sel]||0)));
-      if(sel==='c_potion'||sel==='c_ether')acts.appendChild(btn('つかう','green',()=>{(sel==='c_potion'?usePotion:useEther)();if(!save.bag[sel])modalSel=null;renderModal()}));
+      if(POT_AMT[sel]||ETHER_AMT[sel])acts.appendChild(btn('つかう','green',()=>{POT_AMT[sel]?usePotion(sel):useEther(sel);if(!save.bag[sel])modalSel=null;renderModal()}));
       else acts.appendChild(btn(forgetArm?'もう一度おすと、ふりなおし':'つかう','green',()=>{if(!forgetArm){forgetArm=true;renderModal();return}forgetArm=false;useForget();if(!save.bag[sel])modalSel=null;renderModal()}))}
     if(acts.children.length)d.appendChild(acts)}
   body.appendChild(d);
@@ -1375,16 +1669,18 @@ function sortIds(ids){const ord=id=>{const k=kindOf(id);return k==='eq'?SLOTS.in
 // ---- つよさ（ポイントのふりわけ） ----
 function renderStatus(body){
   $('mTitle').textContent='つよさ';const J=JS(),st=statsOf();
-  pvBox(body,lookOf(save),[[JOBS[save.job].name,'Lv'+J.lv],['ぞくせい',elName(save.attr)],['HP',st.mhp],['SP',st.msp],['いりょく',st.pow],['クリティカル',Math.round(st.crit*1000)/10+'%'],['けいけんち',isMax(J)?'MAX':J.xp+' / '+xpNeed(J.lv)],['のこりポイント',J.free]]);
+  pvBox(body,lookOf(save),[[JOBS[save.job].name,'Lv'+J.lv],['ぞくせい',elName(save.attr)],['HP',st.mhp],['SP',st.msp],['いりょく',st.pow],...(JOBS[save.job].skB?[['スキルの元',st.pow+st.skb]]:[]),['クリティカル',Math.round(st.crit*1000)/10+'%'],...(st.spr?[['SPかいふく','+'+st.spr+'/秒']]:[]),...(st.cdr?[['まち時間','−'+Math.round(st.cdr*100)+'%']]:[]),['けいけんち',isMax(J)?'MAX':J.xp+' / '+xpNeed(J.lv)],['のこりポイント',J.free]]);
   for(const k of STATS){const r=el('div','srow');r.appendChild(el('span','nm',STATNAME[k]));const v=el('span','v');v.append('ポイント '+J.pt[k]+'　→　');v.appendChild(el('b',null,String(st[k])));r.appendChild(v);
     r.appendChild(btn('＋','',()=>{if(J.free<=0)return;J.pt[k]++;J.free--;recalc();queueSave();renderModal()},J.free<=0));body.appendChild(r);
     body.appendChild(el('div','sdesc',STATDESC[k]))}
   body.appendChild(el('p','muted','レベルが上がるたびにポイントが3もらえるよ。ポイントは職業ごとにべつべつ。ふりなおしは道具屋の「わすれ草」で。'));
   if(save.bag.c_forget){const a=el('div','acts');a.appendChild(btn(forgetArm?'もう一度おすと、ふりなおし':'わすれ草をつかう（'+save.bag.c_forget+'こ）','gray',()=>{if(!forgetArm){forgetArm=true;renderModal();return}forgetArm=false;useForget();renderModal()}));body.appendChild(a)}
-  body.appendChild(el('div','cap','いりょく＝'+PW_NAME[JOBS[save.job].pw]+'。ふつうの攻撃とスキルのダメージのもとになるよ'));
+  {const J=JOBS[save.job];body.appendChild(el('div','cap','いりょく＝'+PW_NAME[J.pw]+'。ふつうの攻撃とスキルのダメージのもとになるよ'));
+    if(J.skB)body.appendChild(el('div','cap','スキルの元＝いりょく＋'+STATNAME[J.skB]+'×'+SKB_K+'（上乗せは いりょく と同じぶんまで。いまは +'+Math.round(st.skb)+'）。こうげきと'+STATNAME[J.skB]+'のバランスが大事'));
+    body.appendChild(el('div','cap','ふつうの攻撃：いりょく×'+(J.ba||1)+(J.spc?'（1発ごとに最大SPの'+J.spc*100+'%を使う）':'')+(J.dr?'　'+J.name+'はいつも受けるダメージ−'+Math.round(J.dr*100)+'%':'')))}
   body.appendChild(el('div','cap','スキル Lv'+st.slv+(st.slv>=SK_MAX?'（最大）':'　次はLv'+(st.slv+1)*3+'で上がる')+'（右下のボタン。パソコンは1・2・3キー）'));
   for(const S of skillsOf(save.job)){const r=el('div','skl');r.appendChild(el('b',null,S.name));
-    r.append('　SP'+S.sp+'　まち'+S.cd+'秒'+(S.el?'　'+elName(S.el)+'ぞくせい':''));r.appendChild(el('div','sdesc',skDesc(S,st.slv)));body.appendChild(r)}
+    r.append('　SP'+S.sp+'　まち'+fmtN(skCd(S,st))+'秒'+(S.el?'　'+elName(S.el)+'ぞくせい':''));r.appendChild(el('div','sdesc',skDesc(S,st.slv)));body.appendChild(r)}
   body.appendChild(el('p','muted','ぞくせい：火は草に、草は水に、水は火に強い。強い相手には与えるダメージ1.3倍、弱い相手には0.8倍。敵からも同じように受ける。ふつうの攻撃とスキルは自分のぞくせい（メイジのスキルはスキルごとに決まっている）。'));
 }
 
@@ -1393,22 +1689,38 @@ function renderShop(body){
   $('mTitle').textContent='道具屋 ポポ';
   pvBox(body,npcLook('shop'),[['いらっしゃい！',''],['ゴールド',save.gold+' G'],['バッグ',Object.keys(save.bag).length+' / '+BAG_KINDS+' 種類']]);
   chips(body,[['buy','かう'],['sell','うる']]);
-  if(modalFilter==='buy'){for(const c of Object.values(CONS)){const r=el('div','lrow');r.appendChild(sprCanvas(conSprite(c.id),22));const tx=el('div','tx');tx.appendChild(el('b',null,c.name+'　'+c.price+'G'));tx.appendChild(el('div','muted',c.desc+'　もっている：'+(save.bag[c.id]||0)));r.appendChild(tx);
-      for(const n of c.price>=100?[1]:[1,10]){r.appendChild(btn(n+'こ','green',()=>ask('「'+c.name+'」を '+n+'こ\n'+c.price*n+'G でかう？',()=>buy(c.id,n)),save.gold<c.price*n))}body.appendChild(r)}return}
+  if(modalFilter==='buy'){
+    {const w=ITEMS['w_'+save.job+'_wood'],r=el('div','lrow');r.appendChild(iconFor(w.id,22));const tx=el('div','tx');tx.appendChild(el('b',null,w.name+'　'+w.g+'G'));
+      tx.appendChild(el('div','muted','ぶき（'+JOBS[save.job].name+'用）　'+statText(w)+'　もっている：'+((save.bag[w.id]||0)+(save.eq.weapon===w.id?1:0))));r.appendChild(tx);
+      r.appendChild(btn('1こ','green',()=>ask('「'+w.name+'」を 1こ\n'+w.g+'G でかう？',()=>buyEq(w.id)),save.gold<w.g));body.appendChild(r)}
+    for(const c of Object.values(CONS)){const r=el('div','lrow');r.appendChild(sprCanvas(conSprite(c.id),22));const tx=el('div','tx');tx.appendChild(el('b',null,c.name+'　'+c.price+'G'));tx.appendChild(el('div','muted',c.desc+'　もっている：'+(save.bag[c.id]||0)));r.appendChild(tx);
+      for(const n of c.id==='c_forget'?[1]:[1,10]){r.appendChild(btn(n+'こ','green',()=>ask('「'+c.name+'」を '+n+'こ\n'+c.price*n+'G でかう？',()=>buy(c.id,n)),save.gold<c.price*n))}body.appendChild(r)}return}
   const sel=modalSel&&save.bag[modalSel]?modalSel:null;const d=el('div','detail');
   if(!sel)d.appendChild(el('div','muted','売るものをえらんでね。'));
   else{const p=sellOf(sel),n=save.bag[sel];d.appendChild(Object.assign(el('div','t',defOf(sel).name),{style:'color:'+nameCol(sel)}));d.appendChild(el('div',null,'うりね '+p+'G　もっている：'+n));
-    const a=el('div','acts');const nm=defOf(sel).name;a.appendChild(btn('1こうる','gray',()=>ask('「'+nm+'」を 1こ\n'+p+'G でうる？',()=>sell(sel,1))));a.appendChild(btn('ぜんぶうる（'+p*n+'G）','gray',()=>ask('「'+nm+'」を ぜんぶ（'+n+'こ）\n'+p*n+'G でうる？',()=>sell(sel,n)),n<2));d.appendChild(a)}
+    // 売る数をえらぶ：−10・−・数・＋・＋10・ぜんぶ
+    const nm=defOf(sel).name;shopN=clamp(shopN|0||1,1,n);
+    const sb=btn('','gray',()=>ask('「'+nm+'」を '+shopN+'こ\n'+p*shopN+'G でうる？',()=>{const k=shopN;shopN=1;sell(sel,k)}));
+    const upd=()=>{sb.textContent=shopN+'こ うる（'+p*shopN+'G）'};
+    const st=el('div','stp');const set=v=>{shopN=clamp(v,1,n);renderModal()};
+    st.appendChild(btn('−10','',()=>set(shopN-10),shopN<=1));st.appendChild(btn('−','',()=>set(shopN-1),shopN<=1));
+    const inp=document.createElement('input');inp.type='number';inp.inputMode='numeric';inp.min='1';inp.max=String(n);inp.value=String(shopN);inp.className='num';
+    inp.oninput=()=>{const v=Math.floor(Number(inp.value));if(v>=1){shopN=clamp(v,1,n);upd()}};inp.onblur=()=>{inp.value=String(shopN)};st.appendChild(inp);
+    st.appendChild(btn('＋','',()=>set(shopN+1),shopN>=n));st.appendChild(btn('＋10','',()=>set(shopN+10),shopN>=n));st.appendChild(btn('ぜんぶ','',()=>set(n),shopN>=n));d.appendChild(st);
+    const a=el('div','acts');upd();a.appendChild(sb);d.appendChild(a)}
   body.appendChild(d);
   const grid=el('div','grid');const ids=sortIds(Object.keys(save.bag));if(!ids.length)body.appendChild(el('p','muted','バッグがからっぽだよ。'));
-  for(const id of ids)grid.appendChild(cell(id,save.bag[id],id===sel,()=>{modalSel=id;renderModal()},sellOf(id)+'G'));body.appendChild(grid);
+  for(const id of ids)grid.appendChild(cell(id,save.bag[id],id===sel,()=>{if(modalSel!==id)shopN=1;modalSel=id;renderModal()},sellOf(id)+'G'));body.appendChild(grid);
 }
+let shopN=1;   // 道具屋で売る数
 function buy(id,n){const c=CONS[id];if(save.gold<c.price*n)return;const k=canAdd(save.bag,id,n,BAG_KINDS,BAG_MAX);if(k<n){toast('バッグに入りきらないよ');return}
-  save.gold-=c.price*n;bagAdd(id,n);queueSave();toast('「'+c.name+'」を'+n+'こ かった！');renderModal()}
-function sell(id,n){n=takeFrom(save.bag,id,n);if(!n)return;const g=sellOf(id)*n;save.gold+=g;queueSave();toast(g+' G で売った');if(!save.bag[id])modalSel=null;renderModal()}
+  save.gold-=c.price*n;SND.se('coin');bagAdd(id,n);queueSave();toast('「'+c.name+'」を'+n+'こ かった！');renderModal()}
+function buyEq(id){const it=ITEMS[id];if(!it||!it.shop||save.gold<it.g)return;if(canAdd(save.bag,id,1,BAG_KINDS,BAG_MAX)<1){toast('バッグに入りきらないよ');return}
+  save.gold-=it.g;bagAdd(id,1);queueSave();SND.se('coin');toast('「'+it.name+'」をかった！（バッグからそうびしてね）');renderModal()}
+function sell(id,n){n=takeFrom(save.bag,id,n);if(!n)return;const g=sellOf(id)*n;gainGold(g);queueSave();SND.se('coin');toast(g+' G で売った');if(!save.bag[id])modalSel=null;renderModal()}
 
 // ---- 鍛冶場 ----
-function recipeList(){return ITEM_LIST.filter(it=>it.slot===modalFilter&&(!it.job||it.job===save.job))}
+function recipeList(){return ITEM_LIST.filter(it=>!it.shop&&it.slot===modalFilter&&(!it.job||it.job===save.job))}
 function baseHave(it){if(!it.base)return true;return haveAll(it.base)>0||save.eq[ITEMS[it.base].slot]===it.base}
 function canCraft(it){if(save.gold<it.g||!baseHave(it))return false;for(const k in it.m)if(haveAll(k)<it.m[k])return false;return true}
 function takeAny(id,n){let k=takeFrom(save.bag,id,n);if(k<n)k+=takeFrom(save.store,id,n-k);return k}
@@ -1418,23 +1730,32 @@ function craft(it){
   for(const k in it.m)takeAny(k,it.m[k]);save.gold-=it.g;
   if(wasEq&&canWear(it))save.eq[it.slot]=it.id;
   else if(!stash(it.id,1)){save.eq[it.slot]=save.eq[it.slot]||it.id}
-  recalc();queueSave();toast('「'+it.name+'」ができた！'+(save.eq[it.slot]===it.id?'（そうびした）':''),'#ffe27a');renderModal()}
+  recalc();queueSave();SND.se('anvil');toast('「'+it.name+'」ができた！'+(save.eq[it.slot]===it.id?'（そうびした）':''),'#ffe27a');renderModal()}
+// 鍛冶場：1行に「アイコン・名前・ゴールド・能力」と「材料のアイコン×数」。足りない材料には赤い印。ページ送りつき
+let smithPg=0;const SMITH_PER=5;
+function matBox(id,need,have,label){const b=el('div','mb'+(have<need?' short':''));const bx=el('div','bx');bx.appendChild(iconFor(id,16));b.appendChild(bx);
+  if(have<need)b.appendChild(el('span','minus','−'));b.appendChild(el('div',null,label||(have<need?have+'/'+need:'×'+need)));return b}
+function recipeRow(it,sel){
+  const ok=canCraft(it),r=el('div','rcp'+(sel?' sel':''));
+  const ic=el('div','ric');ic.style.borderColor=TIER_COL[it.tier];ic.appendChild(iconFor(it.id,23));if(ok)ic.appendChild(el('span','ok','つくれる'));ic.appendChild(el('span','lv'+(it.lv>JS().lv?' ng':''),'Lv'+it.lv));r.appendChild(ic);
+  const mid=el('div','rmid'),nm=el('div','rnm');const n=el('span',null,it.name);n.style.color=TIER_COL[it.tier];nm.appendChild(n);nm.appendChild(el('span','g'+(save.gold<it.g?' ng':''),it.g+' G'));mid.appendChild(nm);
+  const own=haveAll(it.id)+(save.eq[it.slot]===it.id?1:0);
+  mid.appendChild(el('div','rst',statText(it)+(own?'　もっている '+own:'')));
+  const mats=el('div','rmats');
+  if(it.base){const b=ITEMS[it.base],inEq=save.eq[b.slot]===b.id&&!haveAll(b.id);mats.appendChild(matBox(it.base,1,baseHave(it)?1:0,inEq?'そうび中':null))}
+  for(const k in it.m)mats.appendChild(matBox(k,it.m[k],haveAll(k)));
+  mid.appendChild(mats);
+  if(sel){const a=el('div','racts');a.appendChild(btn(ok?'つくる':'素材かゴールドがたりない','green',e=>{e.stopPropagation();ask('「'+it.name+'」をつくる？\n素材と '+it.g+'G を使うよ'+(it.base?'\n（「'+ITEMS[it.base].name+'」も使うよ）':''),()=>craft(it))},!ok));mid.appendChild(a)}
+  r.appendChild(mid);r.onclick=()=>{modalSel=sel?null:it.id;renderModal()};return r}
 function renderSmith(body){
   $('mTitle').textContent='鍛冶場 ガンテツ';
   const list=recipeList();const sel=list.find(it=>it.id===modalSel)||null;
   pvBox(body,sel?tryLook(sel.id):lookOf(save),[['素材をもってきな！',''],['ゴールド',save.gold+' G'],[JOBS[save.job].name,'Lv'+JS().lv]]);
-  const d=el('div','detail');
-  if(!sel)d.appendChild(el('div','muted','作りたい装備をえらんでね。素材はバッグと倉庫の両方から使うよ。'));
-  else{d.appendChild(Object.assign(el('div','t',sel.name),{style:'color:'+TIER_COL[sel.tier]}));d.appendChild(el('div',null,SLOTNAME[sel.slot]+'　Lv'+sel.lv+'から　'+statText(sel)));
-    const need=(id,n,have,label)=>{const r=el('div','need'+(have>=n?' ok':' ng'));r.appendChild(iconFor(id,13));r.append((label||defOf(id).name)+' ');r.appendChild(el('b',null,Math.min(have,n)+' / '+n));d.appendChild(r)};
-    if(sel.base){const b=ITEMS[sel.base];need(sel.base,1,baseHave(sel)?1:0,b.name+(save.eq[b.slot]===b.id&&!haveAll(b.id)?'（そうび中）':''))}
-    for(const k in sel.m)need(k,sel.m[k],haveAll(k));
-    const g=el('div','need'+(save.gold>=sel.g?' ok':' ng'));g.append('ゴールド ');g.appendChild(el('b',null,sel.g+' G'));d.appendChild(g);
-    const a=el('div','acts');a.appendChild(btn('つくる','green',()=>ask('「'+sel.name+'」をつくる？\n素材と '+sel.g+'G を使うよ',()=>craft(sel)),!canCraft(sel)));d.appendChild(a)}
-  body.appendChild(d);
-  chips(body,SLOTS.map(s=>[s,SLOTNAME[s]]));
-  const grid=el('div','grid');for(const it of list)grid.appendChild(cell(it.id,null,it===sel,()=>{modalSel=it.id;renderModal()},canCraft(it)?'つくれる':null));body.appendChild(grid);
-  if(modalFilter==='weapon')body.appendChild(el('p','muted','ぶきは、いまの職業（'+JOBS[save.job].name+'）のものが作れるよ。'));
+  const ch=el('div','chips');chipRow(ch,SLOTS.map(s=>[s,SLOTNAME[s]]),modalFilter,k=>{modalFilter=k;modalSel=null;smithPg=0;renderModal()});body.appendChild(ch);
+  const pages=Math.max(1,Math.ceil(list.length/SMITH_PER));smithPg=clamp(smithPg,0,pages-1);
+  for(const it of list.slice(smithPg*SMITH_PER,(smithPg+1)*SMITH_PER))body.appendChild(recipeRow(it,it===sel));
+  if(pages>1){const pg=el('div','pager');pg.appendChild(btn('◀','alt',()=>{smithPg=(smithPg+pages-1)%pages;modalSel=null;renderModal()}));pg.appendChild(el('span',null,(smithPg+1)+' / '+pages));pg.appendChild(btn('▶','alt',()=>{smithPg=(smithPg+1)%pages;modalSel=null;renderModal()}));body.appendChild(pg)}
+  body.appendChild(el('p','muted','えらぶと試着できるよ。素材はバッグと倉庫の両方から使うよ。赤い印は足りない素材。'+(modalFilter==='weapon'?'ぶきは、いまの職業（'+JOBS[save.job].name+'）のものが作れるよ。'+ITEMS['w_'+save.job+'_wood'].name+'は道具屋で売っているよ。':'')));
 }
 
 // ---- 倉庫 ----
@@ -1471,7 +1792,7 @@ async function bzBuy(l){
 }
 async function bzSell(id,n,price){
   const fee=feeOf(price);
-  if(BZ.busy||!(n>=1&&n<=(save.bag[id]||0))||!(price>=1&&price<=9999999))return;
+  if(BZ.busy||!(n>=1&&n<=(save.bag[id]||0))||!(price>=1&&price<=GOLD_MAX))return;
   if((BZ.mine||[]).length>=LIST_MAX){toast('出品は'+LIST_MAX+'件までだよ（売れた物や期限切れを受け取ると空くよ）');return}
   if(save.gold<fee){toast('手数料のゴールドがたりないよ');return}
   BZ.busy=true;renderModal();
@@ -1485,7 +1806,7 @@ async function bzSettle(l){
   if(back&&canAdd(save.bag,l.item,l.n,BAG_KINDS,BAG_MAX)<l.n&&canAdd(save.store,l.item,l.n,STORE_KINDS,STORE_MAX)<l.n){toast('バッグも倉庫もいっぱいだよ');return}
   BZ.busy=true;renderModal();
   try{await NET.settle(l.id,l.status);
-    if(back){stash(l.item,l.n);toast('「'+defOf(l.item).name+'」がもどってきた')}else{save.gold+=l.price;toast(l.price+' G 受け取った！','#ffe27a')}await flushSave()}
+    if(back){stash(l.item,l.n);toast('「'+defOf(l.item).name+'」がもどってきた')}else{gainGold(l.price);toast(l.price+' G 受け取った！','#ffe27a')}await flushSave()}
   catch(e){toast(e&&e.message==='changed'?'ちょうど売れたみたい。もう一度見てね':'うまくいきませんでした')}
   BZ.busy=false;await bzLoad(true);
 }
@@ -1510,8 +1831,8 @@ function renderBazaar(body){
     else{const have=save.bag[sel];d.appendChild(Object.assign(el('div','t',defOf(sel).name),{style:'color:'+nameCol(sel)}));d.appendChild(el('div',null,'もっている：'+have));
       BZ.n=clamp(BZ.n|0||1,1,have);
       const row=(label,val,max,on)=>{const r=el('div','need');r.append(label+' ');const i=document.createElement('input');i.type='number';i.inputMode='numeric';i.min='1';if(max)i.max=String(max);i.value=String(val);i.className='num';i.oninput=()=>on(i.value);r.appendChild(i);d.appendChild(r);return i};
-      const feeEl=el('div','need');const upd=()=>{const p=Math.floor(Number(BZ.price));feeEl.textContent=p>=1?'手数料 '+feeOf(p)+'G（売れたら '+p+'G もらえる）':'値段を入れてね';sb.disabled=!(p>=1&&p<=9999999)||save.gold<feeOf(p||1)||BZ.busy};
-      row('かず',BZ.n,have,v=>{BZ.n=Math.floor(Number(v))||1;upd()});row('まとめての値段（G）',BZ.price,9999999,v=>{BZ.price=v;upd()});d.appendChild(feeEl);
+      const feeEl=el('div','need');const upd=()=>{const p=Math.floor(Number(BZ.price));feeEl.textContent=p>=1?'手数料 '+feeOf(p)+'G（売れたら '+p+'G もらえる）':'値段を入れてね';sb.disabled=!(p>=1&&p<=GOLD_MAX)||save.gold<feeOf(p||1)||BZ.busy};
+      row('かず',BZ.n,have,v=>{BZ.n=Math.floor(Number(v))||1;upd()});row('まとめての値段（G）',BZ.price,GOLD_MAX,v=>{BZ.price=v;upd()});d.appendChild(feeEl);
       const a=el('div','acts');const sb=btn('出品する','green',()=>{const n=clamp(BZ.n,1,have),pr=Math.floor(Number(BZ.price));ask('「'+defOf(sel).name+'」×'+n+' を\n'+pr+'G で出品する？\n（手数料 '+feeOf(pr)+'G・もどらないよ）',()=>bzSell(sel,n,pr))});a.appendChild(sb);d.appendChild(a);upd()}
     body.appendChild(d);
     const grid=el('div','grid');const ids=sortIds(Object.keys(save.bag));if(!ids.length)body.appendChild(el('p','muted','バッグがからっぽだよ。'));
@@ -1527,6 +1848,26 @@ function renderBazaar(body){
 }
 function leftText(l){const ms=l.created+LIST_DAYS*864e5-Date.now();if(ms<=0)return'0分';const h=Math.floor(ms/36e5);return h>=24?Math.floor(h/24)+'日'+(h%24)+'時間':h>=1?h+'時間':Math.max(1,Math.floor(ms/6e4))+'分'}
 
+// ---- クエスト掲示板 ----
+function qIcon(q){if(q.k==='bring')return iconFor(q.t,22);const spr=monSprite(q.t,0,false),c=document.createElement('canvas');c.width=c.height=88;const x=c.getContext('2d');x.imageSmoothingEnabled=false;
+  let k=Math.min(3,80/Math.max(spr.width,spr.height));if(k>=1)k=Math.floor(k);const w=spr.width*k,h=spr.height*k;x.drawImage(spr,(88-w)/2,(88-h)/2+4,w,h);return c}
+function renderQuest(body){
+  $('mTitle').textContent='クエスト掲示板 ノノ';qFill();const Q=save.q,act=Q.list.filter(q=>q.on).length;
+  pvBox(body,npcLook('quest'),[['村のみんなのおねがいだよ！',''],['ゴールド',save.gold+' G'],['うけている',act+' / '+Q_ACT+' 件']]);
+  for(const q of Q.list){const r=el('div','lrow'+(q.on?' cur':''));r.appendChild(qIcon(q));const tx=el('div','tx');
+    const tt=el('b',null,qTitle(q));if(q.k==='bring')tt.style.color=nameCol(q.t);tx.appendChild(tt);
+    tx.appendChild(el('div','muted',Q_WHO[q.r]+'より　'+qWhere(q)));
+    const done=qDone(q),p=el('div','muted',(q.k==='bring'?'もっている '+haveAll(q.t)+' / '+q.n:q.on?(done?'たっせい！':'いま '+q.c+' / '+q.n):'うけると数えはじめるよ')+'　おれい ');
+    const gb=el('b',null,q.g+'G');gb.style.color='#e07a2b';p.appendChild(gb);tx.appendChild(p);r.appendChild(tx);
+    if(q.k==='bring')r.appendChild(btn('わたす','green',()=>ask('「'+MATS[q.t].name+'」を '+q.n+'こ わたす？\n（バッグと倉庫から使うよ）\nおれい '+q.g+'G',()=>qReport(q)),!done));
+    else if(!q.on)r.appendChild(btn('うける','',()=>{if(Q.list.filter(x=>x.on).length>=Q_ACT)return;q.on=true;q.c=0;queueSave();SND.se('tap');renderModal()},act>=Q_ACT));
+    else if(done)r.appendChild(btn('ほうこく','green',()=>qReport(q)));
+    else r.appendChild(btn('やめる','gray',()=>ask('このクエストをやめる？\n（数えた分はなくなるよ）',()=>{q.on=false;q.c=0;queueSave();renderModal()})));
+    body.appendChild(r)}
+  const a=el('div','acts');a.appendChild(btn('はりかえる','gray',()=>ask('うけていない おねがいを\nあたらしいものに とりかえる？',()=>{Q.list=Q.list.filter(q=>q.on);qFill();queueSave();renderModal()}),!Q.list.some(q=>!q.on)));body.appendChild(a);
+  body.appendChild(el('p','muted','「たおして」は、うけてから倒した数を数えるよ（'+Q_ACT+'件まで。どのエリアで倒してもOK）。たっせいしたら、ここでほうこくしてね。「ほしい」は、うけなくても素材があればすぐわたせるよ。おねがいは、全職業でいちばん高いレベルで行ける場所から出るよ。'));
+}
+
 // ---- 転職神殿 ----
 function changeJobInGame(k){if(!JOBS[k]||k===save.job)return;save.job=k;const off=fixEquip();
   if(!save.eq.weapon){const w=ITEM_LIST.filter(it=>it.slot==='weapon'&&it.job===k&&canWear(it)&&save.bag[it.id]).sort((a,b)=>b.lv-a.lv||b.tier-a.tier)[0];if(w)equipItem(w.id)}recalc();if(G){G.me.hp=G.me.mhp;G.me.sp=G.me.msp;G.me.scd=[0,0,0];G.me.buf={};G.me.bv={};updateHud()}queueSave();
@@ -1534,8 +1875,8 @@ function changeJobInGame(k){if(!JOBS[k]||k===save.job)return;save.job=k;const of
 function renderTemple(body){
   $('mTitle').textContent='転職神殿 ミコト';
   pvBox(body,lookOf(save),[['どの職業になる？',''],['いまは',JOBS[save.job].name],['','']]);
-  for(const k in JOBS){const J=save.jobs[k],r=el('div','lrow'+(k===save.job?' cur':''));const c=previewCanvas({job:k,hair:HAIR,hc:HC,eq:{}});c.style.width='48px';c.style.height='56px';r.appendChild(c);
-    const tx=el('div','tx');tx.appendChild(el('b',null,JOBS[k].name+'　Lv'+J.lv));tx.appendChild(el('div','muted','スキル：'+skillsOf(k).map(S=>S.name).join('・')+'　いりょく＝'+PW_NAME[JOBS[k].pw]));r.appendChild(tx);
+  for(const k in JOBS){const J=save.jobs[k],r=el('div','lrow'+(k===save.job?' cur':''));const c=previewCanvas({job:k,hair:save.hair,hc:save.hc,face:save.face,eq:{}});c.style.width='48px';c.style.height='56px';r.appendChild(c);
+    const tx=el('div','tx');tx.appendChild(el('b',null,JOBS[k].name+'　Lv'+J.lv));tx.appendChild(el('div','muted','スキル：'+skillsOf(k).map(S=>S.name).join('・')+'　いりょく＝'+PW_NAME[JOBS[k].pw]+(JOBS[k].skB?'（スキルは'+STATNAME[JOBS[k].skB]+'で上乗せ）':JOBS[k].spc?'（ふつうの攻撃もSPを使う）':'')));r.appendChild(tx);
     r.appendChild(btn(k===save.job?'いまの職業':'転職する','',()=>{changeJobInGame(k);renderModal()},k===save.job));body.appendChild(r)}
   body.appendChild(el('p','muted','レベルとステータスポイントは職業ごとに保存されるよ。装備・ゴールド・バッグ・倉庫はみんな共通。'));
   // 属性をかえる（「なし」からは1回だけ無料）
@@ -1551,11 +1892,13 @@ function renderTravel(body){
   $('mTitle').textContent='どこへ行く？';
   const here={};if(cur)for(const p of activePeers()){if(p.sameTab)continue;const q=p.presence;if(MAPS[q.mp])(here[q.mp]=here[q.mp]||[]).push(cleanText(q.n,10)||'ぼうけんしゃ')}
   for(const id of FIELD_ORDER){const M=MAPS[id],open=OPEN_MAPS.includes(id);const card=el('button','mapCard theme-'+M.theme+(open?'':' locked'));
-    const t=el('div','mt',M.name);const lv=el('span','rec'+(open&&JS().lv<M.rec?' hard':''),open?'おすすめ Lv'+M.rec:'じゅんびちゅう');t.appendChild(lv);card.appendChild(t);
+    const AR=grpAreas(id).map(k=>MAPS[k]),types=[...new Set(AR.flatMap(monTypes))],bossA=AR.find(a=>a.boss);
+    const t=el('div','mt',M.grpName||M.name);const lv=el('span','rec'+(open&&JS().lv<M.rec?' hard':''),open?'おすすめ Lv'+M.rec:'じゅんびちゅう');t.appendChild(lv);card.appendChild(t);
     if(open){card.appendChild(el('div','md',M.desc));
-      const mm=el('div','mm');for(const mt of monTypes(M)){const ic=document.createElement('canvas');const spr=monSprite(mt,0,false);ic.width=spr.width;ic.height=spr.height;ic.getContext('2d').drawImage(spr,0,0);ic.style.height=(MON[mt].boss?40:28)+'px';mm.appendChild(ic)}card.appendChild(mm);
-      card.appendChild(el('div','md','ぞくせい：'+monTypes(M).map(mt=>MON[mt].name+'（'+elName(MON[mt].el)+'）').join('　')));
-      if(M.boss){const b=el('div','mf','ボス：'+MON[M.boss.t].name);b.style.marginRight='6px';card.appendChild(b)}
+      const mm=el('div','mm');for(const mt of types){const ic=document.createElement('canvas');const spr=monSprite(mt,0,false);ic.width=spr.width;ic.height=spr.height;ic.getContext('2d').drawImage(spr,0,0);ic.style.height=(MON[mt].boss?40:28)+'px';mm.appendChild(ic)}card.appendChild(mm);
+      card.appendChild(el('div','md','ぞくせい：'+types.map(mt=>MON[mt].name+'（'+elName(MON[mt].el)+'）').join('　')));
+      if(AR.length>1){const b=el('div','mf',AR.length+'エリア');b.style.marginRight='6px';card.appendChild(b)}
+      if(bossA){const b=el('div','mf','ボス：'+MON[bossA.boss.t].name+'（'+bossA.name+'）');b.style.marginRight='6px';card.appendChild(b)}
       if(here[id])card.appendChild(el('div','mf','いまここにいる仲間：'+here[id].join('、')));
       card.onclick=()=>{closeModal();changeMap(id,M.spawn[0],M.spawn[1])}}
     else card.disabled=true;
@@ -1576,6 +1919,7 @@ function drawShot(c,s){
   else if(s.k==='water'){pxDot(c,s.x-s.vx*8,s.y-s.vy*8,'#bfe6ff',2);pxDot(c,s.x-3,s.y-3,'#3a96e6',4);pxDot(c,s.x-2,s.y-3,'#e0f4ff',1)}
   else if(s.k==='bubble'){pxDot(c,s.x-s.vx*10-2,s.y-s.vy*10-2,'#9ff0ff',2);pxDot(c,s.x-4,s.y-4,'#2f9e8c',4);pxDot(c,s.x-3,s.y-3,'#5fd0bd',3);pxDot(c,s.x-3,s.y-3,'#e0fff8',1)}
   else if(s.k==='feather'){for(let i=0;i<5;i++)pxDot(c,s.x-s.vx*i*PX*1.3-1,s.y-s.vy*i*PX*1.3-1,i===0?'#ffffff':i<3?'#a8b8e8':'#5a6fa8',i<3?2:1)}
+  else if(s.k==='shard'){pxDot(c,s.x-s.vx*8-1,s.y-s.vy*8-1,'#5ac8e8',1);pxDot(c,s.x-2,s.y-4,'#9ff0ff',2);pxDot(c,s.x-2,s.y,'#9ff0ff',2);pxDot(c,s.x-4,s.y-2,'#9ff0ff',2);pxDot(c,s.x,s.y-2,'#9ff0ff',2);pxDot(c,s.x-2,s.y-2,'#ffffff',2)}
   else if(s.k==='holy'){for(const[a,b]of[[0,-6],[-6,0],[6,0],[0,6]])pxDot(c,s.x+a,s.y+b,'#fff3a0',1);pxDot(c,s.x-3,s.y-3,'#ffffff',3)}
   else if(s.k==='light'){for(const[a,b]of[[0,-4],[-4,0],[4,0],[0,4]])pxDot(c,s.x+a,s.y+b,'#fff3a0',1);pxDot(c,s.x-2,s.y-2,'#ffffff',2)}
   else{for(let i=0;i<7;i++)pxDot(c,s.x-s.vx*i*PX*1.2,s.y-s.vy*i*PX*1.2,i===0?'#e0e0e0':(i>4?'#ffffff':'#8a5a2a'),1)}
@@ -1595,6 +1939,7 @@ function drawFx(c,f,t){
     case'splash':c.globalAlpha=clamp(f.life*3,0,1);for(let i=0;i<8;i++){const a=i*.785;pxDot(c,f.x+Math.cos(a)*(.35-f.life)*70,f.y+Math.sin(a)*(.35-f.life)*40,i%2?'#7cc4ec':'#e0f4ff',1)}break;
     case'leaf':c.globalAlpha=clamp(f.life*2,0,1);ringDots(c,f.x,f.y,f.r*(1.1-f.life),f.r*.45*(1.1-f.life),'#7fd07e',30,t*6);ringDots(c,f.x,f.y,f.r*(.9-f.life),f.r*.35*(.9-f.life),'#c8f5a0',20,-t*5);break;
     case'leafhit':c.globalAlpha=clamp(f.life*2.5,0,1);for(let i=0;i<6;i++){const a=i*1.05+t*8;pxDot(c,f.x+Math.cos(a)*14,f.y+Math.sin(a)*8,i%2?'#4cb050':'#a8e070',2)}break;
+    case'chip':{const k=.4-f.life;c.globalAlpha=clamp(f.life*3,0,1);pxDot(c,f.x+f.vx*k,f.y+f.vy*k+120*k*k,f.c,1);break}
     case'dust':c.globalAlpha=clamp(f.life*2,0,1)*.7;pxDot(c,f.x,f.y-(.4-f.life)*12,'#ffffff',f.life>.2?2:1);break;
     case'drop':{c.globalAlpha=clamp(f.life,0,1);const yy=f.y-20-(1.6-f.life)*24;for(const[a,b]of[[0,-2],[-2,0],[2,0],[0,2],[0,0]])pxDot(c,f.x+a*PX,yy+b*PX,a===0&&b===0?'#ffffff':f.c,1);break}
   }
@@ -1613,8 +1958,10 @@ function render(t){
   for(const p of M.portals)drawPortal(ctx,p,t,M.theme);
   if(G.tap&&G.tap.life>0){ctx.save();ctx.globalAlpha=Math.min(1,G.tap.life*2);ringDots(ctx,G.tap.x,G.tap.y,18*(1.2-G.tap.life),7*(1.2-G.tap.life),G.tap.c,14);ctx.restore()}
   const tg=m.tgt!=null&&G.view.mons.get(m.tgt);if(tg){const T=MON[tg.t];ringDots(ctx,tg.dx,tg.dy,T.r*1.4,T.r*.5,'#ff6a5a',16,t*2)}
+  if(M.theme==='cave'){const pal=['#7fe0ff','#ff9ee6','#b49bff','#9dffc9'];ctx.save();for(const p of gen.props)if(p.k==='crystal'&&inView(p.x,p.y,80)&&!brkGone(G.map,p)){ctx.globalAlpha=.13+.05*Math.sin(t*2+p.x);ctx.fillStyle=pal[Math.floor(p.v*4)];ctx.beginPath();ctx.ellipse(p.x,p.y-6,46,18,0,0,7);ctx.fill()}ctx.restore()}
   const list=[];const fr2=Math.floor(t*4)%2;
-  for(const p of gen.props)if(inView(p.x,p.y,170))list.push([p.y,()=>{const spr=propSprite(p,M.theme,p.k==='fountain'?fr2:0);const B=PROP_O[p.k];blit(ctx,spr,p.x,p.y,B[0],B[1],p.v>.5&&(p.k==='tree'||p.k==='rock'))}]);
+  for(const p of gen.props)if(inView(p.x,p.y,170)&&!brkGone(G.map,p))list.push([p.y,()=>{const spr=propSprite(p,M.theme,p.k==='fountain'?fr2:0);const B=PROP_O[p.k];const sk=p.shk>G.t?Math.round(Math.sin(t*60)*1.5)*PX:0;blit(ctx,spr,p.x+sk,p.y,B[0],B[1],p.v>.5&&(p.k==='tree'||p.k==='rock'))}]);
+  if(m.obj&&!brkGone(G.map,m.obj))ringDots(ctx,m.obj.x,m.obj.y,22,8,'#ffb36b',14,t*2);
   for(const n of M.npcs||[])list.push([n.y,()=>drawAvatarAt(ctx,n.look,n.x,n.y,{f:n.x<m.x?1:-1},t)]);
   for(const mo of G.view.mons.values())if(inView(mo.dx,mo.dy,150))list.push([mo.dy,()=>drawMonAt(ctx,mo,t)]);
   for(const d of G.drops)if(inView(d.x,d.y,40))list.push([d.y-1,()=>drawDrop(ctx,d,t)]);
@@ -1630,14 +1977,15 @@ function render(t){
     for(let gx=Math.floor(cam.x/T0);gx<=Math.floor((cam.x+VW)/T0);gx++)for(let gy=Math.floor(cam.y/T0);gy<=Math.floor((cam.y+VH)/T0);gy++)for(let k=0;k<2;k++){const h=hashStr(gx+','+gy+','+k);
       const x=gx*T0+(h%T0)+Math.sin(t*.7+h)*26,y=gy*T0+((h>>>9)%T0)+Math.cos(t*.5+h)*18,a=.5+.5*Math.sin(t*2.2+(h&63));if(a<.3)continue;
       ctx.save();ctx.globalAlpha=a*.35;pxDot(ctx,x-PX,y-PX,'#fff6a0',2);ctx.globalAlpha=a;pxDot(ctx,x,y,'#fffbd0',1);ctx.restore()}}
+  drawFalls(ctx,t);
   for(const s of G.shots)drawShot(ctx,s);
   for(const f of G.fx)drawFx(ctx,f,t);
-  for(const mo of G.view.mons.values()){if(mo.dead)continue;const T=MON[mo.t];const top=mo.dy-(T.boss?(T.barH||205):T.h+(T.fly?16:8));
+  for(const mo of G.view.mons.values()){if(mo.dead||hidMon(mo))continue;const T=MON[mo.t];const top=mo.dy-(T.boss?(T.barH||205):T.h+(T.fly?16:8));
     if(mo.hp<mo.mhp||T.boss||mo.id===m.tgt){if(T.boss){const x=Math.round(mo.dx/PX)*PX;ctx.fillStyle='#2a1e28';ctx.fillRect(x-60,top,120,8);ctx.fillStyle='#ff6a5a';ctx.fillRect(x-59,top+1,118*clamp(mo.hp/mo.mhp,0,1),6)}else hpMini(ctx,mo.dx,top,mo.hp/mo.mhp,'#ff6a5a')}
     if(mo.id===m.tgt||T.boss){textOut(ctx,T.name,mo.dx+7,top-5,'#ffd6d0',10);ctx.font='10px '+FONT;elemBadge(ctx,T.el,mo.dx+7-ctx.measureText(T.name).width/2-9,top-5)}}
   for(const p of gen.props)if(p.label&&inView(p.x,p.y,100))textOut(ctx,p.label,p.x,p.y-60,'#fff8d8',11);
-  for(const n of M.npcs||[]){nameTag(ctx,n.x,n.y-66,n.name,'',false);textOut(ctx,'!',n.x,n.y-82+Math.round(Math.sin(t*4)*1.5)*PX,'#ffd84a',18)}
-  const hatH=lk=>{const h=ITEMS[lk.eq.head];if(!h)return lk.hair==='spiky'?4:0;return h.design==='crown'?8:h.design==='moko'||h.design==='punicrown'||h.design==='leaf'?6:0};
+  for(const n of M.npcs||[]){const up=n.board?36:0;nameTag(ctx,n.x,n.y-66-up,n.name,'',false);textOut(ctx,'!',n.x,n.y-82-up+Math.round(Math.sin(t*4)*1.5)*PX,'#ffd84a',18)}
+  const hatH=lk=>{const h=ITEMS[lk.eq.head];if(!h)return lk.hair==='spiky'?4:0;return h.design==='crown'||h.design==='helm'?8:h.design==='moko'||h.design==='punicrown'||h.design==='leaf'?6:0};
   for(const o of G.others.values()){const y=o.y-62-hatH(o.look);nameTag(ctx,o.x,y,o.name,o.lv,false);hpMini(ctx,o.x,o.y+6,o.hp/o.mhp);if(o.say)bubble(ctx,o.x,y-12,o.say.t)}
   const my=m.y-62-hatH(lookOf(save));nameTag(ctx,m.x,my,save.name||'ぼうけんしゃ',JS().lv,true);
   if(G.say&&performance.now()-G.say.at<3500)bubble(ctx,m.x,my-12,G.say.t);
@@ -1645,7 +1993,7 @@ function render(t){
   ctx.setTransform(1,0,0,1,0,0);
   if(M.theme==='forest'){const g=ctx.createRadialGradient(cv.width/2,cv.height/2,Math.min(cv.width,cv.height)*.35,cv.width/2,cv.height/2,Math.max(cv.width,cv.height)*.75);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(10,30,15,.4)');ctx.fillStyle=g;ctx.fillRect(0,0,cv.width,cv.height)}
   if(M.theme==='cave'||M.theme==='boss'){const g=ctx.createRadialGradient(cv.width/2,cv.height/2,Math.min(cv.width,cv.height)*.3,cv.width/2,cv.height/2,Math.max(cv.width,cv.height)*.75);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(10,5,20,.55)');ctx.fillStyle=g;ctx.fillRect(0,0,cv.width,cv.height)}
-  if(!M.safe)drawMini(M);
+  drawQuestTrack(!M.safe?drawMini(M)+Math.round(6*DPR):Math.round(($('hud').getBoundingClientRect().bottom+6)*DPR));
   if(G.fade>0){ctx.fillStyle='rgba(20,15,30,'+G.fade+')';ctx.fillRect(0,0,cv.width,cv.height)}
   const s=DPR;
   if(G.banner&&G.banner.life>0){ctx.globalAlpha=clamp(G.banner.life,0,1);ctx.fillStyle='rgba(40,30,50,.7)';ctx.fillRect(0,cv.height*.32,cv.width,44*s);ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font=(22*s)+'px '+FONT;ctx.fillText(G.banner.t,cv.width/2,cv.height*.32+30*s);ctx.globalAlpha=1}
@@ -1666,8 +2014,15 @@ function drawMini(M){
   for(const o of G.others.values())dot(o.x,o.y,'#ffffff',2.2*s);
   dot(G.me.x,G.me.y,'#ffe27a',2.6*s);
   ctx.strokeStyle='rgba(255,255,255,.7)';ctx.lineWidth=Math.max(1,s);ctx.strokeRect(x0+G.cam.x*k,y0+G.cam.y*k,Math.min(w,VW*k),Math.min(h,VH*k));
-  ctx.restore();
+  ctx.restore();return y0+h+2*s;
 }
+// うけている「たおして」のクエストを、ミニマップの下に小さく出す
+function drawQuestTrack(y){const L=save.q.list.filter(q=>q.on);if(!L.length)return;const s=DPR,x0=Math.round(8*s),lh=Math.round(15*s);
+  ctx.save();ctx.font=Math.round(11*s)+'px '+FONT;ctx.textAlign='left';
+  const lines=L.map(q=>{const d=q.c>=q.n;return{t:MON[q.t].name+' '+(d?'たっせい！':q.c+'/'+q.n),c:d?'#9ff0b0':'#ffffff'}});
+  const w=Math.max(...lines.map(l=>ctx.measureText(l.t).width))+10*s;
+  ctx.fillStyle='rgba(40,30,50,.55)';rr(ctx,x0-2*s,y,w,lh*lines.length+6*s,6*s);ctx.fill();
+  lines.forEach((l,i)=>{ctx.fillStyle=l.c;ctx.fillText(l.t,x0+3*s,y+lh*(i+1)-1*s)});ctx.restore()}
 // 属性のマーク（名前の左に出す小さな四角）
 function elemBadge(c,e,x,y){if(!ELEM[e])return;x=Math.round(x/PX)*PX;y=Math.round(y/PX)*PX;c.fillStyle='#2a1e28';c.fillRect(x-7,y-10,14,13);c.fillStyle=ELEM[e].col;c.fillRect(x-6,y-9,12,11);
   c.font='9px '+FONT;c.textAlign='center';c.fillStyle='#fff';c.fillText(ELEM[e].name,x,y)}
@@ -1676,19 +2031,148 @@ function drawDrop(c,d,t){const mt=MATS[d.id];if(!mt)return;if(d.life<10&&Math.fl
   c.save();c.globalAlpha=.55+.25*Math.sin(t*5+d.x);ringDots(c,d.x,d.y,15,5,d.rare?'#e2b6ff':'#fffbe0',14,t*1.5);c.restore();
   blit(c,shadowSpr(),d.x,d.y,8,3,false,.8);c.save();c.translate(d.x,d.y+hop);c.scale(.75,.75);blit(c,matSprite(mt),0,0,9,15,false);c.restore();
   if(d.rare){const a=t*4+d.x;pxDot(c,d.x+Math.cos(a)*12,d.y-14+hop+Math.sin(a)*6,'#f0d8ff',1);pxDot(c,d.x-Math.cos(a)*12,d.y-14+hop-Math.sin(a)*6,'#ffffff',1)}}
-const PROP_O={bush:[17,24],sign:[11,26],tree:[20,50],pine:[17,52],rock:[14,20],bigshroom:[19,40],crystal:[15,38],pillar:[15,64],house:[44,84],fountain:[37,44],stall:[24,38],lamp:[6,38]};
+const PROP_O={stal:[14,44],board:[26,46],bush:[17,24],sign:[11,26],tree:[20,50],pine:[17,52],rock:[14,20],bigshroom:[19,40],crystal:[15,38],pillar:[15,64],house:[44,84],fountain:[37,44],stall:[24,38],lamp:[6,38]};
 function updateHud(){
   const m=G.me;const J=JS();$('hLv').textContent='Lv'+J.lv;
   $('hHp').style.width=clamp(m.hp/m.mhp*100,0,100)+'%';$('hHp').style.background=m.hp/m.mhp<.3?'#ff6a5a':'#6ad17a';$('hHpT').textContent='HP '+Math.ceil(m.hp)+'/'+m.mhp;
-  $('hXp').style.width=isMax(J)?'100%':clamp(J.xp/xpNeed(J.lv)*100,0,100)+'%';if(isMax(J))$('hLv').textContent='Lv'+MAX_LV+' MAX';$('stDot').hidden=J.free<=0;$('potN').textContent='×'+(save.bag.c_potion||0);$('potCd').style.height=(m.pcd/POTION_CD*100)+'%';$('mapName').textContent=MAPS[G.map].name+(G.code?'　部屋 '+G.code.toUpperCase():'');
+  $('hXp').style.width=isMax(J)?'100%':clamp(J.xp/xpNeed(J.lv)*100,0,100)+'%';if(isMax(J))$('hLv').textContent='Lv'+MAX_LV+' MAX';$('stDot').hidden=J.free<=0;{const pk=pickBottle(POT_AMT,m.mhp-m.hp);$('potN').textContent=pk?(BOTTLE_TAG[pk]||'')+'×'+save.bag[pk]:'×0'}$('potCd').style.height=(m.pcd/POTION_CD*100)+'%';$('mapName').textContent=MAPS[G.map].name+(G.code?'　部屋 '+G.code.toUpperCase():'');
   $('hSp').style.width=clamp(m.sp/m.msp*100,0,100)+'%';$('hSpT').textContent='SP '+Math.floor(m.sp)+'/'+m.msp;
-  $('spN').textContent='×'+(save.bag.c_ether||0);$('spCd').style.height=(m.ecd/ETHER_CD*100)+'%';
+  {const ek=pickBottle(ETHER_AMT,m.msp-m.sp);$('spN').textContent=ek?(BOTTLE_TAG[ek]||'')+'×'+save.bag[ek]:'×0'}$('spCd').style.height=(m.ecd/ETHER_CD*100)+'%';
   const he=$('hEl');he.textContent=elName(save.attr);he.style.background=elCol(save.attr);
   skillsOf(save.job).forEach((S,i)=>{const b=$('sk'+i);b.classList.toggle('nosp',m.sp<S.sp);
-    b.children[1].textContent=S.sh||S.name;b.children[2].textContent='SP'+S.sp;b.children[0].style.height=(m.scd[i]/S.cd*100)+'%'});
+    b.children[1].textContent=S.sh||S.name;b.children[2].textContent='SP'+S.sp;b.children[0].style.height=Math.min(100,m.scd[i]/skCd(S,m.st)*100)+'%'});
   const party=$('party');party.innerHTML='';
   if(cur)for(const p of activePeers()){if(p.sameTab)continue;const q=p.presence;const d=document.createElement('div');d.className='pm';d.textContent=(cleanText(q.n,10)||'ぼうけんしゃ')+'　'+(MAPS[q.mp]?MAPS[q.mp].name:'');
     const b=document.createElement('div');b.className='bar';const i=document.createElement('i');i.style.width=clamp((Number(q.hp)||0)/Math.max(1,Number(q.mh)||1)*100,0,100)+'%';b.appendChild(i);d.appendChild(b);party.appendChild(d)}
+}
+
+// =====================================================================
+// おと（BGMと効果音）。ファイルは使わず、Web Audio でその場で音を作る。曲はすべてオリジナル
+// 設定はブラウザに保存（chimaSnd）。セーブデータには入れない
+// =====================================================================
+const SND=(()=>{
+  let ac=null,master=null,bgmG=null,seG=null,noiseBuf=null;
+  const cfg={bgm:true,se:true,vol:80};
+  try{Object.assign(cfg,JSON.parse(localStorage.getItem('chimaSnd')||'{}'))}catch(e){}
+  const saveCfg=()=>{try{localStorage.setItem('chimaSnd',JSON.stringify(cfg))}catch(e){}};
+  const BGM_V=.3,SE_V=.55;
+  function applyVol(){if(!ac)return;const v=cfg.vol/100;master.gain.value=v;bgmG.gain.setTargetAtTime(cfg.bgm?BGM_V:0,ac.currentTime,.05);seG.gain.value=cfg.se?SE_V:0}
+  // 最初にタップしたときに音の準備をする（スマホは、さわるまで音を出せない）
+  function unlock(){
+    if(!ac){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;ac=new AC();
+      const comp=ac.createDynamicsCompressor();comp.connect(ac.destination);
+      master=ac.createGain();master.connect(comp);bgmG=ac.createGain();bgmG.connect(master);seG=ac.createGain();seG.connect(master);
+      noiseBuf=ac.createBuffer(1,ac.sampleRate,ac.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+      bgmG.gain.value=0;applyVol();setInterval(tick,25)}
+    if(ac.state==='suspended')ac.resume();
+  }
+  // ---- 音のもと ----
+  const NOTE={C:0,'C#':1,D:2,'D#':3,E:4,F:5,'F#':6,G:7,'G#':8,A:9,'A#':10,B:11};
+  const freq=n=>{const m=/^([A-G]#?)(\d)$/.exec(n);return 440*Math.pow(2,(NOTE[m[1]]+(+m[2]+1)*12-69)/12)};
+  function tone(out,f,t,dur,type,vol,o){o=o||{};const os=ac.createOscillator(),g=ac.createGain();os.type=type;os.frequency.setValueAtTime(f,t);
+    if(o.to)os.frequency.exponentialRampToValueAtTime(o.to,t+(o.slide||dur));if(o.vib){const l=ac.createOscillator(),lg=ac.createGain();l.frequency.value=5.5;lg.gain.value=f*.012;l.connect(lg);lg.connect(os.frequency);l.start(t+.12);l.stop(t+dur+.1)}
+    const a=o.a||.006,r=o.r||.06;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+a);g.gain.setTargetAtTime(vol*(o.sus==null?.65:o.sus),t+a,.08);
+    g.gain.setValueAtTime(vol*(o.sus==null?.65:o.sus),t+Math.max(a,dur-r));g.gain.linearRampToValueAtTime(0,t+dur);os.connect(g);g.connect(out);os.start(t);os.stop(t+dur+.02)}
+  function noise(out,t,dur,vol,ft,fq,o){o=o||{};const s=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();s.buffer=noiseBuf;f.type=ft;f.frequency.setValueAtTime(fq,t);
+    if(o.to)f.frequency.exponentialRampToValueAtTime(o.to,t+dur);f.Q.value=o.q||1;g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);
+    s.connect(f);f.connect(g);g.connect(out);s.start(t,Math.random()*.5);s.stop(t+dur+.02)}
+  const kick=(t,v)=>tone(bgmG,150,t,.14,'sine',v||.9,{to:40,slide:.12,sus:.3,r:.05});
+  const snare=(t,v)=>noise(bgmG,t,.12,v||.35,'bandpass',1900,{q:.8});
+  const hat=(t,v)=>noise(bgmG,t,.035,v||.16,'highpass',7000);
+
+  // ---- 曲 ----
+  // 1文字ずつ8分音符。音名（C5、A#4）＝鳴らす、「-」＝のばす、「.」＝休み。1小節＝8つ
+  // bass(根音,型)・arp(和音)で伴奏を作る
+  const bass=(roots,pat)=>roots.map(r=>{const lo=r+'2',hi=r+(pat==='oct'?'3':'2');const f5=FIFTH[r]+(['G','A','A#','B'].includes(FIFTH[r])&&pat!=='oct'?'2':'3');
+    return pat==='hold'?[lo,'-','-','-','-','-','-','-']:pat==='oct'?[lo,hi,lo,hi,lo,hi,lo,hi]:[lo,'.',f5,'.',lo,'.',f5,'.']}).flat();
+  const FIFTH={C:'G',D:'A',E:'B',F:'C','G':'D',A:'E','A#':'F'};
+  const arp=chords=>chords.map(c=>{const[a,b,d]=c;return[a,b,d,b,a,b,d,b]}).flat();
+  const sp=s=>s.trim().split(/\s+/);
+  const SONGS={
+    // はじまりの村：ゆったり（ヘ長調）
+    town:{bpm:92,tracks:[
+      {w:'square',v:.16,vib:1,n:sp(`A4 - C5 - A4 G4 F4 -  D5 - C5 A4 F4 - . .  D5 - F5 - D5 C5 A#4 -  C5 - - - G4 - . .
+                               A4 - C5 - F5 - E5 D5  C5 - A4 - D5 - C5 A4  A#4 - A4 G4 A4 - C5 -  G4 - - - F4 - . .`)},
+      {w:'triangle',v:.32,n:bass(['F','D','A#','C','F','D','G','C'])},
+      {w:'drum',n:sp('. . h . . . h .  '.repeat(8))}]},
+    // ぽかぽか草原：あかるく元気（ハ長調）
+    field:{bpm:138,tracks:[
+      {w:'square',v:.12,n:sp(`E5 - G5 - C6 - G5 -  A5 - E5 - C5 - E5 -  F5 - A5 - C6 - A5 G5  G5 - - - D5 - - -
+                               E5 G5 C6 - B5 - G5 -  A5 - C6 - E5 - A5 -  F5 - E5 D5 E5 - F5 -  D5 - G5 - C5 - - -`)},
+      {w:'square',v:.045,n:arp([['C4','E4','G4'],['A3','C4','E4'],['F3','A3','C4'],['G3','B3','D4'],['C4','E4','G4'],['A3','C4','E4'],['D4','F4','A4'],['G3','B3','D4']])},
+      {w:'triangle',v:.32,n:bass(['C','A','F','G','C','A','D','G'])},
+      {w:'drum',n:sp('k h s h k h s h  '.repeat(8))}]},
+    // ささやきの森：しずかで少しふしぎ（イ短調）
+    forest:{bpm:100,tracks:[
+      {w:'triangle',v:.3,vib:1,n:sp(`E5 - - - A5 - G5 E5  F5 - - - C5 - - -  D5 - G5 - B4 - D5 -  E5 - - - - - . .
+                                      A4 - C5 - E5 - A5 -  G5 - F5 - C5 - - -  D5 - F5 - A5 - G5 F5  E5 - - - G#4 - - -`)},
+      {w:'square',v:.04,n:arp([['A3','C4','E4'],['F3','A3','C4'],['G3','B3','D4'],['E3','G3','B3'],['A3','C4','E4'],['F3','A3','C4'],['D3','F3','A3'],['E3','G#3','B3']])},
+      {w:'triangle',v:.26,n:bass(['A','F','G','E','A','F','D','E'],'hold')},
+      {w:'drum',n:sp('k . . . . . h .  '.repeat(8))}]},
+    // きらきら洞くつ：ひびく・ゆっくり（ホ短調）
+    cave:{bpm:84,tracks:[
+      {w:'triangle',v:.3,vib:1,n:sp(`B4 - - - E5 - - -  D5 - B4 - G4 - - -  A4 - C5 - B4 - G4 -  F#4 - - - - - . .
+                                      B4 - E5 - G5 - - -  F#5 - D5 - B4 - - -  C5 - B4 - A4 - G4 -  F#4 - - - B3 - - -`)},
+      {w:'square',v:.035,n:arp([['E4','G4','B4'],['G3','B3','D4'],['A3','C4','E4'],['B3','D#4','F#4'],['E4','G4','B4'],['D4','F#4','A4'],['C4','E4','G4'],['B3','D#4','F#4']])},
+      {w:'triangle',v:.26,n:bass(['E','G','A','B','E','D','C','B'],'hold')},
+      {w:'drum',n:sp('k . . . . . . .  . . h . . . . .  '.repeat(4))}]},
+    // ボスのひろば：はやくて強い（ニ短調）
+    boss:{bpm:160,tracks:[
+      {w:'square',v:.12,n:sp(`D5 - F5 - A5 - G5 F5  E5 - F5 - D5 - . .  D5 - F5 - A#5 - A5 G5  A5 - - - G5 - E5 -
+                               D5 - D6 - C6 A#5 A5 -  G5 - A5 - F5 - D5 -  F5 - G5 - A#5 - A5 G5  A5 - C#6 - E6 - - -`)},
+      {w:'sawtooth',v:.05,n:bass(['D','D','A#','C','D','D','A#','A'],'oct')},
+      {w:'triangle',v:.3,n:bass(['D','D','A#','C','D','D','A#','A'],'oct')},
+      {w:'drum',n:sp('k h s h k k s h  '.repeat(8))}]},
+  };
+  let song=null,want=null,step=0,nextT=0;
+  function playStep(S,i,t){const st=60/S.bpm/2;
+    for(const tr of S.tracks){const tok=tr.n[i%tr.n.length];if(tok==='.'||tok==='-')continue;
+      if(tr.w==='drum'){if(tok==='k')kick(t);else if(tok==='s')snare(t);else if(tok==='h')hat(t);continue}
+      let k=1;while(tr.n[(i+k)%tr.n.length]==='-'&&k<16)k++;tone(bgmG,freq(tok),t,st*k*.95,tr.w,tr.v,{vib:tr.vib&&k>2})}}
+  function tick(){if(!ac||ac.state!=='running')return;
+    if(want!==song){song=want;step=0;nextT=ac.currentTime+.08}
+    if(!song)return;const S=SONGS[song];if(nextT<ac.currentTime-.3)nextT=ac.currentTime+.05;
+    while(nextT<ac.currentTime+.15){playStep(S,step,nextT);step=(step+1)%S.tracks[0].n.length;nextT+=60/S.bpm/2}}
+
+  // ---- 効果音 ----
+  let lastHit=0;
+  const SE={
+    hit(t){noise(seG,t,.06,.35,'bandpass',2600,{to:900});tone(seG,520,t,.05,'square',.1,{to:260})},
+    crit(t){noise(seG,t,.09,.45,'bandpass',3500,{to:1200});tone(seG,880,t,.09,'square',.13,{to:1320,slide:.05})},
+    hurt(t){tone(seG,300,t,.16,'square',.22,{to:110,sus:.5});noise(seG,t,.08,.25,'lowpass',900)},
+    kill(t){tone(seG,660,t,.08,'square',.14,{to:330});tone(seG,440,t+.06,.12,'triangle',.25,{to:150})},
+    pick(t){tone(seG,880,t,.06,'square',.12);tone(seG,1320,t+.06,.09,'square',.12)},
+    rare(t){[1047,1319,1568,2093].forEach((f,i)=>tone(seG,f,t+i*.06,.12,'square',.11))},
+    lvup(t){[523,659,784,1047].forEach((f,i)=>tone(seG,f,t+i*.09,.14,'square',.15));tone(seG,1047,t+.36,.5,'triangle',.3,{vib:1});tone(seG,1319,t+.36,.5,'square',.08)},
+    slash(t){noise(seG,t,.16,.45,'bandpass',1200,{to:4000,q:1.5})},
+    magic(t){noise(seG,t,.35,.3,'bandpass',600,{to:3000,q:3});tone(seG,330,t,.3,'triangle',.25,{to:880})},
+    boom(t){tone(seG,120,t,.35,'sine',.6,{to:35,sus:.3});noise(seG,t,.35,.4,'lowpass',1200,{to:200})},
+    arrow(t){tone(seG,900,t,.07,'triangle',.25,{to:300});noise(seG,t,.08,.2,'highpass',3000)},
+    buff(t){[392,523,659,784].forEach((f,i)=>tone(seG,f,t+i*.05,.2,'triangle',.25))},
+    pew(t){tone(seG,700,t,.12,'square',.06,{to:250})},
+    potion(t){tone(seG,300,t,.12,'sine',.35,{to:700});tone(seG,500,t+.1,.15,'sine',.3,{to:1000})},
+    coin(t){tone(seG,988,t,.06,'square',.12);tone(seG,1319,t+.06,.14,'square',.12)},
+    anvil(t){tone(seG,1200,t,.25,'square',.08,{sus:.2});tone(seG,1800,t,.25,'triangle',.15,{sus:.2});noise(seG,t,.06,.4,'highpass',2500)},
+    tap(t){tone(seG,660,t,.04,'square',.07)},
+    warp(t){tone(seG,200,t,.4,'triangle',.3,{to:900,slide:.35});noise(seG,t,.4,.15,'bandpass',800,{to:3000,q:2})},
+    down(t){[392,330,262,196].forEach((f,i)=>tone(seG,f,t+i*.14,.2,'square',.13))},
+  };
+  function se(name,o){if(!ac||ac.state!=='running'||!cfg.se)return;const t=ac.currentTime+.005;
+    if(name==='hit'||name==='crit'){if(t-lastHit<.045)return;lastHit=t}SE[name](t)}
+  document.addEventListener('visibilitychange',()=>{if(!ac)return;if(document.hidden)ac.suspend();else ac.resume()});
+  ['pointerdown','keydown','touchend'].forEach(ev=>document.addEventListener(ev,unlock,{capture:true,passive:true}));
+  return{se,cfg,setSong(s){want=s},
+    set(k,v){cfg[k]=v;saveCfg();applyVol()},unlock};
+})();
+// いまの場所に合う曲
+function bgmFor(){if(!G)return'town';if(G.inArena)return'boss';return{town:'town',grass:'field',forest:'forest',cave:'cave'}[MAPS[G.map].theme]||'field'}
+function renderSound(body){
+  $('mTitle').textContent='おと';const C=SND.cfg;
+  const row=(nm,on,k)=>{const r=el('div','srow');r.appendChild(el('span','nm',nm));r.appendChild(el('span','v',on?'オン':'オフ'));r.appendChild(btn(on?'けす':'つける',on?'gray':'green',()=>{SND.set(k,!on);renderModal()}));body.appendChild(r)};
+  row('BGM',C.bgm,'bgm');row('こうかおん',C.se,'se');
+  const r=el('div','srow');r.appendChild(el('span','nm','おおきさ'));const v=document.createElement('input');v.type='range';v.min='0';v.max='100';v.value=String(C.vol);v.style.flex='1';
+  v.oninput=()=>SND.set('vol',+v.value);v.onchange=()=>SND.se('coin');r.appendChild(v);body.appendChild(r);
+  body.appendChild(el('p','muted','iPhoneは、本体の横の「消音スイッチ」がオンだと音が出ないことがあるよ。'));
 }
 
 // =====================================================================
@@ -1698,11 +2182,12 @@ let last=performance.now();
 const prevCtx=$('prev').getContext('2d');
 function loop(now){
   requestAnimationFrame(loop);let dt=(now-last)/1000;last=now;if(dt>.1)dt=.1;const t=now/1000;
+  SND.setSong(bgmFor());
   if(!G){prevCtx.imageSmoothingEnabled=false;prevCtx.clearRect(0,0,220,260);const spr=charSprite(lookOf(save),Math.sin(t*.7)>.6?'w'+(Math.floor(t*9)%4):'i'+(Math.floor(t*1.7)%2));prevCtx.drawImage(spr,(220-spr.width*5)/2,250-spr.height*5,spr.width*5,spr.height*5);return}
   G.t+=dt;G.mapT+=dt;G.joinGrace=Math.max(0,G.joinGrace-dt);G.resumeGrace=Math.max(0,G.resumeGrace-dt);G.fade=Math.max(0,G.fade-dt*2.5);
   decideHost();syncOthers(dt);
   if(G.amHost)hostUpdate(dt);
-  syncView(dt);updateMe(dt);updateShots(dt);
+  syncView(dt);updateMe(dt);updateShots(dt);updateBrk();updateFalls(dt);
   for(const f of G.fx)f.life-=dt;G.fx=G.fx.filter(f=>f.life>0);
   for(const n of G.nums){n.life-=dt;n.y-=36*dt}G.nums=G.nums.filter(n=>n.life>0);
   if(G.banner)G.banner.life-=dt;if(G.tap)G.tap.life-=dt;
