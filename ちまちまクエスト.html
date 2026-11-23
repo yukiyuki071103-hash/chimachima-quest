@@ -412,6 +412,9 @@ const POTION_HEAL=50,POTION_CD=3,ETHER_SP=30,ETHER_CD=3;
 // 回復量。右下の「くすり」「SP薬」ボタン（Q・Eキー）は、減っている分をうめられるいちばん小さいびんを使う（どれも足りなければいちばん大きいびん）
 const POT_AMT={c_potion:POTION_HEAL,c_potion2:150,c_potion3:400},ETHER_AMT={c_ether:ETHER_SP,c_ether2:80,c_ether3:200};
 const BOTTLE_TAG={c_potion2:'中',c_potion3:'大',c_ether2:'中',c_ether3:'大'};
+// ショートカット：バッグで決めたびんがあればそれ、なければ（なくなったときも）おまかせ
+function scBottle(A,miss){const k=A===POT_AMT?'pot':'eth',id=save.sc&&save.sc[k];return id&&save.bag[id]?id:pickBottle(A,miss)}
+function scFixed(A){const k=A===POT_AMT?'pot':'eth',id=save.sc&&save.sc[k];return!!(id&&save.bag[id])}
 function pickBottle(A,miss){const own=Object.keys(A).filter(k=>save.bag[k]).sort((a,b)=>A[a]-A[b]);if(!own.length)return null;return own.find(k=>A[k]>=miss)||own[own.length-1]}
 // ---- SP：最大＝20＋Lv×2＋まほうのポイント×2。外では毎秒0.5＋最大の1%、村ではHPとSPが早く回復 ----
 const SP_BASE=20,SP_PER_LV=2,SP_PER_MAT=2;
@@ -705,7 +708,7 @@ function qReport(q){const Q=save.q;if(!Q.list.includes(q)||!qDone(q))return;
 // セーブ（v3：職業ごとにレベル・経験値・ポイントを持つ）
 // =====================================================================
 function freshJob(){const pt={};for(const k of STATS)pt[k]=BASE_PT;return{lv:1,xp:0,pt,free:0}}
-function freshSave(){const jobs={};for(const j in JOBS)jobs[j]=freshJob();return{v:3,name:'',job:'fighter',attr:'fire',hair:HAIR,hc:HC,face:FACE,lookSet:false,started:false,gold:50,jobs,bag:{},store:{},eq:{},q:{list:[],seq:0}}}
+function freshSave(){const jobs={};for(const j in JOBS)jobs[j]=freshJob();return{v:3,name:'',job:'fighter',attr:'fire',hair:HAIR,hc:HC,face:FACE,lookSet:false,started:false,gold:50,jobs,bag:{},store:{},eq:{},q:{list:[],seq:0},sc:{pot:null,eth:null}}}
 let save=freshSave();
 function JS(s){s=s||save;return s.jobs[s.job]}
 let saveTimer=null,saving=false,saveAgain=false;
@@ -726,6 +729,7 @@ function clampSave(s){
   o.bag=box(s.bag,BAG_KINDS,BAG_MAX);o.store=box(s.store,STORE_KINDS,STORE_MAX);
   if(s.eq&&typeof s.eq==='object')for(const sl of SLOTS){const it=ITEMS[s.eq[sl]];if(it&&it.slot===sl)o.eq[sl]=it.id}
   o.q=clampQuests(s.q);
+  if(s.sc&&typeof s.sc==='object'){if(POT_AMT[s.sc.pot])o.sc.pot=s.sc.pot;if(ETHER_AMT[s.sc.eth])o.sc.eth=s.sc.eth}   // ショートカットに決めたびん（なし＝おまかせ）
   return o;
 }
 function progressOf(s){let p=s.started?1:0;for(const j in s.jobs){const J=s.jobs[j];p+=(J.lv-1)*1e6+J.xp}return p}
@@ -2244,9 +2248,9 @@ function renderModal(){
 function equipItem(id){const it=ITEMS[id];if(!it||!canWear(it))return;if(!takeFrom(save.bag,id,1))return;const old=save.eq[it.slot];save.eq[it.slot]=id;
   if(old&&!bagAdd(old,1)){save.eq[it.slot]=old;bagAdd(id,1);toast('バッグがいっぱいで入れかえられないよ');return}recalc();queueSave()}
 function unequip(sl){const id=save.eq[sl];if(!id)return;if(!bagAdd(id,1)){toast('バッグがいっぱいだよ');return}delete save.eq[sl];recalc();queueSave()}
-function usePotion(id){if(!G){toast('冒険中に使えるよ');return}const m=G.me;if(m.dead>0||m.pcd>0)return;id=id||pickBottle(POT_AMT,m.mhp-m.hp);if(!id||!save.bag[id]){toast('回復薬がないよ（道具屋で買えるよ）');return}
+function usePotion(id){if(!G){toast('冒険中に使えるよ');return}const m=G.me;if(m.dead>0||m.pcd>0)return;id=id||scBottle(POT_AMT,m.mhp-m.hp);if(!id||!save.bag[id]){toast('回復薬がないよ（道具屋で買えるよ）');return}
   if(m.hp>=m.mhp){toast('HPはまんたんだよ');return}takeFrom(save.bag,id,1);SND.se('potion');m.pcd=POTION_CD;healMe(POT_AMT[id]);G.fx.push({k:'heal',x:m.x,y:m.y-30,life:1});queueSave()}
-function useEther(id){if(!G){toast('冒険中に使えるよ');return}const m=G.me;if(m.dead>0||m.ecd>0)return;id=id||pickBottle(ETHER_AMT,m.msp-m.sp);if(!id||!save.bag[id]){toast('SP回復薬がないよ（道具屋で買えるよ）');return}
+function useEther(id){if(!G){toast('冒険中に使えるよ');return}const m=G.me;if(m.dead>0||m.ecd>0)return;id=id||scBottle(ETHER_AMT,m.msp-m.sp);if(!id||!save.bag[id]){toast('SP回復薬がないよ（道具屋で買えるよ）');return}
   if(m.sp>=m.msp-.5){toast('SPはまんたんだよ');return}const amt=ETHER_AMT[id];takeFrom(save.bag,id,1);SND.se('potion');m.ecd=ETHER_CD;const h=Math.min(amt,Math.round(m.msp-m.sp));m.sp=Math.min(m.msp,m.sp+amt);
   G.nums.push({x:m.x,y:m.y-70,t:'+'+h+'SP',c:'#7ac4ff',life:1});queueSave()}
 function useForget(){const J=JS();let used=0;for(const k of STATS)used+=J.pt[k]-BASE_PT;if(!used){toast('まだポイントをふっていないよ');return}
@@ -2268,7 +2272,10 @@ function renderBag(body){
         acts.appendChild(btn('そうびする','',()=>{equipItem(sel);if(!save.bag[sel])modalSel=null;renderModal()},!ok))}}
     else if(k==='mat'){const mt=MATS[sel];d.appendChild(el('div',null,(mt.rare?'レアそざい':'そざい')+'　'+MON[mt.from].name+'が落とす　もっている：'+(save.bag[sel]||0)));d.appendChild(el('div','muted','鍛冶場で装備を作るのに使うよ'))}
     else{const c=CONS[sel];d.appendChild(el('div',null,c.desc+'　もっている：'+(save.bag[sel]||0)));
-      if(POT_AMT[sel]||ETHER_AMT[sel])acts.appendChild(btn('つかう','green',()=>{POT_AMT[sel]?usePotion(sel):useEther(sel);if(!save.bag[sel])modalSel=null;renderModal()}));
+      if(POT_AMT[sel]||ETHER_AMT[sel]){if(!save.sc)save.sc={pot:null,eth:null};const sk=POT_AMT[sel]?'pot':'eth',bn=POT_AMT[sel]?'「くすり」':'「SP薬」',on=save.sc[sk]===sel;
+        d.appendChild(el('div','muted',on?'★ '+bn+'ボタンで、このびんを使うよ':bn+'ボタンは'+(save.sc[sk]?'「'+defOf(save.sc[sk]).name+'」を使うよ'+(save.bag[save.sc[sk]]?'':'（いまは持っていないので おまかせ）'):'おまかせ（ちょうどいいびんを自動でえらぶ）')));
+        acts.appendChild(btn('つかう','green',()=>{POT_AMT[sel]?usePotion(sel):useEther(sel);if(!save.bag[sel])modalSel=null;renderModal()}));
+        acts.appendChild(btn(on?'おまかせにもどす':'ショートカットにする',on?'gray':'',()=>{save.sc[sk]=on?null:sel;SND.se('tap');toast(on?bn+'ボタンを おまかせ にしたよ':bn+'ボタンを「'+defOf(sel).name+'」にしたよ');queueSave();renderModal()}))}
       else acts.appendChild(btn(forgetArm?'もう一度おすと、ふりなおし':'つかう','green',()=>{if(!forgetArm){forgetArm=true;renderModal();return}forgetArm=false;useForget();if(!save.bag[sel])modalSel=null;renderModal()}))}
     if(acts.children.length)d.appendChild(acts)}
   body.appendChild(d);
@@ -2662,9 +2669,9 @@ const PROP_O={palm:[21,60],clam:[12,16],drift:[16,12],crag:[15,26],stal:[14,44],
 function updateHud(){
   const m=G.me;const J=JS();$('hLv').textContent='Lv'+J.lv;
   $('hHp').style.width=clamp(m.hp/m.mhp*100,0,100)+'%';$('hHp').style.background=m.hp/m.mhp<.3?'#ff6a5a':'#6ad17a';$('hHpT').textContent='HP '+Math.ceil(m.hp)+'/'+m.mhp;
-  $('hXp').style.width=isMax(J)?'100%':clamp(J.xp/xpNeed(J.lv)*100,0,100)+'%';if(isMax(J))$('hLv').textContent='Lv'+MAX_LV+' MAX';$('stDot').hidden=J.free<=0;{const pk=pickBottle(POT_AMT,m.mhp-m.hp);$('potN').textContent=pk?(BOTTLE_TAG[pk]||'')+'×'+save.bag[pk]:'×0'}$('potCd').style.height=(m.pcd/POTION_CD*100)+'%';$('mapName').textContent=MAPS[G.map].name+(G.code?'　部屋 '+G.code.toUpperCase():'');
+  $('hXp').style.width=isMax(J)?'100%':clamp(J.xp/xpNeed(J.lv)*100,0,100)+'%';if(isMax(J))$('hLv').textContent='Lv'+MAX_LV+' MAX';$('stDot').hidden=J.free<=0;{const pk=scBottle(POT_AMT,m.mhp-m.hp);$('potN').textContent=pk?(scFixed(POT_AMT)?'★':'')+(BOTTLE_TAG[pk]||'')+'×'+save.bag[pk]:'×0'}$('potCd').style.height=(m.pcd/POTION_CD*100)+'%';$('mapName').textContent=MAPS[G.map].name+(G.code?'　部屋 '+G.code.toUpperCase():'');
   $('hSp').style.width=clamp(m.sp/m.msp*100,0,100)+'%';$('hSpT').textContent='SP '+Math.floor(m.sp)+'/'+m.msp;
-  {const ek=pickBottle(ETHER_AMT,m.msp-m.sp);$('spN').textContent=ek?(BOTTLE_TAG[ek]||'')+'×'+save.bag[ek]:'×0'}$('spCd').style.height=(m.ecd/ETHER_CD*100)+'%';
+  {const ek=scBottle(ETHER_AMT,m.msp-m.sp);$('spN').textContent=ek?(scFixed(ETHER_AMT)?'★':'')+(BOTTLE_TAG[ek]||'')+'×'+save.bag[ek]:'×0'}$('spCd').style.height=(m.ecd/ETHER_CD*100)+'%';
   $('sitBtn').classList.toggle('on',!!m.sit);$('sitL').textContent=m.sit?'たつ':'すわる';
   const he=$('hEl');he.textContent=elName(save.attr);he.style.background=elCol(save.attr);
   skillsOf(save.job).forEach((S,i)=>{const b=$('sk'+i);b.classList.toggle('nosp',m.sp<S.sp);
