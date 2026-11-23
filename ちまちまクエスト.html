@@ -71,6 +71,10 @@ h1{margin:4px 0 0;font-size:30px;text-align:center;color:#e07a2b;letter-spacing:
 .scb.pot{width:46px;height:46px;font-size:10px;background:#ff7a8a;box-shadow:0 3px 0 #c74a5a}
 .scb.sit{width:46px;height:46px;font-size:10px;background:#8ab86a;box-shadow:0 3px 0 #5f8a45}.scb.sit.on{background:#e0a040;box-shadow:0 3px 0 #b07820}.scb.sit b{opacity:.7}
 .scb.sp{width:46px;height:46px;font-size:10px;background:#4aa0d8;box-shadow:0 3px 0 #2f78a8}
+/* じどう戦闘：すわるの上に小さく重ねる（横はばをふやさない） */
+.scol{flex:none;display:flex;flex-direction:column;align-items:center;gap:5px;pointer-events:none}
+.scb.auto{width:46px;height:22px;border-radius:11px;font-size:10px;background:#8a7fa8;box-shadow:0 2px 0 #5f5680}.scb.auto.on{background:#e0a040;box-shadow:0 2px 0 #b07820}
+.scb[hidden]{display:none}
 .bar.sp{height:6px}.bar.sp i{background:#5ab0ff}
 .eb{display:inline-block;font-style:normal;font-size:11px;line-height:1.3;padding:0 4px;border-radius:5px;margin-right:4px;color:#fff;background:#9a8f86;vertical-align:1px}
 .skl{background:#fff;border-radius:12px;padding:7px 10px;margin-top:6px;font-size:13px}.skl.off{opacity:.55}.skl b{color:#4a5fc7}
@@ -203,7 +207,7 @@ h1{margin:4px 0 0;font-size:30px;text-align:center;color:#e07a2b;letter-spacing:
   </div>
   <!-- 下：くすり2つ＋スキル3つを横一列 -->
   <div id="actBar">
-    <button class="scb sit" id="sitBtn"><span id="sitL">すわる</span><b>R</b></button>
+    <div class="scol"><button class="scb auto" id="autoBtn"><span id="autoL">じどう</span></button><button class="scb sit" id="sitBtn"><span id="sitL">すわる</span><b>R</b></button></div>
     <button class="scb pot" id="potBtn"><div class="cd" id="potCd"></div><span>くすり</span><b id="potN">×0</b></button>
     <button class="scb sp" id="spBtn"><div class="cd" id="spCd"></div><span>SP薬</span><b id="spN">×0</b></button>
     <i class="gap"></i>
@@ -710,7 +714,7 @@ function qReport(q){const Q=save.q;if(!Q.list.includes(q)||!qDone(q))return;
 // セーブ（v3：職業ごとにレベル・経験値・ポイントを持つ）
 // =====================================================================
 function freshJob(){const pt={};for(const k of STATS)pt[k]=BASE_PT;return{lv:1,xp:0,pt,free:0}}
-function freshSave(){const jobs={};for(const j in JOBS)jobs[j]=freshJob();return{v:3,name:'',job:'fighter',attr:'fire',hair:HAIR,hc:HC,face:FACE,lookSet:false,started:false,gold:50,jobs,bag:{},store:{},eq:{},q:{list:[],seq:0},sc:{pot:null,eth:null}}}
+function freshSave(){const jobs={};for(const j in JOBS)jobs[j]=freshJob();return{v:3,name:'',job:'fighter',attr:'fire',hair:HAIR,hc:HC,face:FACE,lookSet:false,started:false,gold:50,jobs,bag:{},store:{},eq:{},q:{list:[],seq:0},sc:{pot:null,eth:null},auto:{sk:true,hp:50}}}
 let save=freshSave();
 function JS(s){s=s||save;return s.jobs[s.job]}
 let saveTimer=null,saving=false,saveAgain=false;
@@ -731,6 +735,7 @@ function clampSave(s){
   o.bag=box(s.bag,BAG_KINDS,BAG_MAX);o.store=box(s.store,STORE_KINDS,STORE_MAX);
   if(s.eq&&typeof s.eq==='object')for(const sl of SLOTS){const it=ITEMS[s.eq[sl]];if(it&&it.slot===sl)o.eq[sl]=it.id}
   o.q=clampQuests(s.q);
+  if(s.auto&&typeof s.auto==='object'){o.auto.sk=s.auto.sk!==false;if([30,50,70].includes(s.auto.hp))o.auto.hp=s.auto.hp}   // じどう戦闘の設定
   if(s.sc&&typeof s.sc==='object'){if(POT_AMT[s.sc.pot])o.sc.pot=s.sc.pot;if(ETHER_AMT[s.sc.eth])o.sc.eth=s.sc.eth}   // ショートカットに決めたびん（なし＝おまかせ）
   return o;
 }
@@ -1802,7 +1807,7 @@ function leaveGame(){
 }
 $('exitBtn').onclick=leaveGame;
 function changeMap(to,sx,sy){
-  SND.se('warp');const m=G.me,from=G.map;
+  SND.se('warp');autoOff();const m=G.me,from=G.map;
   // 同じマップのエリアどうしなら、いまのエリアの敵・素材・ダメージをとっておく。村やほかのマップへ行くと全部すてる
   G.areas=G.areas||{};
   if(MAPS[to].safe||grpOf(to)!==grpOf(from)){G.areas={};brkReset()}
@@ -1828,7 +1833,7 @@ cv.addEventListener('pointermove',e=>{if(!G||ptr!==e.pointerId)return;const w=to
 const endPtr=e=>{if(ptr===e.pointerId)ptr=null};
 cv.addEventListener('pointerup',endPtr);cv.addEventListener('pointercancel',endPtr);
 function tapAt(x,y){
-  const m=G.me;if(m.dead>0)return;standUp();const M=MAPS[G.map];
+  const m=G.me;if(m.dead>0)return;standUp();autoOff('じどう戦闘 OFF');const M=MAPS[G.map];
   let best=null,bd=1e9;
   for(const mo of G.view.mons.values()){if(mo.hp<=0||mo.dead||hidMon(mo))continue;const T=MON[mo.t];const d=dist(x,y,mo.dx,mo.dy-T.h*.45);if(d<T.r+26&&d<bd){bd=d;best=mo}}
   if(best){m.tgt=best.id;m.npc=null;m.obj=null;G.tap={x:best.dx,y:best.dy,life:.5,c:'#ff6a5a'};return}
@@ -1841,14 +1846,15 @@ function tapAt(x,y){
 const keys={};
 addEventListener('keydown',e=>{if(!G||document.activeElement.tagName==='INPUT')return;keys[e.code]=true;if(e.code==='Space'){pickNear();e.preventDefault()}
   const n={Digit1:0,Digit2:1,Digit3:2,Numpad1:0,Numpad2:1,Numpad3:2}[e.code];if(n!=null&&!e.repeat)useSkill(n);
-  if(e.code==='KeyR'&&!e.repeat)toggleSit();if(e.code==='KeyQ')usePotion();if(e.code==='KeyE')useEther();if(e.code.startsWith('Arrow'))e.preventDefault()});
+  if(e.code==='KeyR'&&!e.repeat)toggleSit();if(e.code==='KeyT'&&!e.repeat)toggleAuto();if(e.code==='KeyQ')usePotion();if(e.code==='KeyE')useEther();if(e.code.startsWith('Arrow'))e.preventDefault()});
 addEventListener('keyup',e=>{keys[e.code]=false});
 addEventListener('blur',()=>{for(const k in keys)keys[k]=false});
 for(let i=0;i<3;i++)$('sk'+i).addEventListener('pointerdown',e=>{e.preventDefault();useSkill(i)});
 $('sitBtn').addEventListener('pointerdown',e=>{e.preventDefault();toggleSit()});
+$('autoBtn').addEventListener('pointerdown',e=>{e.preventDefault();toggleAuto()});
 $('potBtn').addEventListener('pointerdown',e=>{e.preventDefault();usePotion()});
 $('spBtn').addEventListener('pointerdown',e=>{e.preventDefault();useEther()});
-document.addEventListener('visibilitychange',()=>{if(document.hidden)flushSave();if(!G)return;if(document.hidden)G.amHost=false;else G.resumeGrace=1.6});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)flushSave();else if(G&&G.me.auto)wakeOn();if(!G)return;if(document.hidden)G.amHost=false;else G.resumeGrace=1.6});
 
 // ---- 当たり判定 ----
 function pushOut(o,r,mapId){
@@ -1873,9 +1879,10 @@ function updateMe(dt){
   if(m.buf.regen>0){m.regT-=dt;if(m.regT<=0){m.regT=1;healMe(m.st.mat*.6)}}
   // キーボード
   let kx=(keys.ArrowRight||keys.KeyD?1:0)-(keys.ArrowLeft||keys.KeyA?1:0),ky=(keys.ArrowDown||keys.KeyS?1:0)-(keys.ArrowUp||keys.KeyW?1:0);
-  if(kx||ky){standUp();m.tgt=null;m.npc=null;m.obj=null;m.tx=m.x+kx*60;m.ty=m.y+ky*60}
+  if(kx||ky){standUp();autoOff();m.tgt=null;m.npc=null;m.obj=null;m.tx=m.x+kx*60;m.ty=m.y+ky*60}
   let goal=null;
   if(m.tgt!=null){const mo=G.view.mons.get(m.tgt);if(!mo||mo.hp<=0||mo.dead){m.tgt=null;m.tx=m.x;m.ty=m.y}}   // 倒したらその場で止まる（次の敵へは自動で行かない）
+  autoTick(m,J);   // じどう戦闘中だけ、次の敵をえらぶ・くすり・スキル
   if(m.tgt!=null){const mo=G.view.mons.get(m.tgt),T=MON[mo.t];const rng=J.range+T.r;const d=dist(m.x,m.y,mo.dx,mo.dy);
     if(hidMon(mo)){/* もぐっている：出てくるまで待つ */}else if(d>rng)goal={x:mo.dx,y:mo.dy};else{m.f=mo.dx<m.x?-1:1;if(m.acd<=0){const c=basicSp(m);
       if(m.sp<c){if(!(G.spNag>0)){toast('SPがたりない！（SP薬を使おう）','#9fd0ff');G.spNag=4}m.acd=.25}else{m.sp-=c;m.acd=J.cd/spdNow(m);basicAttack(mo)}}}}
@@ -1884,6 +1891,7 @@ function updateMe(dt){
     if(d>J.range+20)goal={x:p.x,y:p.y+18};else{m.f=p.x<m.x?-1:1;if(m.acd<=0){m.acd=J.cd/spdNow(m);m.as++;m.ak='b';m.anim=.3;   // 木や岩はSPを使わない
       if(J.shot)G.shots.push({k:J.shot,x:m.x+m.f*14,y:m.y-26,obj:p,mp:G.map,spd:J.shot==='arrow'?620:420,mine:true,life:1.6,vx:m.f,vy:0});else brkHit(p)}}}}
   else goal={x:m.tx,y:m.ty};
+  if(m.auto&&goal){const A=m.auto,d=dist(goal.x,goal.y,A.x,A.y);if(d>AUTO_R)goal={x:A.x+(goal.x-A.x)/d*AUTO_R,y:A.y+(goal.y-A.y)/d*AUTO_R}}   // じどう戦闘：はじめた場所から AUTO_R より外へは行かない
   if(m.sit){goal=null;m.sitT+=dt;if(m.sitT>=1){m.sitT-=1;if(m.hp<m.mhp)healMe(Math.max(1,Math.round(m.mhp*SIT_HEAL)));
     if(m.sp<m.msp-.5){const a=Math.max(1,Math.round(m.msp*SIT_SP));m.sp=Math.min(m.msp,m.sp+a);G.nums.push({x:m.x+22,y:m.y-58,t:'+'+a+'SP',c:'#7ac4ff',life:1})}}}
   m.walk=false;
@@ -1917,10 +1925,10 @@ function pickNear(){if(!G||G.me.dead>0)return;const m=G.me;let n=0;for(const d o
 // ---- すわる：すわっている間は毎秒 最大HPの SIT_HEAL・最大SPの SIT_SP 回復（SPはふだんの回復にたす）。歩く・タップ・スキル・ダメージで立つ ----
 const SIT_HEAL=.03,SIT_SP=.03;
 function toggleSit(){if(!G)return;const m=G.me;if(m.dead>0)return;if(m.sit){standUp();return}
-  m.sit=true;m.sitT=0;m.tgt=null;m.npc=null;m.obj=null;m.tx=m.x;m.ty=m.y;m.walk=false;SND.se('tap');updateHud()}
+  autoOff();m.sit=true;m.sitT=0;m.tgt=null;m.npc=null;m.obj=null;m.tx=m.x;m.ty=m.y;m.walk=false;SND.se('tap');updateHud()}
 function standUp(){const m=G&&G.me;if(!m||!m.sit)return;m.sit=false;updateHud()}
 function hurt(d,el,soft){const m=G.me;standUp();d=d*elemMul(el,save.attr)*(m.buf.guard>0?1-(m.bv.guard||0):1)*(1-(JOBS[save.job].dr||0));d=Math.max(1,Math.round(d*50/(50+m.st.def)));m.hp-=d;if(!soft)m.inv=.8;SND.se(soft?'pew':'hurt');G.nums.push({x:m.x,y:m.y-66,t:'-'+d,c:'#ff6a6a',life:.9});
-  if(m.hp<=0){m.hp=0;m.dead=4;m.tgt=null;SND.se('down');toast('やられちゃった… 村にもどります')}}
+  if(m.hp<=0){autoOff();m.hp=0;m.dead=4;m.tgt=null;SND.se('down');toast('やられちゃった… 村にもどります')}}
 function basicAttack(mo){
   const m=G.me,J=JOBS[save.job],el=save.attr;m.as++;m.ak='b';m.anim=.3;const pw=m.st.pow;
   if(!J.shot){dealDamage(mo,pw,{el});G.fx.push({k:'slash',x:mo.dx,y:mo.dy-MON[mo.t].h*.5,f:m.f,life:.22});
@@ -1969,6 +1977,26 @@ function useSkill(i){
   if(SKILL_FN[S.id](m)===false){toast('近くに敵がいないよ');m.scd[i]=.4;return}
   m.sp-=S.sp;m.scd[i]=skCd(S,m.st);m.as++;m.ak='s';m.anim=.35;SND.se(SK_SE[S.id]||'slash');
 }
+// ---- じどう戦闘：はじめた場所のまわり（AUTO_R）だけで、近くの敵を自動でねらう。よけはしない ----
+// 設定は save.auto（sk＝スキルを使う、hp＝このHP%以下でくすり）。タップ・歩く・すわる・やられる・マップ移動で止まる
+const AUTO_R=200;
+const AUTO_SK_R={spin:110,smash:100,meteor:340,aqua:340,leaf:220,triple:400,snipe:420,rengeki:100,steal:100};   // この距離に敵がいるときだけ使う（強化スキルは300）
+let wakeLock=null;   // じどう戦闘中は画面が消えないようにする（使えないブラウザでは何もしない）
+async function wakeOn(){try{if(navigator.wakeLock&&!wakeLock){wakeLock=await navigator.wakeLock.request('screen');wakeLock.addEventListener('release',()=>{wakeLock=null})}}catch(e){wakeLock=null}}
+function wakeOff(){try{if(wakeLock)wakeLock.release()}catch(e){}wakeLock=null}
+function autoOn(){if(!G)return;const m=G.me;if(m.dead>0)return;if(MAPS[G.map].safe){toast('村ではつかえないよ');return}
+  standUp();m.auto={x:m.x,y:m.y};m.npc=null;m.obj=null;wakeOn();SND.se('buff');toast('じどう戦闘 ON（画面をタップすると止まるよ）','#ffe27a');updateHud()}
+function autoOff(msg){const m=G&&G.me;if(!m||!m.auto)return;m.auto=null;m.tgt=null;m.tx=m.x;m.ty=m.y;wakeOff();if(msg)toast(msg);updateHud()}
+function toggleAuto(){if(!G)return;if(G.me.auto)autoOff('じどう戦闘 OFF');else autoOn()}
+function autoTick(m,J){const A=m.auto;if(!A||m.dead>0)return;const S=save.auto;
+  if(m.pcd<=0&&m.hp<m.mhp*S.hp/100&&scBottle(POT_AMT,m.mhp-m.hp))usePotion();
+  if(m.ecd<=0&&(S.sk||J.spc)&&m.sp<m.msp*.3&&scBottle(ETHER_AMT,m.msp-m.sp))useEther();
+  let mo=m.tgt!=null?G.view.mons.get(m.tgt):null;
+  if(mo&&dist(mo.dx,mo.dy,A.x,A.y)>AUTO_R+J.range+60){m.tgt=null;mo=null}   // はなれすぎた敵は追わない
+  if(!mo){let bd=1e9;for(const o of G.view.mons.values()){if(o.hp<=0||o.dead||hidMon(o)||dist(o.dx,o.dy,A.x,A.y)>AUTO_R+J.range)continue;const d=dist(o.dx,o.dy,m.x,m.y);if(d<bd){bd=d;mo=o}}
+    if(mo)m.tgt=mo.id;else{m.tx=A.x;m.ty=A.y}}   // 敵がいなければ、はじめた場所へもどる
+  if(S.sk&&mo){const d=dist(mo.dx,mo.dy,m.x,m.y),keep=basicSp(m)*3;   // メイジは、ふつうの攻撃のSPをのこしておく
+    skillsOf(save.job).forEach((k,i)=>{if(m.scd[i]>0||m.sp-k.sp<keep)return;if(d<(AUTO_SK_R[k.id]||300))useSkill(i)})}}
 function healMe(h){const m=G.me;if(m.dead>0)return;h=Math.round(h);m.hp=Math.min(m.mhp,m.hp+h);G.nums.push({x:m.x,y:m.y-70,t:'+'+h,c:'#5ad17a',life:1})}
 // o.el＝攻撃の属性、o.crit＝必ずクリティカル
 function dealDamage(mo,d,o){o=o||{};
@@ -2306,6 +2334,10 @@ function renderStatus(body){
   body.appendChild(el('div','cap','スキル Lv'+st.slv+(st.slv>=SK_MAX?'（最大）':'　次はLv'+(st.slv+1)*3+'で上がる')+'（右下のボタン。パソコンは1・2・3キー）'));
   for(const S of skillsOf(save.job)){const r=el('div','skl');r.appendChild(el('b',null,S.name));
     r.append('　SP'+S.sp+'　まち'+fmtN(skCd(S,st))+'秒'+(S.el?'　'+elName(S.el)+'ぞくせい':''));r.appendChild(el('div','sdesc',skDesc(S,st.slv)));body.appendChild(r)}
+  {const A=save.auto;body.appendChild(el('div','cap','じどう戦闘（右下の「じどう」。パソコンはTキー）'));
+    const r1=el('div','srow');r1.appendChild(el('span','nm','スキル'));r1.appendChild(el('span','v',A.sk?'つかう':'つかわない'));r1.appendChild(btn(A.sk?'つかわない':'つかう',A.sk?'gray':'green',()=>{A.sk=!A.sk;queueSave();renderModal()}));body.appendChild(r1);
+    const r2=el('div','srow');r2.appendChild(el('span','nm','くすり'));r2.appendChild(el('span','v','HP'+A.hp+'%以下'));for(const v of[30,50,70]){const b=btn(v+'%',v===A.hp?'green':'gray',()=>{A.hp=v;queueSave();renderModal()});b.style.padding='6px 8px';r2.appendChild(b)}body.appendChild(r2);
+    body.appendChild(el('div','sdesc','おした場所のまわりだけで戦うよ。敵の攻撃はよけないので、ぼうぎょとくすりをしっかり用意してね。くすりはショートカットのびん（なければおまかせ）。画面をタップ・歩く・すわる・やられる・マップ移動で止まる。じどう中は画面がつけっぱなしになるよ（アプリを閉じると止まる）'))}
   body.appendChild(el('p','muted','ぞくせい：火は草に、草は水に、水は火に強い。強い相手には与えるダメージ1.3倍、弱い相手には0.8倍。敵からも同じように受ける。ふつうの攻撃とスキルは自分のぞくせい（メイジのスキルはスキルごとに決まっている）。'));
 }
 
@@ -2590,6 +2622,7 @@ function render(t){
   const inView=(x,y,pad)=>x>cam.x-pad&&x<cam.x+VW+pad&&y>cam.y-pad&&y<cam.y+VH+pad*2;
   for(const p of M.portals)drawPortal(ctx,p,t,M.theme);
   if(G.tap&&G.tap.life>0){ctx.save();ctx.globalAlpha=Math.min(1,G.tap.life*2);ringDots(ctx,G.tap.x,G.tap.y,18*(1.2-G.tap.life),7*(1.2-G.tap.life),G.tap.c,14);ctx.restore()}
+  if(m.auto){ctx.save();ctx.globalAlpha=.6;ringDots(ctx,m.auto.x,m.auto.y,AUTO_R,AUTO_R,'#ffe27a',48,t*.3);ctx.restore()}   // じどう戦闘のはんい
   const tg=m.tgt!=null&&G.view.mons.get(m.tgt);if(tg){const T=MON[tg.t];ringDots(ctx,tg.dx,tg.dy,T.r*1.4,T.r*.5,'#ff6a5a',16,t*2)}
   if(M.theme==='cave'){const pal=['#7fe0ff','#ff9ee6','#b49bff','#9dffc9'];ctx.save();for(const p of gen.props)if(p.k==='crystal'&&inView(p.x,p.y,80)&&!brkGone(G.map,p)){ctx.globalAlpha=.13+.05*Math.sin(t*2+p.x);ctx.fillStyle=pal[Math.floor(p.v*4)];ctx.beginPath();ctx.ellipse(p.x,p.y-6,46,18,0,0,7);ctx.fill()}ctx.restore()}
   if(M.sea){ctx.save();for(let x=Math.floor(cam.x/16)*16;x<cam.x+VW+16;x+=16){const y=shoreY(M,x)+Math.sin(t*1.6+x*.05)*4-3;ctx.globalAlpha=.5+.4*Math.sin(t*2+x*.11);pxDot(ctx,x,y,'#ffffff',2)}   // 波の泡
@@ -2676,6 +2709,7 @@ function updateHud(){
   $('hSp').style.width=clamp(m.sp/m.msp*100,0,100)+'%';$('hSpT').textContent='SP '+Math.floor(m.sp)+'/'+m.msp;
   {const ek=scBottle(ETHER_AMT,m.msp-m.sp);$('spN').textContent=ek?(scFixed(ETHER_AMT)?'★':'')+(BOTTLE_TAG[ek]||'')+'×'+save.bag[ek]:'×0'}$('spCd').style.height=(m.ecd/ETHER_CD*100)+'%';
   $('sitBtn').classList.toggle('on',!!m.sit);$('sitL').textContent=m.sit?'たつ':'すわる';
+  {const ab=$('autoBtn');ab.hidden=!!MAPS[G.map].safe;ab.classList.toggle('on',!!m.auto);$('autoL').textContent=m.auto?'とめる':'じどう'}
   const he=$('hEl');he.textContent=elName(save.attr);he.style.background=elCol(save.attr);
   skillsOf(save.job).forEach((S,i)=>{const b=$('sk'+i);b.classList.toggle('nosp',m.sp<S.sp);
     b.children[1].textContent=S.sh||S.name;b.children[2].textContent='SP'+S.sp;b.children[0].style.height=Math.min(100,m.scd[i]/skCd(S,m.st)*100)+'%'});
