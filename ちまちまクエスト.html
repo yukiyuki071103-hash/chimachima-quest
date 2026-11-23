@@ -120,6 +120,8 @@ h1{margin:4px 0 0;font-size:30px;text-align:center;color:#e07a2b;letter-spacing:
 .mapCard .md{font-size:12px;opacity:.92;margin-top:3px}.mapCard .mm{display:flex;gap:8px;align-items:flex-end;margin-top:6px}.mapCard .mm canvas{image-rendering:pixelated}
 .mapCard .mf{font-size:12px;margin-top:4px;background:rgba(255,255,255,.22);border-radius:8px;padding:2px 7px;display:inline-block}
 .theme-grass{background:#6fb84f}.theme-forest{background:#3f7f45}.theme-cave{background:#5a4f78}.theme-beach{background:#3a9ac8}.theme-boss{background:#7a3f35}
+.theme-snow{background:#8fb4d4}.theme-volcano{background:#b5503a}.theme-sky{background:#d48fb8}.theme-castle{background:#4a3f8a}
+.mapCard.soon{filter:saturate(.45) brightness(.9);opacity:.8;cursor:default}
 .detail{background:#fff;border-radius:14px;padding:10px 12px;margin:10px 0;font-size:13px;min-height:64px}
 .detail .t{font-weight:bold;font-size:15px}
 .detail .acts{display:flex;gap:8px;margin-top:8px}
@@ -621,6 +623,12 @@ const FIELD_ORDER=['field','forest','cave','beach'];   // 村の「でかける�
 const grpOf=id=>MAPS[id].grp||id;
 const grpAreas=id=>Object.keys(MAPS).filter(k=>grpOf(k)===grpOf(id));
 const OPEN_MAPS=['field','forest','cave','beach'];   // ぽかぽか草原・ささやきの森・きらきら洞くつ・しおかぜの浜
+// まだ作っていないマップ（「でかける」に じゅんびちゅう として出すだけ。MAPS には入れない）
+const SOON_MAPS=[
+  {name:'ふぶきの雪山',theme:'snow',lv:'Lv40〜50',desc:'雪と氷にとざされた山。さむさに負けずに登ろう'},
+  {name:'ほのおの火山',theme:'volcano',lv:'Lv50〜60',desc:'マグマがふきだす山。おくに何かがねむっている…'},
+  {name:'くものうえの花園',theme:'sky',lv:'Lv60〜70',desc:'雲の上にさく花の庭。空をおよぐ大きな影が…'},
+  {name:'ほしのお城',theme:'castle',lv:'Lv70〜80',desc:'星空にうかぶお城。さいごのぼうけんの地'}];
 const PATH_W=28;
 function segD(px,py,ax,ay,bx,by){const dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy;const t=l?clamp(((px-ax)*dx+(py-ay)*dy)/l,0,1):0;return Math.hypot(px-ax-dx*t,py-ay-dy*t)}
 // 道：path（本道）＋ paths（わき道のリスト）
@@ -2509,6 +2517,11 @@ function renderTravel(body){
       if(here[id])card.appendChild(el('div','mf','いまここにいる仲間：'+here[id].join('、')));
       card.onclick=()=>{closeModal();changeMap(id,M.spawn[0],M.spawn[1])}}
     else card.disabled=true;
+    body.appendChild(card)}
+  for(const S of SOON_MAPS){const card=el('button','mapCard soon theme-'+S.theme);card.disabled=true;
+    const t=el('div','mt',S.name);t.appendChild(el('span','rec','じゅんびちゅう'));card.appendChild(t);
+    card.appendChild(el('div','md',S.desc));
+    const b=el('div','mf','めやす '+S.lv);b.style.marginRight='6px';card.appendChild(b);card.appendChild(el('div','mf','ボス：？？？'));
     body.appendChild(card)}
 }
 
